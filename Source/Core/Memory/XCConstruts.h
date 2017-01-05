@@ -5,6 +5,7 @@
 #include <new>
 #include "../XCBasic.h"
 #include "../XCTypeTraits.h"
+#include "../XCIterators.h"
 
 namespace XC
 {

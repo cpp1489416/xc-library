@@ -2,7 +2,7 @@
 #ifndef XCTUPLES_H
 #define XCTUPLES_H
 
-#include "..\XCBasic.h"
+#include "../XCBasic.h"
 
 namespace XC
 {
@@ -70,7 +70,7 @@ namespace XC
             {
             public:
                 typedef TFirst ValueType;
-                typedef typename Tuple<TFirst, TRest ...> TupleType;
+                typedef Tuple<TFirst, TRest ...> TupleType;
             };
 
             template <>
@@ -83,7 +83,7 @@ namespace XC
         }
 
         template <xsize TIndex, typename ... TList>
-        typename const IMPL::TupleAt<TIndex, Tuple<TList ...> >::ValueType &
+        const typename IMPL::TupleAt<TIndex, Tuple<TList ...> >::ValueType &
             Get(const Tuple<TList ...> & tuple)
         {
             typedef Tuple<TList ...> TupleType;

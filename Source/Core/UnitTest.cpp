@@ -3,10 +3,10 @@
 #include <cstdlib>
 #include <vector>
 #include <list>
-#include "Containers\XCArray.h"
+#include "Containers/XCArray.h"
 #include "XCAlgorithm.h"
 #include "XCContainers.h"
-#include "Tuples\XCTuple.h"
+#include "Tuples/XCTuple.h"
 
 using namespace XC;
 
