@@ -42,35 +42,37 @@ namespace
         std::cout << "At : " << Tuples::Get<1>(tuple) << std::endl;
         std::cout << "size : " << tuple.mSize << std::endl;
     }
+
+    void TestList()
+    {
+        List<int> list;
+        for (int i = 0; i < 50; i++)
+        {
+            list.PushBack(i);
+        }
+
+        Print(list);
+
+        List<int> copied = list;
+        Print(list);
+
+        List<int> also;
+
+        also = list;
+        Print(also);
+
+        List<int> aa;
+        aa.PushBack(4);
+        aa.PopFront();
+        aa.PushFront(5);
+        aa.PopBack();
+    }
 }
 
 int main()
 {
-    TestTuple();
+    TestList();
 
-    List<int> list;
-    for (int i = 0; i < 100; i++)
-    {
-	list.PushBack(i);
-    }
-
-    List<int>::Iterator itr = list.GetBegin();
-
-    int times = 10;
-    while (times--)
-    {
-	list.PopBack();
-    }
-
-    times = 10;
-    while (times--)
-    {
-	list.PopFront();
-    }
-    //list.Clear();
-    
-    std::cout << list.GetSize() << std::endl;
-    Print(list);
     system("pause");
     return 0;
 }

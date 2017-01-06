@@ -78,6 +78,8 @@ namespace XC
         List(const Self & rhs);
         ~List() { ReleaseMemory(); }
         Self & operator = (const Self & rhs);
+        bool operator == (const Self & rhs) const;
+        bool operator != (const Self & rhs) const { return !(*this == rhs); }
 
         ConstantIterator GetBegin() const { return ConstantIterator(mNode->mNext); }
         Iterator GetBegin() { return Iterator(mNode->mNext); }
@@ -112,7 +114,7 @@ namespace XC
         void RemoveNode(Node * node);
         void EmptyInitialize();
         void ReleaseMemory();
-        void RemoveAll();
+        void CopyAll(const Self & rhs);
 
         Node * mNode;
     };
@@ -161,7 +163,22 @@ namespace XC
     {
         Self ans = *this;
         --this;
-        return ans;
+        return ans; 
+    }
+
+    template <typename T, typename TAllocator>
+    List<T, TAllocator>::List(const Self & rhs)
+    {
+        EmptyInitialize();
+        CopyAll(rhs);
+    }
+
+    template <typename T, typename TAllocator>
+    typename List<T, TAllocator>::Self & List<T, TAllocator>::operator = (const Self & rhs)
+    {
+        Clear();
+        CopyAll(rhs);
+        return *this;
     }
 
     template <typename T, typename TAllocator>
@@ -249,6 +266,15 @@ namespace XC
     {
         Clear();
         NodeAllocator::Deallocate(mNode);
+    }
+
+    template <typename T, typename TAllocator>
+    void List<T, TAllocator>::CopyAll(const Self & rhs)
+    {
+        for (ConstantIterator itr = rhs.GetBegin(); itr != rhs.GetEnd(); ++itr)
+        {
+            PushBack(*itr);
+        }
     }
 }
 

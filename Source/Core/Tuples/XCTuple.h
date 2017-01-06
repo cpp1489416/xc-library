@@ -30,9 +30,12 @@ namespace XC
 
         template <typename T2>
         Tuple(T2 value) : mValue(value) {}
+
+        const T & GetFirst() const { return mValue; }
+        T & GetFirst() { return mValue; }
        
         static const xsize mSize = 1;
-        T mValue; 
+        T mValue;
     };
 
     template <typename TFirst, typename ... TRest>
@@ -45,7 +48,11 @@ namespace XC
         Tuple() {}
 
         template <typename TFirst2, typename ... TRest2>
-        Tuple(const TFirst2 & value, const TRest2 & ... rest) : mValue(value), BaseType(rest ...) {}
+        Tuple(const TFirst2 & value, const TRest2 & ... rest)
+            : BaseType(rest ...), mValue(value) {} // BaseType will be initialized first if
+
+        const TFirst & GetFirst() const { return mValue; }
+        TFirst & GetFirst() { return mValue; }
 
         static const xsize mSize = 1 + BaseType::mSize;
         TFirst mValue;
@@ -88,7 +95,7 @@ namespace XC
         {
             typedef Tuple<TList ...> TupleType;
             typedef typename IMPL::TupleAt<TIndex, TupleType>::TupleType BaseTupleType;
-            return static_cast<const BaseTupleType &>(tuple).mValue;
+            return static_cast<const BaseTupleType &>(tuple).GetFirst();
         }
 
         template <xsize TIndex, typename ... TList>
@@ -96,9 +103,8 @@ namespace XC
         {
             typedef Tuple<TList ...> TupleType;
             typedef typename IMPL::TupleAt<TIndex, TupleType>::TupleType BaseTupleType;
-            return static_cast<BaseTupleType &>(tuple).mValue;
+            return static_cast<BaseTupleType &>(tuple).GetFirst();
         }
-
     }
 }
 
