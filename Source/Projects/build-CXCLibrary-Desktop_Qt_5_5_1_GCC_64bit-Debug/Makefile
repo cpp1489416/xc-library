@@ -202,7 +202,8 @@ DIST          = /home/fox/Qt5.5.1/5.5/gcc_64/mkspecs/features/spec_pre.prf \
 		../../Core/XCMemory.h \
 		../../Core/XCPointers.h \
 		../../Core/XCTuples.h \
-		../../Core/XCTypeTraits.h ../QTCreator/main.cpp \
+		../../Core/XCTypeTraits.h \
+		../../Core/Containers/XCDequeue.h ../QTCreator/main.cpp \
 		../../Core/UnitTest.cpp
 QMAKE_TARGET  = CXCLibrary
 DESTDIR       = #avoid trailing-slash linebreak
@@ -544,8 +545,8 @@ UnitTest.o: ../../Core/UnitTest.cpp ../../Core/Containers/XCArray.h \
 		../../Core/Memory/XCAllocators.h \
 		../../Core/Memory/XCConstruts.h \
 		../../Core/XCTypeTraits.h \
-		../../Core/Memory/XCUninitializeds.h \
 		../../Core/XCIterators.h \
+		../../Core/Memory/XCUninitializeds.h \
 		../../Core/Memory/XCInitialized.h \
 		../../Core/XCAlgorithm.h \
 		../../Core/XCContainers.h \

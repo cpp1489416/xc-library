@@ -28,5 +28,6 @@ HEADERS += \
     ../../Core/XCMemory.h \
     ../../Core/XCPointers.h \
     ../../Core/XCTuples.h \
-    ../../Core/XCTypeTraits.h
+    ../../Core/XCTypeTraits.h \
+    ../../Core/Containers/XCDequeue.h
 

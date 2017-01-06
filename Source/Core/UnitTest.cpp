@@ -37,10 +37,16 @@ namespace
 
     void TestTuple()
     {
-        Tuple<int, double, int *> tuple(0, 0.5f, nullptr);
+        Tuple<int, double, int, char> tuple(0, 0.5f, 5, 'a');
         // Tuple<float> t = Tuples::MakeTuple(5.5f);
-        std::cout << "At : " << Tuples::Get<1>(tuple) << std::endl;
-        std::cout << "size : " << tuple.mSize << std::endl;
+        //.//std::cout << "At : " << Tuples::Get<1>(tuple) << std::endl;
+        //std::cout << "size : " << tuple.mSize << std::endl;
+        auto bTuple = Tuples::MakeTuple(3, 3, 3.3);
+        std::cout << Tuples::Get<0>(bTuple) << std::endl;
+        std::cout << Tuples::Get<2>(bTuple);
+
+        Tuple<int, float, int, double> other = tuple;
+        other = tuple;
     }
 
     void TestList()
@@ -65,13 +71,19 @@ namespace
         aa.PushBack(4);
         aa.PopFront();
         aa.PushFront(5);
-        aa.PopBack();
+        aa.PopBack();   
     }
 }
 
 int main()
 {
+    std::cout << "Test tuple : \n";
+    TestTuple();
+    std::cout << std::endl;
+
+    std::cout << "Test list : \n";
     TestList();
+    std::cout << std::endl;
 
     system("pause");
     return 0;
