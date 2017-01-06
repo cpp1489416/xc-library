@@ -3,6 +3,7 @@
 
 # CXC
 *.o
+build-/
 
 # User-specific files
 *.suo
