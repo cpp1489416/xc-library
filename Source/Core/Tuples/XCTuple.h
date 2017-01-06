@@ -35,11 +35,17 @@ namespace XC
         Tuple(const Tuple<T2> & rhs) : mValue(rhs.mValue) {}
 
         template <typename T2>
-        Tuple<T> & operator = (const Tuple<T> & rhs) { mValue = rhs.mValue; }
+        Tuple<T> & operator = (const Tuple<T> & rhs) 
+        {
+            mValue = rhs.mValue;
+            return *this; 
+        }
 
         const T & GetFirst() const { return mValue; }
         T & GetFirst() { return mValue; }
-       
+        const BaseType & GetBase() const { return static_cast<const BaseType &>(*this); }
+        BaseType & GetBase() { return static_cast<BaseType &>(*this); }
+        
         static const xsize mSize = 1;
         T mValue;
     };
@@ -115,6 +121,19 @@ namespace XC
 
         template <xsize TIndex, typename ... TList>
         const typename Detail::TupleAt<TIndex, Tuple<TList ...> >::ValueType &
+            Get(const Tuple<TList ...> & tuple);
+
+        template <xsize TIndex, typename ... TList>
+        typename Detail::TupleAt<TIndex, Tuple<TList ...> >::ValueType & Get(Tuple<TList ...> & tuple);
+        
+        template <typename ... TList>
+        Tuple<TList ...> MakeTuple(TList ...);
+    }
+
+    namespace Tuples
+    {
+        template <xsize TIndex, typename ... TList>
+        const typename Detail::TupleAt<TIndex, Tuple<TList ...> >::ValueType &
             Get(const Tuple<TList ...> & tuple)
         {
             typedef Tuple<TList ...> TupleType;
@@ -130,12 +149,6 @@ namespace XC
             return static_cast<BaseTupleType &>(tuple).GetFirst();
         }
 
-        template <typename ... TList>
-        Tuple<TList ...> MakeTuple(TList ...);
-    }
-
-    namespace Tuples
-    {
         template <typename T>
         Tuple<T> MakeTuple(T value)
         {

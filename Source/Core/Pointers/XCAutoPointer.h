@@ -9,7 +9,7 @@ namespace XC
     {
     public:
         explicit AutoPointer(T * pointer = nullptr) : mPointer(pointer) {}
-        ~AutoPointer();
+        ~AutoPointer() { delete mPointer; }
         void Reset(T * pointer = nullptr);
         T * Get() { return mPointer; }
         const T * Get() { return mPointer; }
@@ -18,12 +18,6 @@ namespace XC
     private:
         T * mPointer;
     };
-
-    template <typename T>
-    inline AutoPointer<T>::~AutoPointer()
-    {
-        Release();
-    }
 
     template <typename T>
     inline void AutoPointer<T>::Reset(T * pointer)
