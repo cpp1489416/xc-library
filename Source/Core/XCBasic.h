@@ -11,6 +11,7 @@ namespace XC
     // the basic size type basied on the platform
     typedef std::ptrdiff_t xpointerdifference;
     typedef std::size_t xsize;
+    typedef int xinteger;
 }
 
 #endif // XCBASIC_H
