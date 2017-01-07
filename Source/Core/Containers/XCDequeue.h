@@ -480,6 +480,8 @@ namespace XC
     void Dequeue<T, TBufferSize, TAllocator>::ReleaseMemory()
     {
         Clear();
+        DataAllocator::Deallocate(mStart.mFirst, GetBufferSize());
+        MapAllocator::Deallocate(mMap, mMapSize);
     }
 }
 
