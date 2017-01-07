@@ -1,4 +1,3 @@
-
 #ifndef XCAUTOPOINTER_H
 #define XCAUTOPOINTER_H
 

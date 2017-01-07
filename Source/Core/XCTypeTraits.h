@@ -1,4 +1,3 @@
-
 #ifndef XCTYPETRAITS
 #define XCTYPETRAITS
 

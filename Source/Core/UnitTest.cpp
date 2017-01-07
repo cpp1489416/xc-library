@@ -78,7 +78,17 @@ namespace
     void TestDEQueue()
     {
         Dequeue<int> deque;
-        deque.PushBack(3);
+        for (int i = 0; i < 100000; i++)
+        {
+            deque.PushBack(i);
+        }
+
+        for (int i = 0; i < 100000 - 1; ++i)
+        {
+            deque.PopFront();
+        }
+        Print(deque);
+
     }
 }
 

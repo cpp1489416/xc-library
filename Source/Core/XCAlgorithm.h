@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef XCALGORITHM_H
 #define XCALGORITHM_H
 

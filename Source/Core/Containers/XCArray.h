@@ -1,4 +1,3 @@
-
 #ifndef XCARRAY_H
 #define XCARRAY_H
 

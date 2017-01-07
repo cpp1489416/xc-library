@@ -1,4 +1,3 @@
-
 #ifndef XCUNINITIALIZEDS_H
 #define XCUNINITIALIZEDS_H
 
@@ -66,8 +65,17 @@ namespace XC
         inline ForwardIterator UninitializedFillN(ForwardIterator first, Size n,
                                                   const T & value)
         {
-            return UninitializedFillNPlus(first, n, value,
-                                          Iterators::GetIteratorValuePointerType(first));
+            ForwardIterator cur = first;
+            while (n--)
+            {
+                std::cout << "haha";
+                *cur = value;
+                ++cur;
+            }
+
+            return first;
+            // return UninitializedFillNPlus(first, n, value,
+            //                              Iterators::GetIteratorValuePointerType(first));
         }
 
         template<typename ForwardIterator, typename Size, typename T,
@@ -106,8 +114,14 @@ namespace XC
         template <typename ForwardIterator, typename T>
         inline void UninitializedFill(ForwardIterator first, ForwardIterator last, const T & value)
         {
-            return UninitializedFillPlus(first, last, value,
-                                         Iterators::GetIteratorValuePointerType(first));
+            ForwardIterator cur = first;
+            for (; cur < last; ++cur)
+            {
+                Construct(&*cur, value);
+            }
+
+            //return UninitializedFillPlus(first, last, value,
+            //                             Iterators::GetIteratorValuePointerType(first));
         }
 
         template <typename ForwardIterator, typename T, typename ValueType>

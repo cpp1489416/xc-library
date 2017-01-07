@@ -1,4 +1,3 @@
-
 #ifndef XCINITIALIZED_H
 #define XCINITIALIZED_H
 

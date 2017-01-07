@@ -1,6 +1,8 @@
 #ifndef XCDEQUEUE_H
 #define XCDEQUEUE_H
 
+#include <iostream>
+
 #include "../XCBasic.h"
 #include "../XCMemory.h"
 #include "../XCIterators.h"
@@ -43,7 +45,7 @@ namespace XC
             Pointer operator -> () const { return &(operator * ()); }
             Self operator + (xpointerdifference n) const;
             Self operator - (xpointerdifference n) const;
-            xpointerdifference operator - (const Self & rhs) const; // Two BaseIterators minus together is a pointer difference.
+            xpointerdifference operator - (const Self & rhs) const; // Two Iterators minus together is a pointer difference.
             Reference operator [] (xpointerdifference n) const { return *(this + n); } // operator * and opeartor +
             bool operator == (const Self & rhs) const { return mCurrent == rhs.mCurrent; }
             bool operator != (const Self & rhs) const { return !(*this == rhs); }
@@ -64,7 +66,7 @@ namespace XC
             T * * mNode; // Points to the location of the whole map;
 
         protected:
-            xsize GetBufferSize(xsize count) const { return count == 0 ? 512 : count; } // The same function DEQueue have.
+            xsize GetBufferSize(xsize count = TBufferSize) const { return count == 0 ? 512 : count; } // The same function DEQueue have.
             
             void SetNode(T * * newNode);
 
@@ -87,7 +89,8 @@ namespace XC
         typedef Dequeue<T, TBufferSize, TAllocator> Self;
 
     public:
-        Dequeue() = default;
+        Dequeue() { EmptyInitialize(); }
+        Dequeue(xsize count, const T & value) { FillInitialize(count, value); }
         Dequeue(const Self &) = default;
         ~Dequeue() = default;
         Self & operator = (const Self &) = default;
@@ -128,8 +131,10 @@ namespace XC
 
     protected:
         xsize GetBufferSize() const { return TBufferSize == 0 ? 512 : TBufferSize; }
-        xsize GetInitianalMapSize() const { return xsize(8); }
+        xsize GetInitialMapSize() const { return 4; }
 
+        void EmptyCreateMapAndNodes(); // Construct the structure of the map.
+        void CreateMapAndNodes(xsize count); // Construct the structure of the map.
         void EmptyInitialize();
         void FillInitialize(xsize count, const T & value);
         T * AllocateNode() { return DataAllocator::Allocate(GetBufferSize()); } // Allocate a node.
@@ -298,7 +303,7 @@ namespace XC
     template <typename T, xsize TBufferSize, typename TAllocator>
     void Dequeue<T, TBufferSize, TAllocator>::PopFront()
     {
-        if (mStart.mCurrent != mStart.mFinish - 1)
+        if (mStart.mCurrent != mStart.mLast - 1)
         {
             Memory::Destroy(mStart.mCurrent);
             ++mStart.mCurrent;
@@ -315,7 +320,24 @@ namespace XC
     template <typename T, xsize TBufferSize, typename TAllocator>
     void Dequeue<T, TBufferSize, TAllocator>::Clear()
     {
+        for (T * * node = mStart.mNode + 1; node < mFinish.mNode; ++node)
+        {
+            Memory::Destroy(*node, *node + GetBufferSize());
+            DataAllocator::Deallocate(*node, GetBufferSize());
+        }
 
+        if (mStart.mNode != mFinish.mNode)
+        {
+            Memory::Destroy(mStart.mCurrent, mStart.mLast);
+            Memory::Destroy(mFinish.mFirst, mFinish.mCurrent);
+            DataAllocator::Deallocate(mStart.mFirst, GetBufferSize());
+        }
+        else
+        {
+            Memory::Destroy(mStart.mCurrent, mFinish.mCurrent);
+        }
+
+        mFinish = mStart; // Two iterators equal.
     }    
 
     template <typename T, xsize TBufferSize, typename TAllocator>
@@ -330,13 +352,69 @@ namespace XC
         Dequeue<T, TBufferSize, TAllocator>::Erase(Iterator first, Iterator last)
     {
 
-    } 
+    }
 
     template <typename T, xsize TBufferSize, typename TAllocator>
     typename Dequeue<T, TBufferSize, TAllocator>::Iterator
         Dequeue<T, TBufferSize, TAllocator>::Insert(Iterator location, const T & value)
     {
         
+    }
+
+    template <typename T, xsize TBufferSize, typename TAllocator>
+    void Dequeue<T, TBufferSize, TAllocator>::EmptyCreateMapAndNodes()
+    {
+        mMapSize = GetInitialMapSize();
+        mMap = MapAllocator::Allocate(mMapSize);
+        T * * nodeStart = mMap + mMapSize / 2;
+        *nodeStart = AllocateNode();
+        mStart.SetNode(nodeStart);
+        mStart.mCurrent = mStart.mFirst;
+        mFinish.SetNode(nodeStart);
+        mFinish.mCurrent = mFinish.mFirst;
+    }
+
+    template <typename T, xsize TBufferSize, typename TAllocator>
+    void Dequeue<T, TBufferSize, TAllocator>::CreateMapAndNodes(xsize count) // Count is the count of the elements of the DEQueue.
+    {
+        // std::cout << "CreateMapAndNodes\n";
+        xsize numNodes = count / GetBufferSize() + 1; // Include finish node.
+        // std::cout << numNodes << std::endl;
+        mMapSize = Algorithm::GetMax(numNodes, GetInitialMapSize()) + 2; // Plus 2 because front and back free space.   
+        std::cout << mMapSize << std::endl;
+        mMap = MapAllocator::Allocate(mMapSize);
+        T * * nodeStart = mMap + (mMapSize - numNodes) / 2;
+        T * * nodeFinish = nodeStart + numNodes - 1;
+        
+        // std::cout << "CreateMapAndNodes\n";
+        for (T * * cur = nodeStart; cur <= nodeFinish; ++cur)
+        {
+            *cur = AllocateNode();
+        }
+        
+        // std::cout << "CreateMapAndNodes\n";
+        mStart.SetNode(nodeStart);
+        mStart.mCurrent = mStart.mFirst;
+        mFinish.SetNode(nodeFinish);
+        mFinish.mCurrent = mFinish.mFirst + count % GetBufferSize();
+    }
+
+    template <typename T, xsize TBufferSize, typename TAllocator>
+    void Dequeue<T, TBufferSize, TAllocator>::EmptyInitialize()
+    {
+        EmptyCreateMapAndNodes();
+    }
+
+    template <typename T, xsize TBufferSize, typename TAllocator>
+    void Dequeue<T, TBufferSize, TAllocator>::FillInitialize(xsize count, const T & value)
+    {
+        CreateMapAndNodes(count);
+        for (T * * cur = mStart.mNode; cur < mFinish.mNode; ++cur)
+        {
+            Memory::UninitializedFillN(*cur, GetBufferSize(), value);
+        }
+
+        Memory::UninitializedFill(mFinish.mFirst, mFinish.mCurrent, value); // Not all the last should be initialized.
     }
 
     template <typename T, xsize TBufferSize, typename TAllocator>

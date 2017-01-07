@@ -1,4 +1,3 @@
-
 #ifndef XCCONSTRUCTS_H
 #define XCCONSTRUCTS_H
 

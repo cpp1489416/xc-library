@@ -1,4 +1,3 @@
-
 #ifndef XCALLOCATORS_H
 #define XCALLOCATORS_H
 
@@ -18,7 +17,7 @@ namespace XC
     public:
         static T * Allocate(xsize count) { return (T *)::operator new(count * sizeof(T)); }
         static void Deallocate(T * location) { ::operator delete(location); }
-        static void Deallocate(T * location, xsize n) { ::operator delete(location); }
+        static void Deallocate(T * location, xsize n) { if (n != 0) ::operator delete(location); }
         static void Construct(T * location, const T & value) { Memory::Construct(location, value); }
         static void Destroy(T * location) { Memory::Destroy(location); }
     };

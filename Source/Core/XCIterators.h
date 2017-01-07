@@ -1,4 +1,3 @@
-
 #ifndef XCITERATORS_H
 #define XCITERATORS_H
 
