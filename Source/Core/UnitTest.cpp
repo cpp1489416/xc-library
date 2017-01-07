@@ -7,6 +7,7 @@
 #include "XCAlgorithm.h"
 #include "XCContainers.h"
 #include "Tuples/XCTuple.h"
+#include "Containers/XCDequeue.h"
 
 using namespace XC;
 
@@ -72,6 +73,11 @@ namespace
         aa.PopFront();
         aa.PushFront(5);
         aa.PopBack();   
+    }
+
+    void TestDEQueue()
+    {
+
     }
 }
 
