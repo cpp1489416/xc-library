@@ -123,8 +123,8 @@ namespace XC
         Iterator end() { return GetEnd(); }
 
     protected:
-        typedef InsideAllocator<T *, TAllocator> MapAllocator; // Allocate the whole map
-        typedef InsideAllocator<T, TAllocator> DataAllocator; // Allocate element of each node
+        typedef InsideAllocator<T *, DefaultAllocator<T *> > MapAllocator; // Allocate the whole map
+        typedef InsideAllocator<T, DefaultAllocator<T> > DataAllocator; // Allocate element of each node
 
     protected:
         xsize GetBufferSize() const { return TBufferSize == 0 ? 512 : TBufferSize; }
@@ -238,7 +238,7 @@ namespace XC
     {
         mNode = newNode;
         mFirst = *newNode;
-        mLast = mFirst + xpointerdifference(GetBufferSize);
+        mLast = mFirst + xpointerdifference(GetBufferSize(TBufferSize));
     }
 
     template <typename T, xsize TBufferSize, typename TAllocator>
@@ -369,7 +369,7 @@ namespace XC
         T * * newStart = nullptr;
         if (numNewNodes * 2 < mMapSize) // have enough space, just move the data to the center
         {
-            newStart = mMap + (mMapSize - numNewNodes) / 2 + isAddBack ? 0 : nodesToAdd;
+            newStart = mMap + (mMapSize - numNewNodes) / 2 + (isAddBack ? 0 : nodesToAdd);
             if (newStart < mStart.mNode)
             {
                 Memory::Copy(mStart.mNode, mFinish.mNode + 1, newStart);
@@ -383,7 +383,7 @@ namespace XC
         {
             xsize newMapSize = mMapSize + Algorithm::GetMax(mMapSize, nodesToAdd) + 2;
             T * * newMap = MapAllocator::Allocate(newMapSize);
-            newStart = newMap + (newMapSize - numNewNodes) / 2 + isAddBack ? 0 : nodesToAdd;
+            newStart = newMap + (newMapSize - numNewNodes) / 2 + (isAddBack ? 0 : nodesToAdd);
             Memory::Copy(mStart.mNode, mFinish.mNode + 1, newStart);
             MapAllocator::Deallocate(mMap, mMapSize);
             mMap = newMap;

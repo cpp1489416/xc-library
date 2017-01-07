@@ -77,12 +77,16 @@ namespace
 
     void TestDEQueue()
     {
-
+        Dequeue<int> deque;
+        deque.PushBack(3);
     }
 }
 
 int main()
 {
+    std::cout << "Test dequeue:\n";
+    TestDEQueue();
+    std::cout << std::endl;
     std::cout << "Test tuple : \n";
     TestTuple();
     std::cout << std::endl;
