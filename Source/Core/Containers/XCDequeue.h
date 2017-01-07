@@ -114,9 +114,9 @@ namespace XC
         void PushFront(const T & value);
         void PopFront();
         void Clear();
-        Iterator Erase(Iterator location);
+        Iterator Erase(Iterator position);
         Iterator Erase(Iterator first, Iterator last);
-        Iterator Insert(Iterator location, const T & value);
+        Iterator Insert(Iterator position, const T & value);
 
         // These functions are for C++ 11 :
         ConstantIterator begin() const { return GetBegin(); }
@@ -190,6 +190,24 @@ namespace XC
         {
             SetNode(mNode + xpointerdifference(1));
             mCurrent = mFirst;
+        }
+
+        return *this;
+    }
+
+    template <typename T, xsize TBufferSize, typename TAllocator>
+    template <typename TReference, typename TPointer>
+    typename Dequeue<T, TBufferSize, TAllocator>::template BaseIterator<TReference, TPointer>::Self &
+        Dequeue<T, TBufferSize, TAllocator>::BaseIterator<TReference, TPointer>::operator -- ()
+    {
+        if (mCurrent == mFirst)
+        {
+            SetNode(mNode - xpointerdifference(1));
+            mCurrent = mLast - 1;
+        }
+        else
+        {
+            --mCurrent;
         }
 
         return *this;
@@ -342,9 +360,23 @@ namespace XC
 
     template <typename T, xsize TBufferSize, typename TAllocator>
     typename Dequeue<T, TBufferSize, TAllocator>::Iterator 
-        Dequeue<T, TBufferSize, TAllocator>::Erase(Iterator location)
+        Dequeue<T, TBufferSize, TAllocator>::Erase(Iterator position)
     {
+        Iterator next = position;
+        ++next;
+        xsize index = position - mStart;
+        if (index < GetSize() / 2)
+        {
+            Memory::CopyBackward(mStart, position, next);
+            PopFront();
+        } 
+        else
+        {
+            Memory::Copy(next, mFinish, position);
+            PopBack();
+        }
 
+        return mStart + index;
     }
 
     template <typename T, xsize TBufferSize, typename TAllocator>
@@ -356,7 +388,7 @@ namespace XC
 
     template <typename T, xsize TBufferSize, typename TAllocator>
     typename Dequeue<T, TBufferSize, TAllocator>::Iterator
-        Dequeue<T, TBufferSize, TAllocator>::Insert(Iterator location, const T & value)
+        Dequeue<T, TBufferSize, TAllocator>::Insert(Iterator position, const T & value)
     {
         
     }
@@ -429,7 +461,7 @@ namespace XC
     template <typename T, xsize TBufferSize, typename TAllocator>
     void Dequeue<T, TBufferSize, TAllocator>::ReserveIfMapAtFront(xsize nodesToAdd)
     {
-        if (nodesToAdd > mStart.mNode - mMap)
+        if (nodesToAdd > xsize(mStart.mNode - mMap))
         {
             OutOfMemorySolve(nodesToAdd, false);
         }

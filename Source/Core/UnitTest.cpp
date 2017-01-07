@@ -29,11 +29,11 @@ namespace
     template <typename T>
     void Print(const T & arr)
     {
-	for (auto i : arr)
-	{
-	    std::cout << i << " ";
-	}
-	std::cout << std::endl;
+        for (auto i : arr)
+        {
+            std::cout << i << " ";
+        }
+        std::cout << std::endl;
     }
 
     void TestTuple()
@@ -72,21 +72,22 @@ namespace
         aa.PushBack(4);
         aa.PopFront();
         aa.PushFront(5);
-        aa.PopBack();   
+        aa.PopBack();
     }
 
     void TestDEQueue()
     {
         Dequeue<int> deque;
-        for (int i = 0; i < 100000; i++)
+        for (int i = 0; i < 20; i++)
         {
-            deque.PushBack(i);
+            deque.PushFront(i);
         }
 
-        for (int i = 0; i < 100000 - 1; ++i)
-        {
-            deque.PopFront();
-        }
+
+        deque.Erase(deque.GetBegin() + 5);
+        deque.Erase(deque.GetBegin());
+        deque.Erase(deque.GetEnd() - 5);
+        deque.Erase(deque.GetEnd() - 1);
         Print(deque);
 
     }

@@ -20,8 +20,8 @@ namespace XC
 	{
 	    for (; first < last; ++first)
 	    {
-		*result = *first;
-		result++;
+            *result = *first;
+            result++;
 	    }
 	    return result;
 	}
