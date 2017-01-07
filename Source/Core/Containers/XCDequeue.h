@@ -257,7 +257,18 @@ namespace XC
     template <typename T, xsize TBufferSize, typename TAllocator>
     void Dequeue<T, TBufferSize, TAllocator>::PopBack()
     {
-
+        if (mFinish.mCurrent != mFinish.mFirst)
+        {
+            --mLast.mCurrent;
+            Memory::Destroy(mLast.mCurrent);
+        }
+        else
+        {
+            DeallocateNode(mFinish.mFirst);
+            mFinish.SetNode(mFinish.mNode - 1);
+            mFinish.mCur = mFinish.mLast - 1;
+            Memory::Destroy(mFinish.mCurrent);
+        }
     }
 
     // PushFront is different from PushBack
