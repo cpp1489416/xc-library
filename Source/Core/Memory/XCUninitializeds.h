@@ -68,7 +68,7 @@ namespace XC
             ForwardIterator cur = first;
             while (n--)
             {
-                std::cout << "haha";
+                // std::cout << "haha";
                 *cur = value;
                 ++cur;
             }

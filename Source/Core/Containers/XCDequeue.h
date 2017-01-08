@@ -91,9 +91,9 @@ namespace XC
     public:
         Dequeue() { EmptyInitialize(); }
         Dequeue(xsize count, const T & value) { FillInitialize(count, value); }
-        Dequeue(const Self &) = default;
+        Dequeue(const Self & rhs) { CopyWithoutReleaseMemory(rhs); }
         ~Dequeue() { ReleaseMemory(); }
-        Self & operator = (const Self &) = default;
+        Self & operator = (const Self &);
 
         ConstantIterator GetBegin() const { return ConstantIterator(mStart); }
         ConstantIterator GetEnd() const { return ConstantIterator(mFinish); }
@@ -145,6 +145,7 @@ namespace XC
         void ReserveIfMapAtFront(xsize nodesToAdd = 1);
         void OutOfMemorySolve(xsize nodesToAdd, bool isAddBack);
         void ReleaseMemory();
+        void CopyWithoutReleaseMemory(const Self & other);
 
     protected:
         T * * mMap; // Each element of the map contains a pointer of T type.
@@ -161,7 +162,6 @@ namespace XC
         Self ans = *this;
         return ans += n;
     }
-
 
     template <typename T, xsize TBufferSize, typename TAllocator>
     template <typename TReference, typename TPointer>
@@ -263,6 +263,15 @@ namespace XC
         mNode = newNode;
         mFirst = *newNode;
         mLast = mFirst + xpointerdifference(GetBufferSize(TBufferSize));
+    }
+
+    template <typename T, xsize TBufferSize, typename TAllocator>
+    inline typename Dequeue<T, TBufferSize, TAllocator>::Self &
+    Dequeue<T, TBufferSize, TAllocator>::operator = (const Self & other)
+    {
+        ReleaseMemory();
+        CopyWithoutReleaseMemory(other);
+        return *this;
     }
 
     template <typename T, xsize TBufferSize, typename TAllocator>
@@ -481,7 +490,7 @@ namespace XC
         xsize numNodes = count / GetBufferSize() + 1; // Include finish node.
         // std::cout << numNodes << std::endl;
         mMapSize = Algorithm::GetMax(numNodes, GetInitialMapSize()) + 2; // Plus 2 because front and back free space.   
-        std::cout << mMapSize << std::endl;
+        // std::cout << mMapSize << std::endl;
         mMap = MapAllocator::Allocate(mMapSize);
         T * * nodeStart = mMap + (mMapSize - numNodes) / 2;
         T * * nodeFinish = nodeStart + numNodes - 1;
@@ -577,11 +586,21 @@ namespace XC
     }
 
     template <typename T, xsize TBufferSize, typename TAllocator>
-    void Dequeue<T, TBufferSize, TAllocator>::ReleaseMemory()
+    inline void Dequeue<T, TBufferSize, TAllocator>::ReleaseMemory()
     {
         Clear();
         DataAllocator::Deallocate(mStart.mFirst, GetBufferSize());
         MapAllocator::Deallocate(mMap, mMapSize);
+    }
+
+    template <typename T, xsize TBufferSize, typename TAllocator>
+    void Dequeue<T, TBufferSize, TAllocator>::CopyWithoutReleaseMemory(const Self & other)
+    {
+        EmptyInitialize();
+        for (Iterator cur = other.GetBegin(); cur != other.GetEnd(); ++cur)
+        {
+            PushBack(*cur);
+        }
     }
 }
 
