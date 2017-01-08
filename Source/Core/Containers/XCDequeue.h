@@ -428,16 +428,16 @@ namespace XC
             PushFront(value);
             return mStart;
         }
-        else if (position == mFinish - 1)
+        else if (position == mFinish)
         {
             PushBack(value);
             return mFinish - 1;
         }
         else
         {
-            xpointerdifference index = position - mStart; // Answer index.
+            xsize index = position - mStart; // Answer index.
             Iterator ans = mStart;
-            if (elemsBefore < GetSize() / 2) // Front have fewer elements.
+            if (index < GetSize() / 2) // Front have fewer elements.
             {
                 PushFront(GetFront());
                 Memory::Copy(mStart + 2, mStart + index + 1, mStart + 1);
@@ -446,7 +446,7 @@ namespace XC
             else // Back have fewer elements.
             {
                 PushBack(GetBack());
-                Memory::CopyBAckward(mStart + index, mFinish - 2, mFinish - 1);
+                Memory::CopyBackward(mStart + index, mFinish - 2, mFinish - 1);
                 ans = mStart + index; // must update
             }
 

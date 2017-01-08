@@ -80,14 +80,13 @@ namespace
         Dequeue<int> deque;
         for (int i = 0; i < 20; i++)
         {
-            deque.PushFront(i);
+            deque.PushBack(i);
         }
 
-
-        deque.Erase(deque.GetBegin() + 5);
-        deque.Erase(deque.GetBegin());
-        deque.Erase(deque.GetEnd() - 5);
-        deque.Erase(deque.GetEnd() - 1);
+        deque.Insert(deque.GetBegin() + 5, 4);
+        deque.Insert(deque.GetEnd(), -100);
+        deque.Insert(deque.GetEnd() - 1, -99);
+        deque.Insert(deque.GetBegin(), -1000);
         Print(deque);
 
     }
