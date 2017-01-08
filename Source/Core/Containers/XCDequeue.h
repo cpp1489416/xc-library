@@ -92,7 +92,7 @@ namespace XC
         Dequeue() { EmptyInitialize(); }
         Dequeue(xsize count, const T & value) { FillInitialize(count, value); }
         Dequeue(const Self &) = default;
-        ~Dequeue() = default;
+        ~Dequeue() { ReleaseMemory(); }
         Self & operator = (const Self &) = default;
 
         ConstantIterator GetBegin() const { return ConstantIterator(mStart); }
@@ -102,6 +102,7 @@ namespace XC
         const T & GetFront() const { return *GetBegin(); }
         const T & GetBack() const { return *(GetEnd() - 1); }
         xsize GetSize() const { return xsize(mFinish - mStart); }
+        bool IsEmpty() const { return GetSize() == 0; }
 
         Iterator GetBegin() { return mStart; }
         Iterator GetEnd() { return mFinish; }
@@ -148,8 +149,8 @@ namespace XC
     protected:
         T * * mMap; // Each element of the map contains a pointer of T type.
         xsize mMapSize; // The count of pointers in a map.
-        Iterator mStart; // The start BaseIterator of the whole dequeue.
-        Iterator mFinish; // The finish BaseIterator of the whole dequeue.
+        Iterator mStart; // The start iterator of the whole dequeue.
+        Iterator mFinish; // The finish iterator of the whole dequeue.
     };  
 
     template <typename T, xsize TBufferSize, typename TAllocator>
@@ -338,6 +339,11 @@ namespace XC
     template <typename T, xsize TBufferSize, typename TAllocator>
     void Dequeue<T, TBufferSize, TAllocator>::Clear()
     {
+        if (IsEmpty())
+        {
+            return;
+        }
+        
         for (T * * node = mStart.mNode + 1; node < mFinish.mNode; ++node)
         {
             Memory::Destroy(*node, *node + GetBufferSize());
@@ -348,7 +354,7 @@ namespace XC
         {
             Memory::Destroy(mStart.mCurrent, mStart.mLast);
             Memory::Destroy(mFinish.mFirst, mFinish.mCurrent);
-            DataAllocator::Deallocate(mStart.mFirst, GetBufferSize());
+            DataAllocator::Deallocate(mFinish.mFirst, GetBufferSize());
         }
         else
         {
@@ -403,7 +409,7 @@ namespace XC
                 }
                 mStart = newStart;
             }
-            else // Back have fewer elements, should move after.
+            else // Back have    fewer elements, should move after.
             {
                 Memory::Copy(last, mFinish, first);
                 Iterator newFinish = mFinish - n;

@@ -83,10 +83,7 @@ namespace
             deque.PushBack(i);
         }
 
-        deque.Insert(deque.GetBegin() + 5, 4);
-        deque.Insert(deque.GetEnd(), -100);
-        deque.Insert(deque.GetEnd() - 1, -99);
-        deque.Insert(deque.GetBegin(), -1000);
+        deque.Clear();
         Print(deque);
 
     }
