@@ -383,14 +383,76 @@ namespace XC
     typename Dequeue<T, TBufferSize, TAllocator>::Iterator 
         Dequeue<T, TBufferSize, TAllocator>::Erase(Iterator first, Iterator last)
     {
+        if (first == mStart && last == mFinish)
+        {
+            Clear();
+            return mFinish;
+        }
+        else
+        {
+            xpointerdifference n = first - last;
+            xpointerdifference elemsBefore = first - mStart;
+            if (elemsBefore < GetSize() / 2) // Front have fewer elements, should move front.
+            {
+                Memory::CopyBackward(mStart, first, last);
+                Iterator newStart = mStart + n;
+                Memory::Destroy(mStart, newStart);
+                for (T * * cur = mStart.mNode; cur < newStart.mNode; ++cur)
+                {
+                    DataAllocator::Deallocate(*cur, GetBufferSize());
+                }
+                mStart = newStart;
+            }
+            else // Back have fewer elements, should move after.
+            {
+                Memory::Copy(last, mFinish, first);
+                Iterator newFinish = mFinish - n;
+                Memory::Destroy(newFinish, mFinish);
+                for (T * * cur = newFinish.mNode + 1; cur <= mFinish.mNode; ++cur)
+                {
+                    DataAllocator::Deallocate(*cur, GetBufferSize());
+                }
+                mFinish = newFinish;
+            }
 
+            return mStart + elemsBefore;
+        }
     }
 
     template <typename T, xsize TBufferSize, typename TAllocator>
     typename Dequeue<T, TBufferSize, TAllocator>::Iterator
         Dequeue<T, TBufferSize, TAllocator>::Insert(Iterator position, const T & value)
     {
-        
+        if (position == mStart)
+        {
+            PushFront(value);
+            return mStart;
+        }
+        else if (position == mFinish - 1)
+        {
+            PushBack(value);
+            return mFinish - 1;
+        }
+        else
+        {
+            xpointerdifference index = position - mStart; // Answer index.
+            Iterator ans = mStart;
+            if (elemsBefore < GetSize() / 2) // Front have fewer elements.
+            {
+                PushFront(GetFront());
+                Memory::Copy(mStart + 2, mStart + index + 1, mStart + 1);
+                ans = mStart + index; // must update
+            }
+            else // Back have fewer elements.
+            {
+                PushBack(GetBack());
+                Memory::CopyBAckward(mStart + index, mFinish - 2, mFinish - 1);
+                ans = mStart + index; // must update
+            }
+
+            *ans = value;
+            return ans;
+        }
     }
 
     template <typename T, xsize TBufferSize, typename TAllocator>
