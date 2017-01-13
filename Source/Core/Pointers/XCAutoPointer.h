@@ -8,10 +8,12 @@ namespace XC
     {
     public:
         explicit AutoPointer(T * pointer = nullptr) : mPointer(pointer) {}
-        ~AutoPointer() { delete mPointer;  z}
-        void Reset(T * pointer = nullptr);
-        T * Get() { return mPointer; }
+        ~AutoPointer() { delete mPointer; }
+
         const T * Get() { return mPointer; }
+        
+        T * Get() { return mPointer; }
+        void Reset(T * pointer = nullptr);
         void Release();
 
     private:

@@ -574,7 +574,7 @@ namespace XC
             Memory::Copy(mStart.mNode, mFinish.mNode + 1, newStart);
             MapAllocator::Deallocate(mMap, mMapSize);
             mMap = newMap;
-            mMapSize = newMapSize;
+            mMapSize = newMapSize; // std::cout << mMapSize << std::endl;
         }
 
         mStart.SetNode(newStart);
@@ -596,11 +596,30 @@ namespace XC
     template <typename T, xsize TBufferSize, typename TAllocator>
     void Dequeue<T, TBufferSize, TAllocator>::CopyWithoutReleaseMemory(const Self & other)
     {
-        EmptyInitialize();
-        for (Iterator cur = other.GetBegin(); cur != other.GetEnd(); ++cur)
+        mMapSize = other.mMapSize;
+        mMap = MapAllocator::Allocate(mMapSize);
+ 
+        // Have not alloate, should allocate first.       
+        T * * startNode = mMap + xpointerdifference(other.mStart.mNode - other.mMap);
+        T * * finishNode = mMap + xpointerdifference(other.mFinish.mNode - other.mMap);
+
+        // std::cout << "haha" << std::endl;
+        for (T * * cur = startNode; cur <= finishNode; ++cur)
         {
-            PushBack(*cur);
+            // std::cout << "new" << std::endl;
+            *cur = AllocateNode();
         }
+
+        // std::cout << "haha" << std::endl;
+        // Allocated, now can initialize iterators.
+        mStart.SetNode(startNode);
+        mFinish.SetNode(finishNode); // std::cout << "haha" << std::endl;
+        mStart.mCurrent = mStart.mFirst + xsize(other.mStart.mCurrent - other.mStart.mFirst);
+        mFinish.mCurrent = mFinish.mFirst + xsize(other.mFinish.mCurrent - other.mFinish.mFirst);
+
+        // std::cout << "copy" << std::endl;
+        // Copy
+        Memory::UninitializedCopy(other.mStart, other.mFinish, mStart);
     }
 }
 

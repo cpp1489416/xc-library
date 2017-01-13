@@ -156,6 +156,18 @@ namespace XC
         ForwardIterator UninitializedCopy(InputIterator first, InputIterator last,
                                           ForwardIterator result)
         {
+            /*
+            ForwardIterator cur;
+            for (cur = first; cur != last; ++cur)
+            {
+                std::cout << "in copy";
+                Construct(&*result, *cur);
+                ++result;
+            }
+
+
+            return result;
+            */
             return UninitializedCopyPlus(first, last, result,
                                          Iterators::GetIteratorValuePointerType(first));
         }

@@ -83,13 +83,12 @@ namespace
             deque.PushBack(i);
         }
 
-        //deque.Clear();
+        // deque.Clear();
         Print(deque);
 
         auto a = deque;
 
-         Dequeue<int> b(555, 5);
-         b = a;
+         Dequeue<int> b(a);
          Print(a);
          Print(b);
     }
