@@ -49,6 +49,43 @@ namespace XC
         {
             return first;
         }
+
+        // Heap Algorithm
+        template <typename RamdomAccessIterator>
+        void PushHeap(RandomAccessIterator first, RandomAccessIterator last);
+
+        namespace Detail // The detail namespace means the functions or class in it must be used inside.
+        {
+            // Heap Algorithm
+            template <typename RandomAccessIterator, typename Distance, typename T>
+            void PushHeapAUX(RandomAccessIterator first, RandomAccessIterator last, Distance *, T *);
+
+            template <typename RandomAccessIterator, typename Distance, typename T>
+            void PushHeap(RandomAccessIterator first, Distance holeIndex, Distance topIndex, T value);
+        }
+
+        template <typename RandomAccessIterator>
+        void PushHeap(RandomAccessIterator first, RandomAccessIterator last)
+        {
+            Detail::PushHeapAUX(first, last, 
+                Iterators::GetIteratorDifferencePointerType(first), Iterators::GetIteratorValuePointerType(first));
+        }
+
+        namespace Detail
+        {
+            template <typename RandomAccessIterator, typename Distance, typename T>
+            void PushHeapAUX(RandomAccessIterator first, RandomAccessIterator last, Distance *, T *)
+            {
+                PushHeap(first, Distance(last - first) - 1, Distance(0), T(*last - 1));
+            }
+
+            // The real push heap function.
+            template <typename RandomAccessIterator, typename Distance, typename T>
+            void PushHeap(RandomAccessIterator first, Distance holeIndex, Distance topIndex, T value)
+            {
+
+            }
+        }
     }
 }
 

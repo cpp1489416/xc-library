@@ -87,27 +87,27 @@ namespace XC
 
     namespace Iterators
     {
-	template <typename Iterator>
-	inline typename IteratorTraits<Iterator>::IteratorCategory
-	    GetIteratorCategory(const Iterator &)
-	{
-	    typedef typename IteratorTraits<Iterator>::IteratorCategory category;
-	    return category();
-	}
+		template <typename Iterator>
+		inline typename IteratorTraits<Iterator>::IteratorCategory
+		    GetIteratorCategory(const Iterator &)
+		{
+		    typedef typename IteratorTraits<Iterator>::IteratorCategory category;
+		    return category();
+		}
 
-	template <typename Iterator>
-	typename IteratorTraits<Iterator>::ValueType *
-	    GetIteratorValuePointerType(const Iterator &)
-	{
-	    return static_cast<typename IteratorTraits<Iterator>::ValueType *>(nullptr);
-	}
+		template <typename Iterator>
+		typename IteratorTraits<Iterator>::ValueType *
+		    GetIteratorValuePointerType(const Iterator &)
+		{
+		    return static_cast<typename IteratorTraits<Iterator>::ValueType *>(nullptr);
+		}
 
-	template <typename Iterator>
-	typename IteratorTraits<Iterator>::DifferenceType *
-	    GetIteratorDifferencePointerType(const Iterator &)
-	{
-	    return static_cast<typename IteratorTraits<Iterator>::DifferenceType *>(nullptr);
-	}
+		template <typename Iterator>
+		typename IteratorTraits<Iterator>::DifferenceType *
+		    GetIteratorDifferencePointerType(const Iterator &)
+		{
+		    return static_cast<typename IteratorTraits<Iterator>::DifferenceType *>(nullptr);
+		}
     }
 }
 
