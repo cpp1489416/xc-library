@@ -51,7 +51,7 @@ namespace XC
         }
 
         // Heap Algorithm
-        template <typename RamdomAccessIterator>
+        template <typename RandomAccessIterator>
         void PushHeap(RandomAccessIterator first, RandomAccessIterator last);
 
         namespace Detail // The detail namespace means the functions or class in it must be used inside.

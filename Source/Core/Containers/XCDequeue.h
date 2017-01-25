@@ -10,7 +10,7 @@
 
 namespace XC
 {  
-    template <typename T, xsize TBufferSize = 5, typename TAllocator = DefaultAllocator<T> >
+    template <typename T, xsize TBufferSize = 5, typename TAllocator = void>
     class Dequeue
     {
     public:

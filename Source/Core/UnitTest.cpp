@@ -1,3 +1,4 @@
+#pragma GCC diagnostic error "-std=c++11"
 
 #include <iostream>
 #include <cstdlib>
