@@ -97,6 +97,7 @@ namespace
 
 int main()
 {
+    std::cout << "haha" << std::endl;
     std::cout << "Test dequeue:\n";
     TestDEQueue();
 
