@@ -6,8 +6,8 @@ using namespace XC::DirectX11::QTGUI;
 
 int main(int argc, char *argv[])
 {
-	QApplication a(argc, argv);
-	DXHouseWidget w;
-	w.show();
-	return a.exec();
+    QApplication a(argc, argv);
+    DXHouseWidget w;
+    w.show();
+    return a.exec();
 }

@@ -12,19 +12,19 @@ namespace XC
             class Renderer
             {
             public:
-				Renderer(DeviceResources * deviceResources);
+                Renderer(DeviceResources * deviceResources);
                 Renderer(const Renderer &) = delete;
                 Renderer & operator = (const Renderer &) = delete;
-				virtual ~Renderer() {};
-
-			protected:
-				virtual void OnResize() {}
-				virtual void OnUpdate() {}
-				virtual void OnRender() {}
+                virtual ~Renderer() {};
 
             protected:
-				DeviceResources * mDeviceResources;
-			};
+                virtual void OnResize() {}
+                virtual void OnUpdate() {}
+                virtual void OnRender() {}
+
+            protected:
+                DeviceResources * mDeviceResources;
+            };
         }
     }
 }
