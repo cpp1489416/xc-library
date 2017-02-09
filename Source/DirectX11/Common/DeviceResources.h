@@ -8,10 +8,10 @@ namespace XC
     {
         namespace Common
         {
-            class DeivceResources
+            class DeviceResources
             {
             public:
-                DeivceResources();
+                DeviceResources();
 
             public:
 				void SetHWND(const HWND & hWND) { mHWND = hWND; }

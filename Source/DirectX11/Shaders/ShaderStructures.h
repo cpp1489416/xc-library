@@ -18,6 +18,12 @@ namespace XC
                     DirectX::XMFLOAT4X4 mProjection;
                 };
 
+				class VertexPosition
+				{
+				public:
+					DirectX::XMFLOAT3 mPosition;
+				};
+
                 class VertexPositionColor
                 {
                 public:

@@ -1,5 +1,8 @@
 #pragma once 
 
+#include "DirectX11Includes.h"
+#include "DeviceResources.h"
+
 namespace XC
 {
     namespace DirectX11
@@ -9,14 +12,19 @@ namespace XC
             class Renderer
             {
             public:
-                Renderer() = default;
+				Renderer(DeviceResources * deviceResources);
                 Renderer(const Renderer &) = delete;
                 Renderer & operator = (const Renderer &) = delete;
-                virtual ~Renderer();
+				virtual ~Renderer() {};
 
-            public:
-                void* mNullPointer = nullptr;
-            };
+			protected:
+				virtual void OnResize() {}
+				virtual void OnUpdate() {}
+				virtual void OnRender() {}
+
+            protected:
+				DeviceResources * mDeviceResources;
+			};
         }
     }
 }

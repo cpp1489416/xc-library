@@ -14,20 +14,27 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Common\Basic.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Common.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Common\DeviceResources.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Common\DirectX11Includes.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Common\Renderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Core.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Renderers\Basic2DRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Renderers\BasicRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Shaders\ShaderStructures.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Common\Basic.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Common\DeviceResources.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Common\Renderer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Renderers\Basic2DRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)..\..\Shaders\Basic2DPixelShader.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)..\..\Shaders\Basic2DVertexShader.hlsl">
+      <FileType>Document</FileType>
+    </None>
     <FxCompile Include="$(MSBuildThisFileDirectory)..\..\Shaders\BasicVertexShader.hlsl">
       <FileType>Document</FileType>
     </FxCompile>

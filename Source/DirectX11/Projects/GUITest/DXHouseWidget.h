@@ -18,7 +18,7 @@ protected:
 	void OnPaintDirectX11() override;
 
 private:
-	XC::DirectX11::Common::DeivceResources mDeviceResources;
+	XC::DirectX11::Common::DeviceResources mDeviceResources;
 	ID3D11Device * mDevice;
 	ID3D11DeviceContext * mContext;
 	ID3D11RenderTargetView * mRenderTargetView;

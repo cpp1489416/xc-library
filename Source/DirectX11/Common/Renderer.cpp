@@ -6,9 +6,10 @@ namespace XC
     {
         namespace Common
         {
-            Renderer::~Renderer()
-            {
-            }
+			Renderer::Renderer(DeviceResources * deviceResources) :
+				mDeviceResources(deviceResources)
+			{
+			}
         }
     }
 }

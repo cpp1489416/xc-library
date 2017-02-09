@@ -18,9 +18,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Common\Basic.h">
-      <Filter>Common</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Core.h">
       <Filter>Core</Filter>
     </ClInclude>
@@ -39,16 +36,20 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Common\DeviceResources.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Common.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Renderers\Basic2DRenderer.h">
+      <Filter>Renderers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Common\Basic.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Common\Renderer.cpp">
       <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Common\DeviceResources.cpp">
       <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Renderers\Basic2DRenderer.cpp">
+      <Filter>Renderers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -58,6 +59,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)..\..\Shaders\BasicPixelShader.hlsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)..\..\Shaders\Basic2DVertexShader.hlsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)..\..\Shaders\Basic2DPixelShader.hlsl">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

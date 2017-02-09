@@ -12,14 +12,14 @@ namespace XC
 	{
 		namespace Common
 		{
-			DeivceResources::DeivceResources() :
+			DeviceResources::DeviceResources() :
 				mWidth(800),
 				mHeight(600),
 				mCreated(false)
 			{
 			}
 
-			void DeivceResources::SetSize(int width, int height)
+			void DeviceResources::SetSize(int width, int height)
 			{
 				mWidth = width;
 				mHeight = height;
@@ -31,7 +31,7 @@ namespace XC
 				}
 			}
 
-			void DeivceResources::Initialize()
+			void DeviceResources::Initialize()
 			{
 				if (!mCreated)
 				{
@@ -39,12 +39,12 @@ namespace XC
 				}
 			}
 
-			void DeivceResources::Present()
+			void DeviceResources::Present()
 			{
 				mSwapChain->Present(0, 0);
 			}
 
-			void DeivceResources::CreateDevice()
+			void DeviceResources::CreateDevice()
 			{
 				// specific swap chain first
 				// swap chain buffer
@@ -98,9 +98,16 @@ namespace XC
 
 				// set render target
 				mD3DContext->OMSetRenderTargets(1, mD3DRenderTargetView.GetAddressOf(), nullptr);
+
+				mViewport = D3D11_VIEWPORT{ 0 };
+				mViewport.TopLeftX = 0;
+				mViewport.TopLeftY = 0;
+				mViewport.Width = mWidth;
+				mViewport.Height = mHeight;
+				mD3DContext->RSSetViewports(1, &mViewport);
 			}
 
-			void DeivceResources::RecreateSizeDependentResources()
+			void DeviceResources::RecreateSizeDependentResources()
 			{
 				// context null view
 				ID3D11RenderTargetView	*nullViews[] = { nullptr };
@@ -129,14 +136,14 @@ namespace XC
 				buffer->Release();
 
 				// set render target
-				ID3D11RenderTargetView * renderTargetView= mD3DRenderTargetView.Get();
+				ID3D11RenderTargetView * renderTargetView = mD3DRenderTargetView.Get();
 				mD3DContext->OMSetRenderTargets(1, &renderTargetView, nullptr);
 				mViewport.Width = mWidth;
 				mViewport.Height = mHeight;
 				mD3DContext->RSSetViewports(1, &mViewport);
 			}
 
-			void DeivceResources::ThrowIfError(const char * information)
+			void DeviceResources::ThrowIfError(const char * information)
 			{
 				if (FAILED(gHR))
 				{
