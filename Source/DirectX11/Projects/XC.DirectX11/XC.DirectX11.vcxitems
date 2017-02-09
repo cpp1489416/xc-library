@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <ItemsProjectGuid>{45d41acc-2c3c-43d2-bc10-02aa73ffc7c7}</ItemsProjectGuid>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Common\Basic.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Common\DeviceResources.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Common\DirectX11Includes.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Common\Renderer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Core.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Renderers\BasicRenderer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Shaders\ShaderStructures.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Common\Basic.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Common\DeviceResources.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Common\Renderer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\Shaders\BasicVertexShader.hlsl">
+      <FileType>Document</FileType>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)..\..\Shaders\BasicPixelShader.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+</Project>

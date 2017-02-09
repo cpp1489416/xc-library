@@ -1,4 +1,4 @@
-UnitTest.d UnitTest.o: ../../../Core/UnitTest.cpp ../../../Core/Containers/XCArray.h \
+UnitTest.o: ../../../Core/UnitTest.cpp ../../../Core/Containers/XCArray.h \
  ../../../Core/Containers/../XCBasic.h \
  ../../../Core/Containers/../XCMemory.h \
  ../../../Core/Containers/../Memory/XCAllocators.h \
@@ -14,4 +14,3 @@ UnitTest.d UnitTest.o: ../../../Core/UnitTest.cpp ../../../Core/Containers/XCArr
  ../../../Core/XCContainers.h ../../../Core/Containers/XCList.h \
  ../../../Core/Containers/../XCTypeTraits.h \
  ../../../Core/Tuples/XCTuple.h ../../../Core/Containers/XCDequeue.h
-g++ -c -Wall -std=c++11 -Iinclude ../../../Core/UnitTest.cpp > 
