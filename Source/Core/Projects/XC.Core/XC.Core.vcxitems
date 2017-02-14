@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <ItemsProjectGuid>{A6F4B074-8D8A-49F5-AEE7-62A71C75B567}</ItemsProjectGuid>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Algorithm.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Basic.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\Array.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\Dequeue.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\List.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\Queue.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\Stack.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Iterators.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Memory.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Pointers.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Pointers\AutoPointer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Tuples.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\TypeTraits.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Rubbish.cpp" />
+  </ItemGroup>
+</Project>

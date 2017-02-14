@@ -1,1 +1,1 @@
-#include "Pointers\XCAutoPointer.h"
+#include "Pointers\AutoPointer.h"
