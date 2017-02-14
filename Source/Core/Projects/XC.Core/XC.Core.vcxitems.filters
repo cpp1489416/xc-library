@@ -7,6 +7,9 @@
     <Filter Include="Containers">
       <UniqueIdentifier>{5798278d-f520-4429-a345-d02f6ed950a3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Algorithm">
+      <UniqueIdentifier>{fe1759e1-d0c5-4e87-b94d-40b541d2f8d5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Pointers\AutoPointer.h">
@@ -27,5 +30,18 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\Stack.h">
       <Filter>Containers</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Algorithm.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Basic.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Iterators.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Memory.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Pointers.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Tuples.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\TypeTraits.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Algorithm\Heap.h">
+      <Filter>Algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Property.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Delegate.h" />
   </ItemGroup>
 </Project>

@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Algorithm.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Algorithm\Heap.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Basic.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\Array.h" />
@@ -22,14 +23,13 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\List.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\Queue.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\Stack.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Delegate.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Iterators.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Memory.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Pointers.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Pointers\AutoPointer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Property.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Tuples.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\TypeTraits.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Rubbish.cpp" />
   </ItemGroup>
 </Project>
