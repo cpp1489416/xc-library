@@ -1,4 +1,0 @@
-Core: UnitText.o
-
-UnitTest.o: ../../../UnitTest.cpp
-cc -c UnitTest.cpp;
