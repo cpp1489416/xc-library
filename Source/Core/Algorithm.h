@@ -1,7 +1,7 @@
 #ifndef XCALGORITHM_H
 #define XCALGORITHM_H
 
-#include "XCIterators.h"
+#include "Iterators.h"
 
 namespace XC
 {

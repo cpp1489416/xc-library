@@ -3,10 +3,10 @@
 
 #include <iostream>
 
-#include "../XCBasic.h"
-#include "../XCMemory.h"
-#include "../XCIterators.h"
-#include "../XCAlgorithm.h"
+#include "../Basic.h"
+#include "../Memory.h"
+#include "../Iterators.h"
+#include "../Algorithm.h"
 
 namespace XC
 {  

@@ -1,9 +1,9 @@
 #ifndef XCUNINITIALIZEDS_H
 #define XCUNINITIALIZEDS_H
 
-#include "../XCIterators.h"
-#include "../XCTypeTraits.h"
-#include "XCConstruts.h"
+#include "../Iterators.h"
+#include "../TypeTraits.h"
+#include "Construts.h"
 
 namespace XC
 {

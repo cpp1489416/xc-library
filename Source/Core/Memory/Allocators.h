@@ -2,8 +2,8 @@
 #define XCALLOCATORS_H
 
 #include <new>
-#include "../XCBasic.h"
-#include "XCConstruts.h"
+#include "../Basic.h"
+#include "Construts.h"
 
 namespace XC
 {

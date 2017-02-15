@@ -1,7 +1,7 @@
 #ifndef XCQUEUE_H
 #define XCQUEUE_H
 
-#include "XCDequeue.h"
+#include "Dequeue.h"
 
 namespace XC
 {
@@ -9,8 +9,8 @@ namespace XC
 	class Queue
 	{
 	public:
-		typedef Queue<T, TContainer> Self;
-		typedef TContainer::SizeType SizeType;
+		typedef typename Queue<T, TContainer> Self;
+		typedef typename TContainer::SizeType SizeType;
 
 	public:
 		Queue() = default;

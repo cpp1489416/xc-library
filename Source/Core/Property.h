@@ -1,42 +1,51 @@
 #pragma once
 
+#include "Delegate.h"
+
 namespace XC
 {
-    namespace Details
-    {
-        template <typename TClassName, typename TFunction>
-        class Delegate
-        {
-        public:
-        };
-    }
-
     template <typename T>
     class Property
     {
     public:
-        const T & Get();
-        void Set(const T & value);
+        using Self = Property<T>;
+        using GetEventHandler = Delegate<const T &>;
+        using SetEventHandler = Delegate<void, const T &>;
 
-        T & operator = (const T & value);
-        T operator();
+    public:
+        template <typename TClassType>
+        void Create(TClassType * className, const T & (TClassType::*getFunction)() const, void (TClassType::*setFunction)(const T & value))
+        {
+            mGet.RemoveAll();
+            mSet.RemoveAll();
+
+            mGet.Add(className, getFunction);
+            mSet.Add(className, setFunction);
+        }
+
+        const T & Get() const
+        {
+            return mGet.Invoke();
+        }
+
+        void Set(const T & value)
+        {
+            mSet.Invoke(value);
+        }
+
+        operator const int & () const
+        {
+            return Get();
+        }
+
+        Self & operator = (const T & value)
+        {
+            Set(value);
+            return *this;
+        }
+
+    private:
+        GetEventHandler mGet;
+        SetEventHandler mSet;
     };
-    
-    template<typename T>
-    inline const T & Property<T>::Get()
-    {
-        return T();
-    }
-    
-    template<typename T>
-    inline void Property<T>::Set(const T & value)
-    {
-    }
-    
-    template<typename T>
-    inline T & Property<T>::operator=(const T & value)
-    {
-        Set(value);
-        return *this;
-    }
 }

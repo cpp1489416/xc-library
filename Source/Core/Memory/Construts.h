@@ -2,9 +2,9 @@
 #define XCCONSTRUCTS_H
 
 #include <new>
-#include "../XCBasic.h"
-#include "../XCTypeTraits.h"
-#include "../XCIterators.h"
+#include "../Basic.h"
+#include "../TypeTraits.h"
+#include "../Iterators.h"
 
 namespace XC
 {

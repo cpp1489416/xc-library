@@ -4,10 +4,5 @@ namespace XC
 {
     namespace Details
     {
-        void FunctionDelegate::Invoke()
-        {
-        }
-
     }
-
 }
