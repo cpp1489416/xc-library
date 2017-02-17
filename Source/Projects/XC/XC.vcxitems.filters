@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Core">
+      <UniqueIdentifier>{5b9d2e91-c19c-4945-9111-b5fb18ab01ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{8e7cd02a-32c6-4c9a-a222-3d272be213d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Drawing2D">
+      <UniqueIdentifier>{1ebc6fdb-6df3-40c4-944e-22046c533551}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Pointers">
+      <UniqueIdentifier>{3a3f3ce5-35ad-43a0-b0ba-b72423025cf1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\IApplication.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\Rectangle.h">
+      <Filter>Drawing2D</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Property.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\Point.h">
+      <Filter>Drawing2D</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\Size.h">
+      <Filter>Drawing2D</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Delegate.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Pointers\UniquePointer.h">
+      <Filter>Core\Pointers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Pointers.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Pointers\ValuePointer.h">
+      <Filter>Core\Pointers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Pointers\IMPLPointer.h">
+      <Filter>Core\Pointers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\Rectangle.cpp">
+      <Filter>Drawing2D</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\Point.cpp">
+      <Filter>Drawing2D</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\Size.cpp">
+      <Filter>Drawing2D</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

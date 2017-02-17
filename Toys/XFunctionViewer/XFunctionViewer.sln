@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XFunctionSolver2", "XFunctionSolver2\XFunctionSolver2.vcxproj", "{2CF0B6D8-BA1A-4A3B-8119-3B99953A20CF}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XGui", "XGui\XGui.vcxproj", "{B12702AD-ABFB-343A-A199-8E24837244A3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Debug|x86 = Debug|x86
+		Release|Win32 = Release|Win32
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2CF0B6D8-BA1A-4A3B-8119-3B99953A20CF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2CF0B6D8-BA1A-4A3B-8119-3B99953A20CF}.Debug|Win32.Build.0 = Debug|Win32
+		{2CF0B6D8-BA1A-4A3B-8119-3B99953A20CF}.Debug|x86.ActiveCfg = Debug|Win32
+		{2CF0B6D8-BA1A-4A3B-8119-3B99953A20CF}.Debug|x86.Build.0 = Debug|Win32
+		{2CF0B6D8-BA1A-4A3B-8119-3B99953A20CF}.Release|Win32.ActiveCfg = Release|Win32
+		{2CF0B6D8-BA1A-4A3B-8119-3B99953A20CF}.Release|Win32.Build.0 = Release|Win32
+		{2CF0B6D8-BA1A-4A3B-8119-3B99953A20CF}.Release|x86.ActiveCfg = Release|Win32
+		{2CF0B6D8-BA1A-4A3B-8119-3B99953A20CF}.Release|x86.Build.0 = Release|Win32
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Debug|Win32.Build.0 = Debug|Win32
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Debug|x86.ActiveCfg = Debug|Win32
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Debug|x86.Build.0 = Debug|Win32
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Release|Win32.ActiveCfg = Release|Win32
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Release|Win32.Build.0 = Release|Win32
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Release|x86.ActiveCfg = Release|Win32
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs40
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = XFunctionSolver2\\XFunctionSolver2.vcxproj
+		SccProjectName1 = XFunctionSolver2
+		SccLocalPath1 = XFunctionSolver2
+		SccProjectUniqueName2 = XGui\\XGui.vcxproj
+		SccProjectName2 = XGui
+		SccLocalPath2 = XGui
+	EndGlobalSection
+EndGlobal

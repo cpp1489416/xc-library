@@ -15,6 +15,7 @@ namespace XC
             virtual TReturnType Invoke(TArguments ...) const = 0;
         };
 
+        // static function is global function or static member function
         template <typename TReturnType, typename ... TArguments>
         class StaticFunction : public Function<TReturnType, TArguments ...>
         {
@@ -136,7 +137,10 @@ namespace XC
         typedef Delegate<TReturnType, TArguments ...> Self;
 
     public:
-        Delegate() = default;
+        Delegate()
+        {
+            mFunction = nullptr;
+        }
 
         Delegate(const Self *) = delete;
 
@@ -145,7 +149,7 @@ namespace XC
             RemoveAll();
         }
 
-        Self & operator = (const Self &) = default;
+        Self & operator = (const Self &) = delete;
 
     public:
         void Add(TReturnType(*function)(TArguments ...))
@@ -173,7 +177,7 @@ namespace XC
             }
             else
             {
-                throw "cannot return type";
+                throw "cannot return type because function is not constant";
             }
         }
 
@@ -185,6 +189,11 @@ namespace XC
         void RemoveAll()
         {
             delete mFunction;
+        }
+
+        int GetCount() const
+        {
+            return mFunction != nullptr ? 1 : 0;
         }
 
     private:
@@ -208,7 +217,7 @@ namespace XC
             RemoveAll();
         }
 
-        Self & operator = (const Self &) = default;
+        Self & operator = (const Self &) = delete;
 
     public:
         void Add(void(*function)(TArguments ...))
@@ -257,9 +266,12 @@ namespace XC
             mFunctions.Clear();
         }
 
+        int GetCount() const
+        {
+            return mFunctions.GetSize();
+        }
+
     private:
         Array<Details::Function<void, TArguments ...> *> mFunctions;
     };
-
-    using EventHandler = Delegate<void, Object *, EventArguments *>;
 }

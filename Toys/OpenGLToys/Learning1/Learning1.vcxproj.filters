@@ -1,0 +1,383 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Debug">
+      <UniqueIdentifier>{ac1e6404-8e33-489b-a96c-306fa1ac79ff}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Release">
+      <UniqueIdentifier>{e7697fc5-4404-4858-b905-feb08d6125f4}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Source Files\QTGUI">
+      <UniqueIdentifier>{0b698cfd-8409-4d80-a827-14fe5f916bc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\CXCGL">
+      <UniqueIdentifier>{035d681f-268d-4ad7-85d8-0377614eff5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader Files">
+      <UniqueIdentifier>{d2ef1cb5-2e7f-4076-b0b9-72e59f7d72f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Things">
+      <UniqueIdentifier>{92f1db1e-1bb7-49f3-a2c2-106c16b04f43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Meshes">
+      <UniqueIdentifier>{ed198b35-7ca6-40fc-be0c-4e0dba0ce249}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Texture Files">
+      <UniqueIdentifier>{448dee13-5245-4002-889f-26d8daf7fe1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FileLoaders">
+      <UniqueIdentifier>{8f1b0d85-128e-46df-b4bc-26fb8d8b5139}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ShaderPrograms">
+      <UniqueIdentifier>{e462dea0-ae0f-4680-96e3-bde5aa6a9fe4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Math">
+      <UniqueIdentifier>{2962870f-8039-45a1-9c1f-5655a5d2090f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GeneratedFiles\qrc_Learning1.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_GLHouseWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_GLHouseWidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="CXCGL\Shader.cpp">
+      <Filter>Source Files\CXCGL</Filter>
+    </ClCompile>
+    <ClCompile Include="CXCGL\ShaderProgram.cpp">
+      <Filter>Source Files\CXCGL</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MainWindow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MainWindow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Things\Cube.cpp">
+      <Filter>Source Files\Things</Filter>
+    </ClCompile>
+    <ClCompile Include="Things\Circle.cpp">
+      <Filter>Source Files\Things</Filter>
+    </ClCompile>
+    <ClCompile Include="QTGUI\MainWindow.cpp">
+      <Filter>Source Files\QTGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="QTGUI\GLHouseWidget.cpp">
+      <Filter>Source Files\QTGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Things\Anchor.cpp">
+      <Filter>Source Files\Things</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_CameraSettingsDock.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_CameraSettingsDock.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="QTGUI\CameraSettingsDock.cpp">
+      <Filter>Source Files\QTGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MatrixViewDock.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MatrixViewDock.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="QTGUI\MatrixViewDock.cpp">
+      <Filter>Source Files\QTGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="CXCGL\Camera.cpp">
+      <Filter>Source Files\CXCGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Things\TriangularPyramid.cpp">
+      <Filter>Source Files\Things</Filter>
+    </ClCompile>
+    <ClCompile Include="CXCGL\Skybox.cpp">
+      <Filter>Source Files\CXCGL</Filter>
+    </ClCompile>
+    <ClCompile Include="FileLoaders\DDSFileLoader.cpp">
+      <Filter>Source Files\FileLoaders</Filter>
+    </ClCompile>
+    <ClCompile Include="FileLoaders\ImageFileLoader.cpp">
+      <Filter>Source Files\FileLoaders</Filter>
+    </ClCompile>
+    <ClCompile Include="CXCGL\Transform.cpp">
+      <Filter>Source Files\CXCGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Things\MengerSpongeCube.cpp">
+      <Filter>Source Files\Things</Filter>
+    </ClCompile>
+    <ClCompile Include="CXCGL\PointLight.cpp">
+      <Filter>Source Files\CXCGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Things\Sphere.cpp">
+      <Filter>Source Files\Things</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderPrograms\TextureLightingShaderProgram.cpp">
+      <Filter>Source Files\ShaderPrograms</Filter>
+    </ClCompile>
+    <ClCompile Include="Things\Quad.cpp">
+      <Filter>Source Files\Things</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderPrograms\ShadowShaderProgram.cpp">
+      <Filter>Source Files\ShaderPrograms</Filter>
+    </ClCompile>
+    <ClCompile Include="Meshes\MeshProvider.cpp">
+      <Filter>Source Files\Meshes</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderPrograms\LightingShaderProgram.cpp">
+      <Filter>Source Files\ShaderPrograms</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderPrograms\BasicShaderProgram.cpp">
+      <Filter>Source Files\ShaderPrograms</Filter>
+    </ClCompile>
+    <ClCompile Include="CXCGL\Thing.cpp">
+      <Filter>Source Files\CXCGL</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderPrograms\TextureShaderProgram.cpp">
+      <Filter>Source Files\ShaderPrograms</Filter>
+    </ClCompile>
+    <ClCompile Include="CXCGL\Buffer.cpp">
+      <Filter>Source Files\CXCGL</Filter>
+    </ClCompile>
+    <ClCompile Include="CXCGL\FramebufferObject.cpp">
+      <Filter>Source Files\CXCGL</Filter>
+    </ClCompile>
+    <ClCompile Include="CXCGL\VertexArrayObject.cpp">
+      <Filter>Source Files\CXCGL</Filter>
+    </ClCompile>
+    <ClCompile Include="CXCGL\Texture.cpp">
+      <Filter>Source Files\CXCGL</Filter>
+    </ClCompile>
+    <ClCompile Include="CXCGL\Program.cpp">
+      <Filter>Source Files\CXCGL</Filter>
+    </ClCompile>
+    <ClCompile Include="QTGUI\GLWindowsWidget.cpp">
+      <Filter>Source Files\QTGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_GLWindowsWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_GLWindowsWidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Matrix4x4.cpp">
+      <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Vector3D.cpp">
+      <Filter>Source Files\Math</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="Learning1.qrc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="QTGUI\MainWindow.h">
+      <Filter>Source Files\QTGUI</Filter>
+    </CustomBuild>
+    <CustomBuild Include="QTGUI\GLHouseWidget.h">
+      <Filter>Source Files\QTGUI</Filter>
+    </CustomBuild>
+    <CustomBuild Include="QTGUI\CameraSettingsDock.h">
+      <Filter>Source Files\QTGUI</Filter>
+    </CustomBuild>
+    <CustomBuild Include="QTGUI\MatrixViewDock.h">
+      <Filter>Source Files\QTGUI</Filter>
+    </CustomBuild>
+    <CustomBuild Include="QTGUI\GLWindowsWidget.h">
+      <Filter>Source Files\QTGUI</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CXCGL\Shader.h">
+      <Filter>Source Files\CXCGL</Filter>
+    </ClInclude>
+    <ClInclude Include="CXCGL.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CXCGL\ShaderProgram.h">
+      <Filter>Source Files\CXCGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Meshes\MeshProvider.h">
+      <Filter>Source Files\Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="Things\Cube.h">
+      <Filter>Source Files\Things</Filter>
+    </ClInclude>
+    <ClInclude Include="Things\Circle.h">
+      <Filter>Source Files\Things</Filter>
+    </ClInclude>
+    <ClInclude Include="Things\Anchor.h">
+      <Filter>Source Files\Things</Filter>
+    </ClInclude>
+    <ClInclude Include="CXCGL\Camera.h">
+      <Filter>Source Files\CXCGL</Filter>
+    </ClInclude>
+    <ClInclude Include="CXCGL\Skybox.h">
+      <Filter>Source Files\CXCGL</Filter>
+    </ClInclude>
+    <ClInclude Include="FileLoaders\DDSFileLoader.h">
+      <Filter>Source Files\FileLoaders</Filter>
+    </ClInclude>
+    <ClInclude Include="FileLoaders\ImageFileLoader.h">
+      <Filter>Source Files\FileLoaders</Filter>
+    </ClInclude>
+    <ClInclude Include="CXCGL\Transform.h">
+      <Filter>Source Files\CXCGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Things\MengerSpongeCube.h">
+      <Filter>Source Files\Things</Filter>
+    </ClInclude>
+    <ClInclude Include="CXCGL\PointLight.h">
+      <Filter>Source Files\CXCGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Things\Sphere.h">
+      <Filter>Source Files\Things</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderPrograms\TextureShaderProgram.h">
+      <Filter>Source Files\ShaderPrograms</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderPrograms\TextureLightingShaderProgram.h">
+      <Filter>Source Files\ShaderPrograms</Filter>
+    </ClInclude>
+    <ClInclude Include="Things\Quad.h">
+      <Filter>Source Files\Things</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderPrograms\ShadowShaderProgram.h">
+      <Filter>Source Files\ShaderPrograms</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderPrograms\LightingShaderProgram.h">
+      <Filter>Source Files\ShaderPrograms</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderPrograms\BasicShaderProgram.h">
+      <Filter>Source Files\ShaderPrograms</Filter>
+    </ClInclude>
+    <ClInclude Include="CXCGL\Thing.h">
+      <Filter>Source Files\CXCGL</Filter>
+    </ClInclude>
+    <ClInclude Include="CXCGL\Buffer.h">
+      <Filter>Source Files\CXCGL</Filter>
+    </ClInclude>
+    <ClInclude Include="CXCGL\FramebufferObject.h">
+      <Filter>Source Files\CXCGL</Filter>
+    </ClInclude>
+    <ClInclude Include="CXCGL\VertexArrayObject.h">
+      <Filter>Source Files\CXCGL</Filter>
+    </ClInclude>
+    <ClInclude Include="CXCGL\Texture.h">
+      <Filter>Source Files\CXCGL</Filter>
+    </ClInclude>
+    <ClInclude Include="CXCGL\Program.h">
+      <Filter>Source Files\CXCGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Matrix4x4.h">
+      <Filter>Source Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector3D.h">
+      <Filter>Source Files\Math</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\SkyboxFragmentShader.glsl">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="Shaders\SkyboxVertexShader.glsl">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="Shaders\LightingFragmentShader.glsl">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="Shaders\LightingVertexShader.glsl">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="Shaders\TextureFragmentShader.glsl">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="Shaders\TextureVertexShader.glsl">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="Shaders\ShadowPS.glsl">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="Shaders\ShadowVS.glsl">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="Shaders\BasicPS.glsl">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="Shaders\BasicVS.glsl">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="Shaders\TextureLightingFragmentShader.glsl">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="Shaders\TextureLightingVertexShader.glsl">
+      <Filter>Shader Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Things\TriangularPyramid.h">
+      <Filter>Source Files\Things</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Textures\Main.dds">
+      <Filter>Texture Files</Filter>
+    </Image>
+    <Image Include="Textures\CubeMapNX.png">
+      <Filter>Texture Files</Filter>
+    </Image>
+    <Image Include="Textures\CubeMapNY.png">
+      <Filter>Texture Files</Filter>
+    </Image>
+    <Image Include="Textures\CubeMapNZ.png">
+      <Filter>Texture Files</Filter>
+    </Image>
+    <Image Include="Textures\CubeMapPX.png">
+      <Filter>Texture Files</Filter>
+    </Image>
+    <Image Include="Textures\CubeMapPY.png">
+      <Filter>Texture Files</Filter>
+    </Image>
+    <Image Include="Textures\CubeMapPZ.png">
+      <Filter>Texture Files</Filter>
+    </Image>
+    <Image Include="Textures\EarthCylindricalMap.jpg">
+      <Filter>Texture Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

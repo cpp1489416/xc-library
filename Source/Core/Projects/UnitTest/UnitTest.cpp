@@ -40,11 +40,11 @@ class Test
 public:
     Test()
     {
-        Value.Create(this, &Test::GetValue, &Test::SetValue);
     }
 
 public:
-    Property<int> Value;
+    Property<int> Value = Property<int>(this, &Test::GetValue, &Test::SetValue);
+    BasicProperty<double> BasicValue;
 
 private:
     const int & GetValue() const
@@ -73,9 +73,12 @@ int main()
     handler.Invoke(nullptr, nullptr);
 
     Test test;
-    test.Value = 5;
-    int ad = test.Value;
-    std::cout << ad << test.Value;
+    int elseA = test.Value;
+    test.Value = 1000;
+    test.Value = test.Value + 100;
+    std::cout << "test value " << test.Value << std::endl;
+    test.BasicValue = 100;
+    std::cout << test.BasicValue << std::endl;
     system("Pause");
     return 0;
 }

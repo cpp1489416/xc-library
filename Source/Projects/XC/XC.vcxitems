@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <ItemsProjectGuid>{45d41acc-2c3c-43d2-bc10-02aa73ffc7c7}</ItemsProjectGuid>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Delegate.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Pointers.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Pointers\IMPLPointer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Pointers\UniquePointer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Pointers\ValuePointer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Property.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\Point.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\Size.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\Rectangle.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\IApplication.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\Point.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\Size.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\Rectangle.cpp" />
+  </ItemGroup>
+</Project>

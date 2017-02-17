@@ -28,12 +28,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Memory.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Object.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Pointers.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Pointers\AutoPointer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Pointers\UniquePointer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Property.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Tuples.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\TypeTraits.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Delegate.cpp" />
   </ItemGroup>
 </Project>

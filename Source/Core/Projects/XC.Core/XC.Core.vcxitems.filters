@@ -45,7 +45,4 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Delegate.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Object.h" />
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Delegate.cpp" />
-  </ItemGroup>
 </Project>

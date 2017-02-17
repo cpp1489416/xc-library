@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="HouseShaderProgram" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAEIAAAAAQBAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>QTGUI\HouseShaderProgram.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GLWidget" Collapsed="true">
+    <Position X="3.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BBAAIAGwwAAAAAAABAQAQAIAAAAQIAAAAAgAAAAAAAA=</HashCode>
+      <FileName>QTGUI\GLWidget.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CameraSettingsDock" Collapsed="true">
+    <Position X="11.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABIAAAAAAAAAAAQAAACAAAAIAAAAAAAAAAAQAAAAAg=</HashCode>
+      <FileName>QTGUI\CameraSettingsDock.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MatrixViewDock" Collapsed="true">
+    <Position X="13.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BABAABAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>QTGUI\MatrixViewDock.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MainWindow" Collapsed="true">
+    <Position X="10" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>QTGUI\MainWindow.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GLHouseWidget" Collapsed="true">
+    <Position X="3.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAIIAEAoIBAAAAAAAQAIAAAAAAQAQAAAIAAAAAAADA=</HashCode>
+      <FileName>QTGUI\GLHouseWidget.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Camera" Collapsed="true">
+    <Position X="10" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAACAEACEAAABgFAAiAACRCAQGAQMAAgCAJBAAABAwI=</HashCode>
+      <FileName>CXCGL\Camera.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Matrix" Collapsed="true">
+    <Position X="11.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAACgAAQAAAAAAAAACAA=</HashCode>
+      <FileName>CXCGL\Matrix.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shader" Collapsed="true">
+    <Position X="10" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAEAAIABAAAAAAAAAAAAAgEA=</HashCode>
+      <FileName>CXCGL\Shader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ShaderProgram" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EACCIAAAAAAAIAAAAEQBCABAAAAEAEAAAAAFChAAAAA=</HashCode>
+      <FileName>CXCGL\ShaderProgram.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Skybox" Collapsed="true">
+    <Position X="11.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACIIEAAAAgAAgAAwAACAAAAAAAgEEAAAAAAQAAAAAA=</HashCode>
+      <FileName>CXCGL\Skybox.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VAO" Collapsed="true">
+    <Position X="13.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAggAAAAAEAAgAQAAAAAAAAAAAAAAAAAAkAFAAAAA=</HashCode>
+      <FileName>CXCGL\VAO.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VBO" Collapsed="true">
+    <Position X="15.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAABAAAEAAgAQAAAABAAAAAEAAAAAAAkAFAEAAA=</HashCode>
+      <FileName>CXCGL\VBO.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vector3" Collapsed="true">
+    <Position X="10" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAgAAAAAAAACAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>CXCGL\Vertex.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vector4" Collapsed="true">
+    <Position X="11.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CXCGL\Vertex.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vertex" Collapsed="true">
+    <Position X="13.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAQAAAAAQAAAAAAAAAAAgA=</HashCode>
+      <FileName>CXCGL\Vertex.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Anchor" Collapsed="true">
+    <Position X="7.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAQAAQAAAAAABAAEAAACAAQAAAAAA=</HashCode>
+      <FileName>Things\Anchor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Circle" Collapsed="true">
+    <Position X="0.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEgAAQAAAAAAAAAhAAEAAACAAQAAAAAA=</HashCode>
+      <FileName>Things\Circle.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cube" Collapsed="true">
+    <Position X="3" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAgAAQAAAAAAAAABAAEAAACAAQAAAAAA=</HashCode>
+      <FileName>Things\Cube.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Thing" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAACACABAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Things\Thing.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TriangularPyramid" Collapsed="true">
+    <Position X="5.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAQAAAAAAQAABAAEAAACAAQIAAAAA=</HashCode>
+      <FileName>Things\TriangularPyramid.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MeshProvider" Collapsed="true">
+    <Position X="15.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Meshes\MeshProvider.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DDSFileLoader" Collapsed="true">
+    <Position X="13.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FileLoaders\DDSFileLoader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ImageFileLoader" Collapsed="true">
+    <Position X="15.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAEAAAAAAAAAAAAAJAAgAAAEAAAAEAAEAAAAA=</HashCode>
+      <FileName>FileLoaders\ImageFileLoader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="`anonymous-namespace'::WWidget" Collapsed="true">
+    <Position X="15.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>QTGUI\MatrixViewDock.cpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="qt_meta_stringdata_CameraSettingsDock_t" Collapsed="true">
+    <Position X="11.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>GeneratedFiles\Debug\moc_CameraSettingsDock.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="qt_meta_stringdata_GLHouseWidget_t" Collapsed="true">
+    <Position X="13.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>GeneratedFiles\Release\moc_GLHouseWidget.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="qt_meta_stringdata_GLWidget_t" Collapsed="true">
+    <Position X="15.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>GeneratedFiles\Release\moc_GLWidget.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="qt_meta_stringdata_MainWindow_t" Collapsed="true">
+    <Position X="10" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>GeneratedFiles\Debug\moc_MainWindow.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="qt_meta_stringdata_MatrixViewDock_t" Collapsed="true">
+    <Position X="11.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>GeneratedFiles\Debug\moc_MatrixViewDock.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="`anonymous-namespace'::initializer" Collapsed="true">
+    <Position X="10" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAEA=</HashCode>
+      <FileName>GeneratedFiles\qrc_Learning1.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Typedef Name="Matrix4x4" Collapsed="true">
+    <Position X="10" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>QTGUI\GLHouseWidget.cpp</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>
