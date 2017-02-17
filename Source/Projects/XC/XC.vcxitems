@@ -21,14 +21,20 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Pointers\UniquePointer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Pointers\ValuePointer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Property.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\SyntaxSugars\NamespaceSyntaxSugar.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\Point.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\Size.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\Rectangle.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI.Windows\Application.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI.Windows\NativeWindow.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\IApplication.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\INativeWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\Point.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\Size.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\Rectangle.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI.Windows\Application.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI.Windows\NativeWindow.cpp" />
   </ItemGroup>
 </Project>

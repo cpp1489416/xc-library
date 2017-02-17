@@ -1,5 +1,7 @@
 #pragma once
 
+#define XC_DELETE_IMPL(iMPL) delete iMPL.Get();
+
 namespace XC
 {
     template <typename T>

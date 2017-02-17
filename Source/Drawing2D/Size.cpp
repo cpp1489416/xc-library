@@ -8,18 +8,18 @@ namespace XC
         class Size::IMPL
         {
         public:
-            IMPL(int width = 0, int height = 0) : mWidth(width), mHeight(height) {}
+            IMPL(double width = 0, double height = 0) : mWidth(width), mHeight(height) {}
 
         public:
-            int mWidth;
-            int mHeight;
+            double mWidth;
+            double mHeight;
         };
 
         Size::Size()
         {
         }
 
-        Size::Size(int width, int height) :
+        Size::Size(double width, double height) :
             mIMPL(new IMPL(width, height))
         {
         }
@@ -29,22 +29,22 @@ namespace XC
             delete mIMPL.Get();
         }
 
-        const int & Size::GetWidth() const
+        const double & Size::GetWidth() const
         {
             return mIMPL->mWidth;
         }
 
-        void Size::SetWidth(const int & value)
+        void Size::SetWidth(const double & value)
         {
             mIMPL->mWidth = value;
         }
 
-        const int & Size::GetHeight() const
+        const double & Size::GetHeight() const
         {
             return mIMPL->mHeight;
         }
 
-        void Size::SetHeight(const int & value)
+        void Size::SetHeight(const double & value)
         {
             mIMPL->mHeight = value;
         }

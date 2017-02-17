@@ -13,14 +13,14 @@ namespace XC
         {
         public:
             Size();
-            Size(int x, int y);
+            Size(double x, double y);
             ~Size();
 
         public:
-            const int & GetWidth() const;
-            void SetWidth(const int & value);
-            const int & GetHeight() const;
-            void SetHeight(const int & value);
+            const double & GetWidth() const;
+            void SetWidth(const double & value);
+            const double & GetHeight() const;
+            void SetHeight(const double & value);
 
             operator Point () const;
 

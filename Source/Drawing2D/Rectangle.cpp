@@ -9,23 +9,23 @@ namespace XC
         class Rectangle::IMPL
         {
         public:
-            IMPL(int x = 0, int y = 0, int width = 0, int height = 0) :
+            IMPL(double x = 0, double y = 0, double width = 0, double height = 0) :
                 mX(x), mY(y), mWidth(width), mHeight(height)
             {
             }
 
         public:
-            int mX;
-            int mY;
-            int mWidth;
-            int mHeight;
+            double mX;
+            double mY;
+            double mWidth;
+            double mHeight;
         };
 
         Rectangle::Rectangle()
         {
         }
 
-        Rectangle::Rectangle(int x, int y, int width, int height) :
+        Rectangle::Rectangle(double x, double y, double width, double height) :
             mIMPL(new IMPL(x, y, width, height))
         {
         }
@@ -35,42 +35,42 @@ namespace XC
             delete mIMPL.Get();
         }
 
-        const int & Rectangle::GetX() const
+        const double & Rectangle::GetX() const
         {
             return mIMPL->mX;
         }
 
-        void Rectangle::SetX(const int & value)
+        void Rectangle::SetX(const double & value)
         {
             mIMPL->mX = value;
         }
 
-        const int & Rectangle::GetY() const
+        const double & Rectangle::GetY() const
         {
             return mIMPL->mY;
         }
 
-        void Rectangle::SetY(const int & value)
+        void Rectangle::SetY(const double & value)
         {
             mIMPL->mY = value;
         }
 
-        const int & Rectangle::GetWidth() const
+        const double & Rectangle::GetWidth() const
         {
             return mIMPL->mWidth;
         }
 
-        void Rectangle::SetWidth(const int & value)
+        void Rectangle::SetWidth(const double & value)
         {
             mIMPL->mWidth = value;
         }
 
-        const int & Rectangle::GetHeight() const
+        const double & Rectangle::GetHeight() const
         {
             return mIMPL->mHeight;
         }
 
-        void Rectangle::SetHeight(const int & value)
+        void Rectangle::SetHeight(const double & value)
         {
             mIMPL->mHeight = value;
         }

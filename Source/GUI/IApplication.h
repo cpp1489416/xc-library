@@ -1,13 +1,14 @@
 #pragma once
 
-namespace XC
+#include "../Core.h"
+
+XC_BEGIN_NAMESPACE_2(XC, GUI)
 {
-    namespace GUI 
+    class IApplication
     {
-        class IApplication
-        {
-        public:
-            virtual void Execute() = 0;
-        };
-    }
-}
+    public:
+        virtual void Execute() = 0;
+        virtual void Quit() = 0;
+    };
+
+} XC_END_NAMESPACE_2

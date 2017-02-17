@@ -15,18 +15,18 @@ namespace XC
         {
         public:
             Rectangle();
-            Rectangle(int x, int y, int width, int height);
+            Rectangle(double x, double y, double width, double height);
             ~Rectangle();
 
         public:
-            const int & GetX() const;
-            void SetX(const int & value);
-            const int & GetY() const;
-            void SetY(const int & value);
-            const int & GetWidth() const;
-            void SetWidth(const int & value);
-            const int & GetHeight() const;
-            void SetHeight(const int & value);
+            const double & GetX() const;
+            void SetX(const double & value);
+            const double & GetY() const;
+            void SetY(const double & value);
+            const double & GetWidth() const;
+            void SetWidth(const double & value);
+            const double & GetHeight() const;
+            void SetHeight(const double & value);
             Point GetLocation() const;
             void SetLocation(const Point & location);
             Size GetSize() const;

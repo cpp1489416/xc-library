@@ -5,6 +5,4 @@
 
 namespace XC
 {
-    template <typename T>
-    using Pointer = ValuePointer<T>
 }

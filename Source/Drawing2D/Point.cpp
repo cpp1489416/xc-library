@@ -8,18 +8,18 @@ namespace XC
         class Point::IMPL
         {
         public:
-            IMPL(int x = 0, int y = 0) : mX(x), mY(y) {}
+            IMPL(double x = 0, double y = 0) : mX(x), mY(y) {}
 
         public:
-            int mX;
-            int mY;
+            double mX;
+            double mY;
         };
 
         Point::Point()
         {
         }
 
-        Point::Point(int x, int y) :
+        Point::Point(double x, double y) :
             mIMPL(new IMPL(x, y))
         {
         }
@@ -29,22 +29,22 @@ namespace XC
             delete mIMPL.Get();
         }
 
-        const int & Point::GetX() const
+        const double & Point::GetX() const
         {
             return mIMPL->mX;
         }
 
-        void Point::SetX(const int & value)
+        void Point::SetX(const double & value)
         {
             mIMPL->mX = value;
         }
 
-        const int & Point::GetY() const
+        const double & Point::GetY() const
         {
             return mIMPL->mY;
         }
 
-        void Point::SetY(const int & value)
+        void Point::SetY(const double & value)
         {
             mIMPL->mY = value;
         }
