@@ -4,9 +4,9 @@
 #include <iostream>
 
 #include "../Basic.h"
-#include "../Memory.h"
+#include "../Memory/Memory.h"
 #include "../Iterators.h"
-#include "../Algorithm.h"
+#include "../Algorithm/Algorithm.h"
 
 namespace XC
 {

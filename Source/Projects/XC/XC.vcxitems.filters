@@ -13,15 +13,14 @@
     <Filter Include="Core\Pointers">
       <UniqueIdentifier>{3a3f3ce5-35ad-43a0-b0ba-b72423025cf1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GUI.Windows">
-      <UniqueIdentifier>{f004a21b-aab3-4945-8519-b275e48ea935}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\SyntaxSugars">
       <UniqueIdentifier>{5ca5d5f4-4d1e-45fe-81e8-b22ec9dfb5dd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GUIOnWindows">
+      <UniqueIdentifier>{26674ef6-c295-4a8c-a63d-c007644a844a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\IApplication.h">
       <Filter>GUI</Filter>
     </ClInclude>
@@ -43,9 +42,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Pointers\UniquePointer.h">
       <Filter>Core\Pointers</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Pointers.h">
-      <Filter>Core</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Pointers\ValuePointer.h">
       <Filter>Core\Pointers</Filter>
     </ClInclude>
@@ -55,14 +51,20 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\INativeWindow.h">
       <Filter>GUI</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI.Windows\Application.h">
-      <Filter>GUI.Windows</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI.Windows\NativeWindow.h">
-      <Filter>GUI.Windows</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\SyntaxSugars\NamespaceSyntaxSugar.h">
       <Filter>Core\SyntaxSugars</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUIOnWindows\Application.h">
+      <Filter>GUIOnWindows</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUIOnWindows\NativeWindow.h">
+      <Filter>GUIOnWindows</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Core.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Pointers\Pointers.h">
+      <Filter>Core\Pointers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -75,11 +77,11 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\Size.cpp">
       <Filter>Drawing2D</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI.Windows\Application.cpp">
-      <Filter>GUI.Windows</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUIOnWindows\Application.cpp">
+      <Filter>GUIOnWindows</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI.Windows\NativeWindow.cpp">
-      <Filter>GUI.Windows</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUIOnWindows\NativeWindow.cpp">
+      <Filter>GUIOnWindows</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

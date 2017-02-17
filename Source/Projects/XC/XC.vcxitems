@@ -14,10 +14,10 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Core.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Delegate.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Pointers.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Pointers\IMPLPointer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Pointers\Pointers.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Pointers\UniquePointer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Pointers\ValuePointer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Property.h" />
@@ -25,8 +25,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\Point.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\Size.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\Rectangle.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI.Windows\Application.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI.Windows\NativeWindow.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUIOnWindows\Application.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUIOnWindows\NativeWindow.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\IApplication.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\INativeWindow.h" />
   </ItemGroup>
@@ -34,7 +34,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\Point.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\Size.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\Rectangle.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI.Windows\Application.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI.Windows\NativeWindow.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUIOnWindows\Application.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUIOnWindows\NativeWindow.cpp" />
   </ItemGroup>
 </Project>

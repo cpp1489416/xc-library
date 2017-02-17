@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Core.h"
+#include "../Core/Core.h"
 
 XC_BEGIN_NAMESPACE_2(XC, GUI)
 {

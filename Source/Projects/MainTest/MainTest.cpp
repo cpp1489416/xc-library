@@ -3,7 +3,7 @@
 
 #include <Windows.h>
 #include "MainTest.h"
-#include <Core.h>
+#include <Core/Core.h>
 #define MAX_LOADSTRING 100
 
 // 全局变量: 

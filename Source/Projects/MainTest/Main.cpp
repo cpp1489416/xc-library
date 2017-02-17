@@ -1,4 +1,4 @@
-#include <GUI.Windows/Application.h>
+#include <GUIOnWindows/Application.h>
 
 namespace XC
 {
