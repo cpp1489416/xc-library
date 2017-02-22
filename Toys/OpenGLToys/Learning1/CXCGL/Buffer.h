@@ -15,6 +15,7 @@ public:
     void Bind();
     void Unbind();
     void Destroy() { mCreated = false; }
+    void SetUsagePattern(int usagePattern = 0) {}
 
 private:
     bool mCreated = false;

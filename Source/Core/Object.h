@@ -6,9 +6,4 @@ namespace XC
     {
 
     };
-
-    class EventArguments
-    {
-
-    };
 }

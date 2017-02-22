@@ -9,6 +9,9 @@ GLHouseWidget::GLHouseWidget(QWidget *parent) :
     GLWindowsWidget(parent)
 {
     setFocusPolicy(Qt::StrongFocus);
+    mTimer = new QTimer();
+    connect(mTimer, &QTimer::timeout, this, &GLHouseWidget::UpdateScene);
+    // mTimer->start(30);
 }
 
 void GLHouseWidget::DropLightCamera(float value)
@@ -195,5 +198,11 @@ void GLHouseWidget::keyPressEvent(QKeyEvent * event)
         break;
     }
 
+    update();
+}
+
+void GLHouseWidget::UpdateScene()
+{
+    mCamera.Yaw(0.1);
     update();
 }

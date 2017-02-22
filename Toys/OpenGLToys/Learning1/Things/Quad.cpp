@@ -47,16 +47,9 @@ void Quad::OnCreate()
     };
 
 
-    mVBOPositions.Bind();
     mVBOPositions.SetData(positions, sizeof(positions));
-
-    mVBOColors.Bind();
     mVBOColors.SetData(colors, sizeof(colors));
-
-    mVBOTextureCoords.Bind();
     mVBOTextureCoords.SetData(textureCoords, sizeof(textureCoords));
-
-    mVBOnormals.Bind();
     mVBOnormals.SetData(normals, sizeof(normals));
 }
 
@@ -71,7 +64,6 @@ void Quad::OnDraw()
 
     glDrawArrays(GL_TRIANGLES, 0, 6);
 }
-
 
 void Quad::OnChangeShaderProgram(ShaderProgram *shaderProgram)
 {
@@ -104,4 +96,6 @@ void Quad::OnChangeShaderProgram(ShaderProgram *shaderProgram)
         glEnableVertexAttribArray(normalID);
         glVertexAttribPointer(normalID, 3, GL_FLOAT, GL_FALSE, 0, NULL);
     }
+
+
 }

@@ -1,2 +1,3 @@
-#include "SyntaxSugars/NamespaceSyntaxSugar.h"
+#include "SyntaxSugars/SyntaxSugars.h"
 #include "Pointers/Pointers.h"
+#include "Delegate.h"

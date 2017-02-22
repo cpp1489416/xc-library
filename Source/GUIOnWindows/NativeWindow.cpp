@@ -41,7 +41,7 @@ XC_BEGIN_NAMESPACE_3(XC, GUI, Windows)
                 IMPL * currentIMPL = (IMPL *)cs->lpCreateParams;
                 currentIMPL->mHWND = hWND; // at this time, "CreateWindow" function is not returned
                 
-                SetWindowLongPtr(hWND, GWLP_USERDATA, (LONG)currentIMPL);
+                SetWindowLongPtr(hWND, GWLP_USERDATA, (LONG_PTR)currentIMPL);
                 return currentIMPL->WindowProcedureWin32(hWND, message, wParam, lParam);
             }
             else
@@ -53,6 +53,14 @@ XC_BEGIN_NAMESPACE_3(XC, GUI, Windows)
 
     LRESULT NativeWindow::IMPL::WindowProcedureWin32(HWND hWND, UINT message, WPARAM wParam, LPARAM lParam)
     {
+        switch (message)
+        {
+        case WM_DESTROY:
+            mApplication->Quit();
+            break;
+        default:
+            break;
+        }
         return DefWindowProc(hWND, message, wParam, lParam);
     }
 

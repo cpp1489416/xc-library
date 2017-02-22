@@ -18,14 +18,14 @@ public:
     virtual void SetModelMatrixFromThing(Thing * thing);
     virtual void UpdateFromCamera(Camera * camera) { camera->UpdateToShaderProgram(this); }
     virtual Program * GetCurrentProgram() { return nullptr; } // get current program
-    virtual GLuint GetPositionAttribute() { return 0; }
-    virtual GLuint GetColorAttribute() { return 0; }
-    virtual GLuint GetTextureCoordAttribute() { return 0; }
-    virtual GLuint GetNormalAttribute() { return 0; }
-    virtual GLuint GetProjectionMatrixUniform() { return 0; }
-    virtual GLuint GetViewMatrixUniform() { return 0; }
-    virtual GLuint GetModelMatrixUniform() { return 0; }
-    virtual GLuint GetLightPositionUniform() { return 0; }
+    virtual GLuint GetPositionAttribute() { return GetAttributeLocation("position"); }
+    virtual GLuint GetColorAttribute() { return GetAttributeLocation("color"); }
+    virtual GLuint GetTextureCoordAttribute() { return GetAttributeLocation("textureCoord"); }
+    virtual GLuint GetNormalAttribute() { return GetAttributeLocation("normal"); }
+    virtual GLuint GetProjectionMatrixUniform() { return GetAttributeLocation("projection"); }
+    virtual GLuint GetViewMatrixUniform() { return GetUniformLocation("view"); }
+    virtual GLuint GetModelMatrixUniform() { return GetUniformLocation("model"); }
+    virtual GLuint GetLightPositionUniform() { return GetUniformLocation("uniform"); }
     virtual GLuint GetLightIntensitiesUniform() { return 0; }
     virtual GLuint GetTexture2DUniform() { return 0; }
     virtual GLuint GetTextureID() { return 0; }

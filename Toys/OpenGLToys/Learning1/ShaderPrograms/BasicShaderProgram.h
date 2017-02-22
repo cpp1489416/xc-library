@@ -5,16 +5,16 @@
 class BasicShaderProgram : public ShaderProgram
 {
 public:
-    virtual void AddThing(Thing * thing) override;
-    virtual Program * GetCurrentProgram() override { return &mProgram; }
-    virtual GLuint GetPositionAttribute() override final { return GetAttributeLocation("position"); }
-    virtual GLuint GetColorAttribute() override final { return GetAttributeLocation("color"); }
-    virtual GLuint GetProjectionMatrixUniform() override final { return GetUniformLocation("projection"); }
-    virtual GLuint GetViewMatrixUniform() override { return GetUniformLocation("view"); }
-    virtual GLuint GetModelMatrixUniform() override final { return GetUniformLocation("model"); }
+    void AddThing(Thing * thing) override;
+    Program * GetCurrentProgram() override { return &mProgram; }
+    GLuint GetPositionAttribute() override { return GetAttributeLocation("position"); }
+    GLuint GetColorAttribute() override  { return GetAttributeLocation("color"); }
+    GLuint GetProjectionMatrixUniform() override { return GetUniformLocation("projection"); }
+    GLuint GetViewMatrixUniform() override { return GetUniformLocation("view"); }
+    GLuint GetModelMatrixUniform() override final { return GetUniformLocation("model"); }
 
 protected:
-    virtual void OnCreate() override final;
+    virtual void OnCreate() override;
 
 private:
     Program mProgram;

@@ -19,6 +19,9 @@
     <Filter Include="GUIOnWindows">
       <UniqueIdentifier>{26674ef6-c295-4a8c-a63d-c007644a844a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GUI\Events">
+      <UniqueIdentifier>{60d2ec5a-cbf0-4d2e-8ebc-93616b89362a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\IApplication.h">
@@ -65,6 +68,24 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Pointers\Pointers.h">
       <Filter>Core\Pointers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\SyntaxSugars\SyntaxSugars.h">
+      <Filter>Core\SyntaxSugars</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\SyntaxSugars\UnitTestSyntaxSugar.h">
+      <Filter>Core\SyntaxSugars</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\Events\Events.h">
+      <Filter>GUI\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\Events\Event.h">
+      <Filter>GUI\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\GUI.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\Widget.h">
+      <Filter>GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

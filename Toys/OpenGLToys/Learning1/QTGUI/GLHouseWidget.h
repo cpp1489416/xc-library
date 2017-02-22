@@ -56,5 +56,9 @@ public:
     Quad mQuadLeft;
 
 private:
+    void UpdateScene();
+
+private:
     QPointF mLastPosition;
+    QTimer * mTimer;
 };

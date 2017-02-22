@@ -22,13 +22,19 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Pointers\ValuePointer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Property.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\SyntaxSugars\NamespaceSyntaxSugar.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\SyntaxSugars\SyntaxSugars.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\SyntaxSugars\UnitTestSyntaxSugar.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\Point.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\Size.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\Rectangle.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUIOnWindows\Application.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUIOnWindows\NativeWindow.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\Events\Event.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\Events\Events.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\GUI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\IApplication.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\INativeWindow.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\Widget.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\Point.cpp" />
