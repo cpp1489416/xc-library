@@ -4,7 +4,7 @@
 
 namespace MagicCube
 {
-    MagicCube::MagicCube(int countRows) // count if rows is always 4
+    MagicCube::MagicCube() // count if rows is always 4
     {
     }
 

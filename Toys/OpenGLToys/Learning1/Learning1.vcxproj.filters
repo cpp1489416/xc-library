@@ -64,6 +64,9 @@
     <Filter Include="UnitTest Files">
       <UniqueIdentifier>{82f74871-d4a3-49eb-ade1-f7585bde3956}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UnitTest Files\GUI">
+      <UniqueIdentifier>{76a894ee-8140-4601-9341-926227f822b8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeneratedFiles\qrc_Learning1.cpp">
@@ -216,6 +219,15 @@
     <ClCompile Include="UnitTest\MagicCubeRotationState.cpp">
       <Filter>UnitTest Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MagicCubeWidght.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MagicCubeWidght.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitTest\GUI\MagicCubeWidght.cpp">
+      <Filter>UnitTest Files\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Learning1.qrc">
@@ -235,6 +247,9 @@
     </CustomBuild>
     <CustomBuild Include="QTGUI\GLWindowsWidget.h">
       <Filter>Source Files\QTGUI</Filter>
+    </CustomBuild>
+    <CustomBuild Include="UnitTest\GUI\MagicCubeWidght.h">
+      <Filter>UnitTest Files\GUI</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

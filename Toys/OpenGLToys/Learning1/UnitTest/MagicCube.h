@@ -5,10 +5,10 @@
 
 namespace MagicCube
 {
-    class MagicCube : Thing
+    class MagicCube : public Thing
     {
     public:
-        MagicCube(int countRows);
+        MagicCube();
 
     public:
         MagicInsideCube * GetInsideCube(int x, int y, int z) const;
@@ -21,6 +21,7 @@ namespace MagicCube
     public:
         void OnCreate() override;
         void OnDraw() override;
+        void OnChangeTechnique(Technique *technique) {}
 
     private:
         void InitializeInsideCubes();
