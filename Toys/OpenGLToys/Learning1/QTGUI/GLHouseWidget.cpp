@@ -20,8 +20,8 @@ void GLHouseWidget::DropLightCamera(float value)
     curY -= 1.0;
     mLightCamera.LookAt(50, curY, -50, 0, 0, 0, 0, 1, 0);
     mLightPositionCube.mTransform.mPosition = mLightCamera.mPosition;
-    mShadowTechnique.UpdateFromLightCamera(&mLightCamera);
-    mShadowTechnique.UpdateShadowTexture();
+    //mLightingTechnique.UpdateFromLightCamera(&mLightCamera);
+    //mLightingTechnique.UpdateShadowTexture();
     update();
 }
 
@@ -41,9 +41,9 @@ void GLHouseWidget::OnInitializeOpenGL()
 
     mBasicTechnique.Create();
 
-    mShadowTechnique.mLargerFactor = 1;
-    mShadowTechnique.Create();
-    mShadowTechnique.UpdateFromLightCamera(&mLightCamera);
+    //mLightingTechnique.mLargerFactor = 1;
+    //mLightingTechnique.Create();
+    //mLightingTechnique.UpdateFromLightCamera(&mLightCamera);
 
     mLightingTechnique.Create();
     mLightingTechnique.SetPointLight(&mPointLight);
@@ -62,12 +62,12 @@ void GLHouseWidget::OnInitializeOpenGL()
     mTextureTechnique.AddThing(&mTextureSphere);
     mTextureSphere.mTransform.mScale = glm::vec3(3, 3, 3);
 
-    mShadowTechnique.AddThing(&mCube);
+    mLightingTechnique.AddThing(&mCube);
     mCube.mTransform.mPosition = glm::vec3(8, -10, 0);
     mCube.mTransform.mRotation = glm::vec3(0, 0, 0);
     mCube.mTransform.mScale = glm::vec3(3, 3, 3);
 
-    mShadowTechnique.AddThing(&mCube2);
+    mLightingTechnique.AddThing(&mCube2);
     mCube2.mTransform.mPosition = glm::vec3(2, -5, 3);
     mCube2.mTransform.mRotation = glm::vec3(0, 0, 0);
     mCube2.mTransform.mScale = glm::vec3(2, 1, 3);
@@ -77,21 +77,21 @@ void GLHouseWidget::OnInitializeOpenGL()
     mLightPositionCube.mTransform.mScale = glm::vec3(0.1, 0.1, 0.1);
 
     mSphere.mCountRows = mSphere.mCountColumns = 36;
-    mShadowTechnique.AddThing(&mSphere);
+    mLightingTechnique.AddThing(&mSphere);
     mSphere.mTransform.mPosition = glm::vec3(-9, -10, 7);
     mSphere.mTransform.mScale = glm::vec3(3, 3, 3);
 
-    mShadowTechnique.AddThing(&mQuadBottom);
+    mLightingTechnique.AddThing(&mQuadBottom);
     mQuadBottom.mTransform.mScale = glm::vec3(23, 23, 23);
     mQuadBottom.mTransform.mRotation = glm::vec3(90, 0, 0);
     mQuadBottom.mTransform.mPosition = glm::vec3(0, -15, 0);
 
-    mShadowTechnique.AddThing(&mQuadBack);
+    mLightingTechnique.AddThing(&mQuadBack);
     mQuadBack.mTransform.mScale = glm::vec3(23, 23, 23);
     mQuadBack.mTransform.mRotation = glm::vec3(0, 0, 0);
     mQuadBack.mTransform.mPosition = glm::vec3(-0, 0, 15);
 
-    mShadowTechnique.AddThing(&mQuadLeft);
+    mLightingTechnique.AddThing(&mQuadLeft);
     mQuadLeft.mTransform.mScale = glm::vec3(23, 23, 23);
     mQuadLeft.mTransform.mRotation = glm::vec3(0, -90, 0);
     mQuadLeft.mTransform.mPosition = glm::vec3(-15, 0, 0);
@@ -102,7 +102,7 @@ void GLHouseWidget::OnInitializeOpenGL()
     glEnable(GL_DEPTH_TEST);
     glDepthMask(GL_TRUE);
 
-    mShadowTechnique.UpdateFromLightCamera(&mLightCamera);
+//    mLightingTechnique.UpdateFromLightCamera(&mLightCamera);
 }
 
 void GLHouseWidget::OnPaintOpenGL()
@@ -112,12 +112,12 @@ void GLHouseWidget::OnPaintOpenGL()
     mCamera.UpdateToTechnique(&mBasicTechnique);
     mCamera.UpdateToTechnique(&mTextureTechnique);
     mCamera.UpdateToTechnique(&mTextureLightingTechnique);
-    mShadowTechnique.UpdateFromCamera(&mCamera);
+    mLightingTechnique.UpdateFromCamera(&mCamera);
    
     mSkybox.Draw();
     mBasicTechnique.DrawAllThings();
     mTextureTechnique.DrawAllThings();
-    mShadowTechnique.DrawAllThings();
+    mLightingTechnique.DrawAllThings();
 }
 
 void GLHouseWidget::OnResizeOpenGL(int width, int height)
@@ -126,8 +126,8 @@ void GLHouseWidget::OnResizeOpenGL(int width, int height)
     mCamera.SetViewportAspect((float)width / height);
 
     mLightCamera.SetViewportAspect((float)width / height);
-    mShadowTechnique.UpdateFromLightCamera(&mLightCamera);
-     mShadowTechnique.ChangeSize(width, height); // change size and update texture
+  //  mLightingTechnique.UpdateFromLightCamera(&mLightCamera);
+//     mLightingTechnique.ChangeSize(width, height); // change size and update texture
 }
 
 void GLHouseWidget::mousePressEvent(QMouseEvent * event)

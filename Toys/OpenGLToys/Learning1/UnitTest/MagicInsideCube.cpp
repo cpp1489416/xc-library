@@ -75,7 +75,7 @@ namespace MagicCube
         {
             for (int j = 0; j < 6; ++j)
             {
-                size_t location = i * 6 * 6 * 3 + j * 3;
+                size_t location = i * 6 * 3 + j * 3;
                 SetColor(colors + location, mFaceColors[i]);
             }
         }
@@ -93,7 +93,7 @@ namespace MagicCube
         glEnableVertexAttribArray(Program::GetColorAttributeID());
         glVertexAttribPointer(Program::GetColorAttributeID(), 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 
-        mVertexArrayObject.Unbind();
+       // mVertexArrayObject.Unbind();
     }
 
     void MagicInsideCube::OnDraw()

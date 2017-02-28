@@ -69,24 +69,32 @@ namespace MagicCube
                 for (int k = 0; k < mCountRows; ++k)
                 {
                     MagicInsideCube * cube = mInsideCubes[i][j][k];
-                    float xDiff = (i - (mCountRows / 2.0f - 0.5f)) * 2.0f;
-                    float yDiff = (j - (mCountRows / 2.0f - 0.5f)) * 2.0f;
-                    float zDiff = (k - (mCountRows / 2.0f - 0.5f)) * 2.0f;
+                    float xDiff = i*2;(i - (mCountRows / 2.0f - 0.5f)) * 2.0f;
+                    float yDiff = j*2;(j - (mCountRows / 2.0f - 0.5f)) * 2.0f;
+                    float zDiff = k*2;(k - (mCountRows / 2.0f - 0.5f)) * 2.0f;
                     glm::mat4 translateMatrix = glm::translate(glm::mat4(1), glm::vec3(xDiff, yDiff, zDiff));
-                    glm::mat4 rotationMatrix = cube->GetRotationMatrix();
-                    glm::mat4 modelMatrix = translateMatrix * rotationMatrix * selfModelMatrix;
+                    glm::mat4 rotationMatrix = glm::mat4(1);//cube->GetRotationMatrix();
+                    glm::mat4 modelMatrix = translateMatrix * rotationMatrix;// *selfModelMatrix;
                     glUniformMatrix4fv(mTechnique->GetUniformLocation("modelMatrix"), 1, GL_FALSE, glm::value_ptr(modelMatrix));
                     cube->OnDraw();
                 }
             }
         }
+
+    //    mInsideCubes[0][0][0]->OnDraw();
     }
 
     void MagicCube::InitializeInsideCubes()
     {
-        for (int i = 0; i < mCountRows * mCountRows * mCountRows; ++i)
+        for (int i = 0; i < mCountRows; ++i)
         {
-            mInsideCubes[i / mCountRows / mCountRows][(i / mCountRows) % mCountRows][i % mCountRows] = new MagicInsideCube();
+            for (int j = 0; j < mCountRows; ++j)
+            {
+                for (int k = 0; k < mCountRows; ++k)
+                {
+                    mInsideCubes[i][j][k] = new MagicInsideCube();
+                }
+            }
         }
 
         for (int i = 0; i < mCountRows; ++i)
@@ -106,16 +114,22 @@ namespace MagicCube
                 mInsideCubes[i][0][j]->SetFaceColor(Direction::Down, Color::White);
 
                 // back face is green 
-                mInsideCubes[i][j][mCountRows]->SetFaceColor(Direction::Back, Color::Green);
+                mInsideCubes[i][j][mCountRows - 1]->SetFaceColor(Direction::Back, Color::Green);
 
                 // front face is blue
                 mInsideCubes[i][j][0]->SetFaceColor(Direction::Front, Color::Blue);
             }
         }
 
-        for (int i = 0; i < mCountRows * mCountRows * mCountRows; ++i)
+        for (int i = 0; i < mCountRows; ++i)
         {
-            mInsideCubes[i / mCountRows / mCountRows][(i / mCountRows) % mCountRows][i % mCountRows]->Create();
+            for (int j = 0; j < mCountRows; ++j)
+            {
+                for (int k = 0; k < mCountRows; ++k)
+                {
+                    mInsideCubes[i][j][k]->Create();
+                }
+            }
         }
     }
 

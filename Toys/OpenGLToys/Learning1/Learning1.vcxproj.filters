@@ -219,14 +219,14 @@
     <ClCompile Include="UnitTest\MagicCubeRotationState.cpp">
       <Filter>UnitTest Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_MagicCubeWidght.cpp">
+    <ClCompile Include="UnitTest\GUI\MagicCubeWidget.cpp">
+      <Filter>UnitTest Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MagicCubeWidget.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_MagicCubeWidght.cpp">
+    <ClCompile Include="GeneratedFiles\Release\moc_MagicCubeWidget.cpp">
       <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="UnitTest\GUI\MagicCubeWidght.cpp">
-      <Filter>UnitTest Files\GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -248,7 +248,7 @@
     <CustomBuild Include="QTGUI\GLWindowsWidget.h">
       <Filter>Source Files\QTGUI</Filter>
     </CustomBuild>
-    <CustomBuild Include="UnitTest\GUI\MagicCubeWidght.h">
+    <CustomBuild Include="UnitTest\GUI\MagicCubeWidget.h">
       <Filter>UnitTest Files\GUI</Filter>
     </CustomBuild>
   </ItemGroup>

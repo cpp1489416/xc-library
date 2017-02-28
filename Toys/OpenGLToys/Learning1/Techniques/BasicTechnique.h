@@ -9,9 +9,9 @@ public:
     Program * GetCurrentProgram() override { return &mProgram; }
     GLuint GetPositionAttribute() override { return GetAttributeLocation("position"); }
     GLuint GetColorAttribute() override  { return GetAttributeLocation("color"); }
-    GLuint GetProjectionMatrixUniform() override { return GetUniformLocation("projection"); }
-    GLuint GetViewMatrixUniform() override { return GetUniformLocation("view"); }
-    GLuint GetModelMatrixUniform() override final { return GetUniformLocation("model"); }
+    GLuint GetProjectionMatrixUniform() override { return GetUniformLocation("projectionMatrix"); }
+    GLuint GetViewMatrixUniform() override { return GetUniformLocation("viewMatrix"); }
+    GLuint GetModelMatrixUniform() override final { return GetUniformLocation("modelMatrix"); }
 
 protected:
     virtual void OnCreate() override;

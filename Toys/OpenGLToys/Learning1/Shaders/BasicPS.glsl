@@ -1,4 +1,6 @@
-varying vec3 colorVarying;
+#version 330 core
+
+in vec3 colorVarying;
 
 out vec4 finalColor;
 
