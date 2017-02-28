@@ -1,6 +1,6 @@
 #include "Thing.h"
 #include "Transform.h"
-#include "ShaderProgram.h"
+#include "Technique.h"
 
 void Thing::Create()
 {
@@ -17,29 +17,29 @@ void Thing::Destroy()
 
 void Thing::Draw()
 {
-    mShaderProgram->GetCurrentProgram()->Bind(); // use again !!!
-    TransformToShaderProgram();
+    mTechnique->GetCurrentProgram()->Bind(); // use again !!!
+    TransformToTechnique();
     OnDraw();
 }
 
-void Thing::ChangeShaderProgram(ShaderProgram * shaderProgram)
+void Thing::ChangeTechnique(Technique * shaderProgram)
 {
-    if (mShaderProgram != shaderProgram)
+    if (mTechnique != shaderProgram)
     {
-        mShaderProgram = shaderProgram;
+        mTechnique = shaderProgram;
         mProgram = shaderProgram->GetCurrentProgram();
         shaderProgram->GetCurrentProgram()->Bind();
-        OnChangeShaderProgram(shaderProgram);
+        OnChangeTechnique(shaderProgram);
     }
 }
 
-void Thing::TransformToShaderProgram()
+void Thing::TransformToTechnique()
 {
-    mShaderProgram->GetCurrentProgram()->Bind(); // before use again !!!
-    mShaderProgram->SetModelMatrixFromThing(this);
+    mTechnique->GetCurrentProgram()->Bind(); // before use again !!!
+    mTechnique->SetModelMatrixFromThing(this);
 }
 
-void Thing::UpdateCurrentShaderProgram()
+void Thing::UpdateCurrentTechnique()
 {
-    OnChangeShaderProgram(mShaderProgram);
+    OnChangeTechnique(mTechnique);
 }

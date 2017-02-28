@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
 
-class ShaderProgram;
+class Technique;
 
 class Camera
 {
@@ -33,7 +33,7 @@ public:
     void Fly(float distnace);
     void UpdateViewMatrix() { SetMatrix(); }
     void UpdateProjectionMatrix();
-    void UpdateToShaderProgram(ShaderProgram * shaderPorgram);
+    void UpdateToTechnique(Technique * shaderPorgram);
     
 public:
     TransformType mTransformType = TransformType::Local; 

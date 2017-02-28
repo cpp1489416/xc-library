@@ -1,6 +1,6 @@
-#include "LightingShaderProgram.h"
+#include "LightingTechnique.h"
 
-void LightingShaderProgram::AddThing(Thing * thing)
+void LightingTechnique::AddThing(Thing * thing)
 {
     thing->mNeedNormal = true;
     thing->mNeedTexture = false;
@@ -12,7 +12,7 @@ void LightingShaderProgram::AddThing(Thing * thing)
     mThings.push_back(thing);
 }
 
-void LightingShaderProgram::OnCreate()
+void LightingTechnique::OnCreate()
 {
     mVertexShader.CompileFromFile("Shaders/LightingVertexShader.glsl");
     mFragmentShader.CompileFromFile("Shaders/LightingFragmentShader.glsl");
@@ -20,14 +20,14 @@ void LightingShaderProgram::OnCreate()
     mProgram.AddShader(&mFragmentShader);
 }
 
-void LightingShaderProgram::SetPointLight(PointLight * pointLight)
+void LightingTechnique::SetPointLight(PointLight * pointLight)
 {
     mPointLight = pointLight;
 
     UpdatePointLight();
 }
 
-void LightingShaderProgram::UpdatePointLight()
+void LightingTechnique::UpdatePointLight()
 {
     mProgram.Bind();
     GLuint lightPos = GetLightPositionUniform();

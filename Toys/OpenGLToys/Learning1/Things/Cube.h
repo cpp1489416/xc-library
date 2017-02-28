@@ -7,7 +7,7 @@ class Cube : public Thing
 public:
     virtual void OnCreate() override;
     virtual void OnDraw() override;
-    virtual void OnChangeShaderProgram(ShaderProgram * shaderProgram) override;
+    virtual void OnChangeTechnique(Technique * shaderProgram) override;
 
 private:
     VertexArrayObject mVAO;

@@ -1,7 +1,7 @@
     #pragma once
 
 #include <gl/glew.h>
-#include "ShaderProgram.h"
+#include "Technique.h"
 #include "Camera.h"
 #include "VertexArrayObject.h"
 #include "Buffer.h"
@@ -10,7 +10,7 @@
 class Skybox
 {
 public:
-    class MShaderProgram : public ShaderProgram
+    class MTechnique : public Technique
     {
     public:
         Program * GetCurrentProgram() override { return &mProgram; }
@@ -46,7 +46,7 @@ private:
     void CreateVAOAndVBOs();
 
 public:
-    MShaderProgram mShaderProgram;
+    MTechnique mTechnique;
     Camera * mCamera;
     VertexArrayObject mVAOs[6];
     Buffer mEBO = Buffer(GL_ELEMENT_ARRAY_BUFFER, GL_STATIC_DRAW);

@@ -2,7 +2,7 @@
 
 #include "CXCGL.h"
 
-class BasicShaderProgram : public ShaderProgram
+class BasicTechnique : public Technique
 {
 public:
     void AddThing(Thing * thing) override;

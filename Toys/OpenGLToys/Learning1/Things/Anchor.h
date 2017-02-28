@@ -7,7 +7,7 @@ class Anchor : public Thing
 public:
     virtual void OnCreate() override;
     virtual void OnDraw() override;
-    virtual void OnChangeShaderProgram(ShaderProgram * shaderProgram) override;
+    virtual void OnChangeTechnique(Technique * shaderProgram) override;
 
 public:
     VertexArrayObject mVAO;

@@ -79,7 +79,7 @@
     <ClCompile Include="CXCGL\PointLight.cpp" />
     <ClCompile Include="CXCGL\Program.cpp" />
     <ClCompile Include="CXCGL\Shader.cpp" />
-    <ClCompile Include="CXCGL\ShaderProgram.cpp" />
+    <ClCompile Include="CXCGL\Technique.cpp" />
     <ClCompile Include="CXCGL\Skybox.cpp" />
     <ClCompile Include="CXCGL\Texture.cpp" />
     <ClCompile Include="CXCGL\Thing.cpp" />
@@ -131,11 +131,11 @@
     <ClCompile Include="QTGUI\GLHouseWidget.cpp" />
     <ClCompile Include="QTGUI\MainWindow.cpp" />
     <ClCompile Include="QTGUI\MatrixViewDock.cpp" />
-    <ClCompile Include="ShaderPrograms\BasicShaderProgram.cpp" />
-    <ClCompile Include="ShaderPrograms\LightingShaderProgram.cpp" />
-    <ClCompile Include="ShaderPrograms\ShadowShaderProgram.cpp" />
-    <ClCompile Include="ShaderPrograms\TextureLightingShaderProgram.cpp" />
-    <ClCompile Include="ShaderPrograms\TextureShaderProgram.cpp" />
+    <ClCompile Include="Techniques\BasicTechnique.cpp" />
+    <ClCompile Include="Techniques\LightingTechnique.cpp" />
+    <ClCompile Include="Techniques\ShadowTechnique.cpp" />
+    <ClCompile Include="Techniques\TextureLightingTechnique.cpp" />
+    <ClCompile Include="Techniques\TextureTechnique.cpp" />
     <ClCompile Include="Things\Anchor.cpp" />
     <ClCompile Include="Things\Circle.cpp" />
     <ClCompile Include="Things\Cube.cpp" />
@@ -177,7 +177,7 @@
     <ClInclude Include="CXCGL\PointLight.h" />
     <ClInclude Include="CXCGL\Program.h" />
     <ClInclude Include="CXCGL\Shader.h" />
-    <ClInclude Include="CXCGL\ShaderProgram.h" />
+    <ClInclude Include="CXCGL\Technique.h" />
     <ClInclude Include="CXCGL\Skybox.h" />
     <ClInclude Include="CXCGL\Texture.h" />
     <ClInclude Include="CXCGL\Thing.h" />
@@ -209,11 +209,12 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB  "-I." "-I.\Include" "-I.\GeneratedFiles" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\QtWidgets" "-I.\QTGUI"</Command>
     </CustomBuild>
-    <ClInclude Include="ShaderPrograms\BasicShaderProgram.h" />
-    <ClInclude Include="ShaderPrograms\LightingShaderProgram.h" />
-    <ClInclude Include="ShaderPrograms\ShadowShaderProgram.h" />
-    <ClInclude Include="ShaderPrograms\TextureLightingShaderProgram.h" />
-    <ClInclude Include="ShaderPrograms\TextureShaderProgram.h" />
+    <ClInclude Include="Techniques\BasicTechnique.h" />
+    <ClInclude Include="Techniques\LightingTechnique.h" />
+    <ClInclude Include="Techniques\ShadowTechnique.h" />
+    <ClInclude Include="Techniques\ShodowVolumnTechnique.h" />
+    <ClInclude Include="Techniques\TextureLightingTechnique.h" />
+    <ClInclude Include="Techniques\TextureTechnique.h" />
     <ClInclude Include="Things\Anchor.h" />
     <ClInclude Include="Things\Circle.h" />
     <ClInclude Include="Things\Cube.h" />

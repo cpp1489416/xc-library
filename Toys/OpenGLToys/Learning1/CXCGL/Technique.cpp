@@ -1,7 +1,7 @@
-#include "ShaderProgram.h"
+#include "Technique.h"
 #include "Thing.h"
 
-void ShaderProgram::Create()
+void Technique::Create()
 {
     if (!mCreated)
     {
@@ -10,38 +10,38 @@ void ShaderProgram::Create()
     }
 }
 
-void ShaderProgram::AddThing(Thing * thing)
+void Technique::AddThing(Thing * thing)
 {
     if (thing->IsCreated() == false)
     {
         thing->Create();
     }
 
-    thing->ChangeShaderProgram(this);
+    thing->ChangeTechnique(this);
     mThings.push_back(thing);
 }
 
-void ShaderProgram::DrawAllThings()
+void Technique::DrawAllThings()
 {
     for (auto i : mThings)
     {
-        i->ChangeShaderProgram(this);
+        i->ChangeTechnique(this);
         i->Draw();
     }
 }
 
-void ShaderProgram::ClearAllThings()
+void Technique::ClearAllThings()
 {
     mThings.clear();
 }
 
-void ShaderProgram::SetModelMatrixFromThing(Thing * thing)
+void Technique::SetModelMatrixFromThing(Thing * thing)
 {
     GetCurrentProgram()->Bind();
     GLuint modelMatrixID = GetModelMatrixUniform();
     glUniformMatrix4fv(modelMatrixID, 1, GL_FALSE, &(*thing->mTransform.GetMatrix())[0][0]);
 }
 
-void ShaderProgram::Destroy()
+void Technique::Destroy()
 {
 }

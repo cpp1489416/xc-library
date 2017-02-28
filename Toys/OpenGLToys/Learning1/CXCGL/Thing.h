@@ -6,7 +6,7 @@
 
 #include <vector>
 
-class ShaderProgram;
+class Technique;
 
 enum class VertexType
 {
@@ -18,11 +18,11 @@ class Thing
 public:
     void Create();
     virtual void Destroy();
-    virtual void ChangeShaderProgram(ShaderProgram * shaderProgram);
+    virtual void ChangeTechnique(Technique * shaderProgram);
     virtual void Draw();
-    virtual void TransformToShaderProgram();
+    virtual void TransformToTechnique();
     virtual bool IsCreated() const { return mCreated; }
-    virtual void UpdateCurrentShaderProgram();
+    virtual void UpdateCurrentTechnique();
 
 public:
     Transform mTransform;
@@ -31,7 +31,7 @@ public:
 
 protected:
     virtual void OnCreate() {}
-    virtual void OnChangeShaderProgram(ShaderProgram * shaderProgram) {}
+    virtual void OnChangeTechnique(Technique * shaderProgram) {}
     virtual void OnDraw() {}
     virtual void OnDestroy() {}
 
@@ -43,7 +43,7 @@ protected:
     
 protected:
     bool mCreated = false;
-    ShaderProgram * mShaderProgram;
+    Technique * mTechnique;
     Program * mProgram;
 
 private:

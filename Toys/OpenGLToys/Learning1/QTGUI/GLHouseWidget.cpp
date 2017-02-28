@@ -20,8 +20,8 @@ void GLHouseWidget::DropLightCamera(float value)
     curY -= 1.0;
     mLightCamera.LookAt(50, curY, -50, 0, 0, 0, 0, 1, 0);
     mLightPositionCube.mTransform.mPosition = mLightCamera.mPosition;
-    mShadowShaderProgram.UpdateFromLightCamera(&mLightCamera);
-    mShadowShaderProgram.UpdateShadowTexture();
+    mShadowTechnique.UpdateFromLightCamera(&mLightCamera);
+    mShadowTechnique.UpdateShadowTexture();
     update();
 }
 
@@ -39,59 +39,59 @@ void GLHouseWidget::OnInitializeOpenGL()
     mSkybox.SetCamera(&mCamera);
     mSkybox.Create();
 
-    mBasicShaderProgram.Create();
+    mBasicTechnique.Create();
 
-    mShadowShaderProgram.mLargerFactor = 2;
-    mShadowShaderProgram.Create();
-    mShadowShaderProgram.UpdateFromLightCamera(&mLightCamera);
+    mShadowTechnique.mLargerFactor = 10;
+    mShadowTechnique.Create();
+    mShadowTechnique.UpdateFromLightCamera(&mLightCamera);
 
-    mLightingShaderProgram.Create();
-    mLightingShaderProgram.SetPointLight(&mPointLight);
+    mLightingTechnique.Create();
+    mLightingTechnique.SetPointLight(&mPointLight);
 
-    mTextureShaderProgram.Create();
-    mTextureShaderProgram.SetPicturePath("Textures/EarthCylindricalMap.jpg");
+    mTextureTechnique.Create();
+    mTextureTechnique.SetPicturePath("Textures/EarthCylindricalMap.jpg");
 
-    mTextureLightingShaderProgram.Create();
-    mTextureLightingShaderProgram.SetPointLight(&mPointLight);
-    mTextureLightingShaderProgram.SetPicturePath("Textures/EarthCylindricalMap.jpg");
+    mTextureLightingTechnique.Create();
+    mTextureLightingTechnique.SetPointLight(&mPointLight);
+    mTextureLightingTechnique.SetPicturePath("Textures/EarthCylindricalMap.jpg");
 
-    mBasicShaderProgram.AddThing(&mAnchor);
+    mBasicTechnique.AddThing(&mAnchor);
 
     mTextureSphere.mCountColumns = 36;
     mTextureSphere.mCountRows = 36;
-    mTextureShaderProgram.AddThing(&mTextureSphere);
+    mTextureTechnique.AddThing(&mTextureSphere);
     mTextureSphere.mTransform.mScale = glm::vec3(3, 3, 3);
 
-    mShadowShaderProgram.AddThing(&mCube);
+    mShadowTechnique.AddThing(&mCube);
     mCube.mTransform.mPosition = glm::vec3(8, -10, 0);
     mCube.mTransform.mRotation = glm::vec3(0, 0, 0);
     mCube.mTransform.mScale = glm::vec3(3, 3, 3);
 
-    mShadowShaderProgram.AddThing(&mCube2);
+    mShadowTechnique.AddThing(&mCube2);
     mCube2.mTransform.mPosition = glm::vec3(2, -5, 3);
     mCube2.mTransform.mRotation = glm::vec3(0, 0, 0);
     mCube2.mTransform.mScale = glm::vec3(2, 1, 3);
 
-    mBasicShaderProgram.AddThing(&mLightPositionCube);
+    mBasicTechnique.AddThing(&mLightPositionCube);
     mLightPositionCube.mTransform.mPosition = mPointLight.mPosition;
     mLightPositionCube.mTransform.mScale = glm::vec3(0.1, 0.1, 0.1);
 
     mSphere.mCountRows = mSphere.mCountColumns = 36;
-    mShadowShaderProgram.AddThing(&mSphere);
+    mShadowTechnique.AddThing(&mSphere);
     mSphere.mTransform.mPosition = glm::vec3(-9, -10, 7);
     mSphere.mTransform.mScale = glm::vec3(3, 3, 3);
 
-    mShadowShaderProgram.AddThing(&mQuadBottom);
+    mShadowTechnique.AddThing(&mQuadBottom);
     mQuadBottom.mTransform.mScale = glm::vec3(23, 23, 23);
     mQuadBottom.mTransform.mRotation = glm::vec3(90, 0, 0);
     mQuadBottom.mTransform.mPosition = glm::vec3(0, -15, 0);
 
-    mShadowShaderProgram.AddThing(&mQuadBack);
+    mShadowTechnique.AddThing(&mQuadBack);
     mQuadBack.mTransform.mScale = glm::vec3(23, 23, 23);
     mQuadBack.mTransform.mRotation = glm::vec3(0, 0, 0);
     mQuadBack.mTransform.mPosition = glm::vec3(-0, 0, 15);
 
-    mShadowShaderProgram.AddThing(&mQuadLeft);
+    mShadowTechnique.AddThing(&mQuadLeft);
     mQuadLeft.mTransform.mScale = glm::vec3(23, 23, 23);
     mQuadLeft.mTransform.mRotation = glm::vec3(0, -90, 0);
     mQuadLeft.mTransform.mPosition = glm::vec3(-15, 0, 0);
@@ -102,22 +102,22 @@ void GLHouseWidget::OnInitializeOpenGL()
     glEnable(GL_DEPTH_TEST);
     glDepthMask(GL_TRUE);
 
-    mShadowShaderProgram.UpdateFromLightCamera(&mLightCamera);
+    mShadowTechnique.UpdateFromLightCamera(&mLightCamera);
 }
 
 void GLHouseWidget::OnPaintOpenGL()
 {
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
-    mCamera.UpdateToShaderProgram(&mBasicShaderProgram);
-    mCamera.UpdateToShaderProgram(&mTextureShaderProgram);
-    mCamera.UpdateToShaderProgram(&mTextureLightingShaderProgram);
-    mShadowShaderProgram.UpdateFromCamera(&mCamera);
+    mCamera.UpdateToTechnique(&mBasicTechnique);
+    mCamera.UpdateToTechnique(&mTextureTechnique);
+    mCamera.UpdateToTechnique(&mTextureLightingTechnique);
+    mShadowTechnique.UpdateFromCamera(&mCamera);
    
     mSkybox.Draw();
-    mBasicShaderProgram.DrawAllThings();
-    mTextureShaderProgram.DrawAllThings();
-    mShadowShaderProgram.DrawAllThings();
+    mBasicTechnique.DrawAllThings();
+    mTextureTechnique.DrawAllThings();
+    mShadowTechnique.DrawAllThings();
 }
 
 void GLHouseWidget::OnResizeOpenGL(int width, int height)
@@ -126,8 +126,8 @@ void GLHouseWidget::OnResizeOpenGL(int width, int height)
     mCamera.SetViewportAspect((float)width / height);
 
     mLightCamera.SetViewportAspect((float)width / height);
-    mShadowShaderProgram.UpdateFromLightCamera(&mLightCamera);
-     mShadowShaderProgram.ChangeSize(width, height); // change size and update texture
+    mShadowTechnique.UpdateFromLightCamera(&mLightCamera);
+     mShadowTechnique.ChangeSize(width, height); // change size and update texture
 }
 
 void GLHouseWidget::mousePressEvent(QMouseEvent * event)

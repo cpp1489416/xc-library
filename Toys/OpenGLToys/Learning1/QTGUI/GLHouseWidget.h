@@ -2,11 +2,11 @@
 
 #include "GLWindowsWidget.h"
 #include "../CXCGL.h"
-#include "../ShaderPrograms/BasicShaderProgram.h"
-#include "../ShaderPrograms/LightingShaderProgram.h"
-#include "../ShaderPrograms/TextureShaderProgram.h"
-#include "../ShaderPrograms/TextureLightingShaderProgram.h"
-#include "../ShaderPrograms/ShadowShaderProgram.h"
+#include "../Techniques/BasicTechnique.h"
+#include "../Techniques/LightingTechnique.h"
+#include "../Techniques/TextureTechnique.h"
+#include "../Techniques/TextureLightingTechnique.h"
+#include "../Techniques/ShadowTechnique.h"
 #include "../Things/Circle.h"
 #include "../Things/Anchor.h"
 #include "../Things/TriangularPyramid.h"
@@ -34,11 +34,11 @@ protected:
     void keyPressEvent(QKeyEvent *event) override final;
 
 public:
-    BasicShaderProgram mBasicShaderProgram;
-    LightingShaderProgram mLightingShaderProgram;
-    TextureShaderProgram mTextureShaderProgram;
-    TextureLightingShaderProgram mTextureLightingShaderProgram;
-    ShadowShaderProgram mShadowShaderProgram;
+    BasicTechnique mBasicTechnique;
+    LightingTechnique mLightingTechnique;
+    TextureTechnique mTextureTechnique;
+    TextureLightingTechnique mTextureLightingTechnique;
+    ShadowTechnique mShadowTechnique;
     
     PointLight mPointLight;
     Camera mCamera;

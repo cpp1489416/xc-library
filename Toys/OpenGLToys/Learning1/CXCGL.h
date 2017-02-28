@@ -4,7 +4,7 @@
 #include "CXCGL/Shader.h"
 #include "CXCGL/VertexArrayObject.h"
 #include "CXCGL/Buffer.h"
-#include "CXCGL/ShaderProgram.h"
+#include "CXCGL/Technique.h"
 #include "CXCGL/Camera.h"
 #include "CXCGL/Skybox.h"
 #include "CXCGL/Transform.h"

@@ -1,5 +1,5 @@
 #include "Camera.h"
-#include "ShaderProgram.h"
+#include "Technique.h"
 #include <algorithm>
 
 namespace
@@ -210,7 +210,7 @@ void Camera::UpdateProjectionMatrix()
     }
 }
 
-void Camera::UpdateToShaderProgram(ShaderProgram * shaderPorgram)
+void Camera::UpdateToTechnique(Technique * shaderPorgram)
 {
     shaderPorgram->GetCurrentProgram()->Bind();
     GLuint projectionID = shaderPorgram->GetProjectionMatrixUniform();

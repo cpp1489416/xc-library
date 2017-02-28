@@ -169,7 +169,7 @@ void Cube::OnDraw()
     glDrawArrays(GL_TRIANGLES, 0, 36);
 }
 
-void Cube::OnChangeShaderProgram(ShaderProgram * shaderProgram)
+void Cube::OnChangeTechnique(Technique * shaderProgram)
 {
     mVAO.Destroy();
     mVAO.Bind();
@@ -193,7 +193,7 @@ void Cube::OnChangeShaderProgram(ShaderProgram * shaderProgram)
 
     if (mNeedNormal)
     {
-        GLuint normalAttribute = mShaderProgram->GetNormalAttribute();
+        GLuint normalAttribute = mTechnique->GetNormalAttribute();
         mVBONormals.Bind();
         glEnableVertexAttribArray(normalAttribute);
         glVertexAttribPointer(normalAttribute, 3, GL_FLOAT, GL_FALSE, 0, NULL);

@@ -1,29 +1,29 @@
-#include "ShadowShaderProgram.h"
+#include "ShadowTechnique.h"
 #include <cassert>
 
-void ShadowShaderProgram::AddThing(Thing * thing)
+void ShadowTechnique::AddThing(Thing * thing)
 {
     thing->mNeedNormal = true;
     thing->mNeedTexture = false;
     thing->Create();
-    thing->ChangeShaderProgram(this);
+    thing->ChangeTechnique(this);
     mThings.push_back(thing);
 }
 
-void ShadowShaderProgram::DrawAllThings()
+void ShadowTechnique::DrawAllThings()
 {
     mInFirstStep = false;
     for (auto i : mThings)
     {
         i->mNeedNormal = true;
         i->mNeedTexture = false;
-        i->UpdateCurrentShaderProgram();
+        i->UpdateCurrentTechnique();
         mShadowTexture.Bind();
         i->Draw();
     }
 }
 
-Program * ShadowShaderProgram::GetCurrentProgram()
+Program * ShadowTechnique::GetCurrentProgram()
 {
     if (mInFirstStep)
     {
@@ -35,7 +35,7 @@ Program * ShadowShaderProgram::GetCurrentProgram()
     }
 }
 
-void ShadowShaderProgram::SetModelMatrixFromThing(Thing * thing)
+void ShadowTechnique::SetModelMatrixFromThing(Thing * thing)
 {
     if (mInFirstStep)
     {
@@ -54,13 +54,13 @@ void ShadowShaderProgram::SetModelMatrixFromThing(Thing * thing)
     }
 }
 
-void ShadowShaderProgram::UpdateFromCamera(Camera * camera)
+void ShadowTechnique::UpdateFromCamera(Camera * camera)
 {
     mInFirstStep = false;
-    camera->UpdateToShaderProgram(this);
+    camera->UpdateToTechnique(this);
 }
 
-void ShadowShaderProgram::UpdateFromLightCamera(Camera * camera)
+void ShadowTechnique::UpdateFromLightCamera(Camera * camera)
 {
     // first
     mInFirstStep = true;
@@ -87,7 +87,7 @@ void ShadowShaderProgram::UpdateFromLightCamera(Camera * camera)
     glUniform3f(lightPositionID, camPos[0], camPos[1], camPos[2]);
 }
 
-void ShadowShaderProgram::UpdateShadowTexture()
+void ShadowTechnique::UpdateShadowTexture()
 {
     mInFirstStep = true;
     mFBO.Bind();
@@ -100,7 +100,7 @@ void ShadowShaderProgram::UpdateShadowTexture()
     {
         i->mNeedNormal = false;
         i->mNeedTexture = false;
-        i->UpdateCurrentShaderProgram();
+        i->UpdateCurrentTechnique();
         i->Draw();
     }
 
@@ -109,7 +109,7 @@ void ShadowShaderProgram::UpdateShadowTexture()
     mFBO.Unbind();
 }
 
-void ShadowShaderProgram::ChangeSize(int width, int height)
+void ShadowTechnique::ChangeSize(int width, int height)
 {
     mWidth = width;
     mHeight = height;
@@ -146,7 +146,7 @@ void ShadowShaderProgram::ChangeSize(int width, int height)
     UpdateShadowTexture();
 }
 
-void ShadowShaderProgram::OnCreate()
+void ShadowTechnique::OnCreate()
 {
     mFBO.Create();
     mShadowTexture.Create();

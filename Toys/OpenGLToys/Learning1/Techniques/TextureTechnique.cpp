@@ -1,10 +1,10 @@
-#include "TextureLightingShaderProgram.h"
+#include "TextureTechnique.h"
 
 
-void TextureLightingShaderProgram::AddThing(Thing * thing)
+void TextureTechnique::AddThing(Thing * thing)
 {
-    thing->mNeedNormal = true;
     thing->mNeedTexture = true;
+    thing->mNeedNormal = false;
     if (thing->IsCreated() == false)
     {
         thing->Create();
@@ -13,25 +13,7 @@ void TextureLightingShaderProgram::AddThing(Thing * thing)
     mThings.push_back(thing);
 }
 
-void TextureLightingShaderProgram::SetPointLight(PointLight * pointLight)
-{
-    mPointLight = pointLight;
-
-    UpdatePointLight();
-}
-
-void TextureLightingShaderProgram::UpdatePointLight()
-{
-    mProgram.Bind();
-    GLuint lightPos = GetLightPositionUniform();
-    GLuint lightCol = GetLightIntensitiesUniform();
-    glm::vec3 &pos = mPointLight->mPosition;
-    glm::vec3 &col = mPointLight->mIntensities;
-    glUniform3f(lightPos, pos[0], pos[1], pos[2]);
-    glUniform3f(lightCol, col[0], col[1], col[2]);
-}
-
-void TextureLightingShaderProgram::SetPicturePath(const char * path)
+void TextureTechnique::SetPicturePath(const char * path)
 {
     mProgram.Bind();
     glGenTextures(1, &mTextureID);
@@ -55,10 +37,10 @@ void TextureLightingShaderProgram::SetPicturePath(const char * path)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 }
 
-void TextureLightingShaderProgram::OnCreate()
+void TextureTechnique::OnCreate()
 {
-    mVertexShader.CompileFromFile("Shaders/TextureLightingVertexShader.glsl");
-    mFragmentShader.CompileFromFile("Shaders/TextureLightingFragmentShader.glsl");
+    mVertexShader.CompileFromFile("Shaders/TextureVertexShader.glsl");
+    mFragmentShader.CompileFromFile("Shaders/TextureFragmentShader.glsl");
     mProgram.AddShader(&mVertexShader);
     mProgram.AddShader(&mFragmentShader);
 }

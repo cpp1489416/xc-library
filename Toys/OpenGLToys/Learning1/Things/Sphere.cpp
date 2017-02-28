@@ -128,13 +128,13 @@ void Sphere::OnDraw()
     mVAO.Bind();
     if (mNeedTexture)
     {
-        glBindTexture(GL_TEXTURE_2D, mShaderProgram->GetTextureID());
+        glBindTexture(GL_TEXTURE_2D, mTechnique->GetTextureID());
     }
     
     glDrawArrays(GL_TRIANGLES, 0, mCountVertices);
 }
 
-void Sphere::OnChangeShaderProgram(ShaderProgram * shaderProgram)
+void Sphere::OnChangeTechnique(Technique * shaderProgram)
 {
     mVAO.Bind();
 

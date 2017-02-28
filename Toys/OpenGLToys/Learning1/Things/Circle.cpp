@@ -10,11 +10,11 @@ namespace
 
 /*
 
-void Circle::Create(ShaderProgram * shaderProgram)
+void Circle::Create(Technique * shaderProgram)
 {
     srand(time(NULL));
 
-    mShaderProgram = shaderProgram;
+    mTechnique = shaderProgram;
     GLuint mPositionAttribute = shaderProgram->GetPositionAttribute();
     GLuint mColorAttribute = shaderProgram->GetColorAttribute();
     

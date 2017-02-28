@@ -6,7 +6,7 @@ class Quad : public Thing
 {
 public:
     virtual void OnCreate() override;
-    virtual void OnChangeShaderProgram(ShaderProgram * shaderProgram) override;
+    virtual void OnChangeTechnique(Technique * shaderProgram) override;
     virtual void OnDraw() override;
 
 private:

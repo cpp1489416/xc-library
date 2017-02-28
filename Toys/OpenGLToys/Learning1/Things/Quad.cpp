@@ -59,13 +59,13 @@ void Quad::OnDraw()
 
     if (mNeedTexture)
     {
-        glBindTexture(GL_TEXTURE_2D, mShaderProgram->GetTextureID());
+        glBindTexture(GL_TEXTURE_2D, mTechnique->GetTextureID());
     }
 
     glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
-void Quad::OnChangeShaderProgram(ShaderProgram *shaderProgram)
+void Quad::OnChangeTechnique(Technique *shaderProgram)
 {
     mVAO.Bind();
 

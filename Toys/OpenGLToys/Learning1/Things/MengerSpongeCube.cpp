@@ -1,7 +1,7 @@
 #include "MengerSpongeCube.h"
 
 /*
-void MengerSpongeCube::Create(ShaderProgram * shaderProgram, int depth)
+void MengerSpongeCube::Create(Technique * shaderProgram, int depth)
 {
     mCube.mNeedNormal = mNeedNormal;
     mCube.Create(shaderProgram);

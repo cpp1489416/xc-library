@@ -29,7 +29,7 @@ void Anchor::OnCreate()
     mVBOColors.SetData(arrColors, sizeof(arrColors));
 }
 
-void Anchor::OnChangeShaderProgram(ShaderProgram * shaderProgram)
+void Anchor::OnChangeTechnique(Technique * shaderProgram)
 {
     mVAO.Destroy();
     mVAO.Bind();

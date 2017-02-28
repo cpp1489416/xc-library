@@ -7,7 +7,7 @@
 
 class Thing;
 
-class ShaderProgram
+class Technique
 {
 public:
     virtual void Create();
@@ -16,7 +16,7 @@ public:
     virtual void DrawAllThings();
     virtual void ClearAllThings();
     virtual void SetModelMatrixFromThing(Thing * thing);
-    virtual void UpdateFromCamera(Camera * camera) { camera->UpdateToShaderProgram(this); }
+    virtual void UpdateFromCamera(Camera * camera) { camera->UpdateToTechnique(this); }
     virtual Program * GetCurrentProgram() { return nullptr; } // get current program
     virtual GLuint GetPositionAttribute() { return GetAttributeLocation("position"); }
     virtual GLuint GetColorAttribute() { return GetAttributeLocation("color"); }

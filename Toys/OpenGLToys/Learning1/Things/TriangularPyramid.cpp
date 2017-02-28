@@ -16,9 +16,9 @@ TriangularPyramid::TriangularPyramid()
 {
 }
 
-void TriangularPyramid::Create(ShaderProgram * shaderProgram)
+void TriangularPyramid::Create(Technique * shaderProgram)
 {
-    mShaderProgram = shaderProgram;
+    mTechnique = shaderProgram;
     GLuint posAttrib = shaderProgram->GetPositionAttribute();
     GLuint colAttrib = shaderProgram->GetColorAttribute();
     

@@ -55,11 +55,11 @@
     <Filter Include="Source Files\FileLoaders">
       <UniqueIdentifier>{8f1b0d85-128e-46df-b4bc-26fb8d8b5139}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\ShaderPrograms">
-      <UniqueIdentifier>{e462dea0-ae0f-4680-96e3-bde5aa6a9fe4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Math">
       <UniqueIdentifier>{2962870f-8039-45a1-9c1f-5655a5d2090f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Techniques">
+      <UniqueIdentifier>{43529e9f-d70d-4080-bc8d-75e0f04117e4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -76,9 +76,6 @@
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="CXCGL\Shader.cpp">
-      <Filter>Source Files\CXCGL</Filter>
-    </ClCompile>
-    <ClCompile Include="CXCGL\ShaderProgram.cpp">
       <Filter>Source Files\CXCGL</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_MainWindow.cpp">
@@ -147,29 +144,14 @@
     <ClCompile Include="Things\Sphere.cpp">
       <Filter>Source Files\Things</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderPrograms\TextureLightingShaderProgram.cpp">
-      <Filter>Source Files\ShaderPrograms</Filter>
-    </ClCompile>
     <ClCompile Include="Things\Quad.cpp">
       <Filter>Source Files\Things</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderPrograms\ShadowShaderProgram.cpp">
-      <Filter>Source Files\ShaderPrograms</Filter>
     </ClCompile>
     <ClCompile Include="Meshes\MeshProvider.cpp">
       <Filter>Source Files\Meshes</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderPrograms\LightingShaderProgram.cpp">
-      <Filter>Source Files\ShaderPrograms</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderPrograms\BasicShaderProgram.cpp">
-      <Filter>Source Files\ShaderPrograms</Filter>
-    </ClCompile>
     <ClCompile Include="CXCGL\Thing.cpp">
       <Filter>Source Files\CXCGL</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderPrograms\TextureShaderProgram.cpp">
-      <Filter>Source Files\ShaderPrograms</Filter>
     </ClCompile>
     <ClCompile Include="CXCGL\Buffer.cpp">
       <Filter>Source Files\CXCGL</Filter>
@@ -201,6 +183,24 @@
     <ClCompile Include="Math\Vector3D.cpp">
       <Filter>Source Files\Math</Filter>
     </ClCompile>
+    <ClCompile Include="CXCGL\Technique.cpp">
+      <Filter>Source Files\CXCGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Techniques\BasicTechnique.cpp">
+      <Filter>Source Files\Techniques</Filter>
+    </ClCompile>
+    <ClCompile Include="Techniques\LightingTechnique.cpp">
+      <Filter>Source Files\Techniques</Filter>
+    </ClCompile>
+    <ClCompile Include="Techniques\ShadowTechnique.cpp">
+      <Filter>Source Files\Techniques</Filter>
+    </ClCompile>
+    <ClCompile Include="Techniques\TextureLightingTechnique.cpp">
+      <Filter>Source Files\Techniques</Filter>
+    </ClCompile>
+    <ClCompile Include="Techniques\TextureTechnique.cpp">
+      <Filter>Source Files\Techniques</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Learning1.qrc">
@@ -228,9 +228,6 @@
     </ClInclude>
     <ClInclude Include="CXCGL.h">
       <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CXCGL\ShaderProgram.h">
-      <Filter>Source Files\CXCGL</Filter>
     </ClInclude>
     <ClInclude Include="Meshes\MeshProvider.h">
       <Filter>Source Files\Meshes</Filter>
@@ -268,23 +265,8 @@
     <ClInclude Include="Things\Sphere.h">
       <Filter>Source Files\Things</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderPrograms\TextureShaderProgram.h">
-      <Filter>Source Files\ShaderPrograms</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderPrograms\TextureLightingShaderProgram.h">
-      <Filter>Source Files\ShaderPrograms</Filter>
-    </ClInclude>
     <ClInclude Include="Things\Quad.h">
       <Filter>Source Files\Things</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderPrograms\ShadowShaderProgram.h">
-      <Filter>Source Files\ShaderPrograms</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderPrograms\LightingShaderProgram.h">
-      <Filter>Source Files\ShaderPrograms</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderPrograms\BasicShaderProgram.h">
-      <Filter>Source Files\ShaderPrograms</Filter>
     </ClInclude>
     <ClInclude Include="CXCGL\Thing.h">
       <Filter>Source Files\CXCGL</Filter>
@@ -309,6 +291,27 @@
     </ClInclude>
     <ClInclude Include="Math\Vector3D.h">
       <Filter>Source Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="CXCGL\Technique.h">
+      <Filter>Source Files\CXCGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Techniques\BasicTechnique.h">
+      <Filter>Source Files\Techniques</Filter>
+    </ClInclude>
+    <ClInclude Include="Techniques\LightingTechnique.h">
+      <Filter>Source Files\Techniques</Filter>
+    </ClInclude>
+    <ClInclude Include="Techniques\ShadowTechnique.h">
+      <Filter>Source Files\Techniques</Filter>
+    </ClInclude>
+    <ClInclude Include="Techniques\ShodowVolumnTechnique.h">
+      <Filter>Source Files\Techniques</Filter>
+    </ClInclude>
+    <ClInclude Include="Techniques\TextureLightingTechnique.h">
+      <Filter>Source Files\Techniques</Filter>
+    </ClInclude>
+    <ClInclude Include="Techniques\TextureTechnique.h">
+      <Filter>Source Files\Techniques</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

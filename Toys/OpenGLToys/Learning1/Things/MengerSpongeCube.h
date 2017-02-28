@@ -7,13 +7,13 @@
 class MengerSpongeCube : public Thing
 {
 public:
-    virtual void Create(ShaderProgram * shaderProgram) override {}
-    void Create(ShaderProgram * shaderProgram, int depth = 3);
+    virtual void Create(Technique * shaderProgram) override {}
+    void Create(Technique * shaderProgram, int depth = 3);
     virtual void Draw() override;
     virtual void Destroy() override;
 
 public:
-    ShaderProgram * mShaderProgram;
+    Technique * mTechnique;
     Cube mCube;
     int mDepth;
 

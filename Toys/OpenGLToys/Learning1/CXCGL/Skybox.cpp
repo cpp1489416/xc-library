@@ -17,7 +17,7 @@ namespace
     */
 }
 
-void Skybox::MShaderProgram::OnCreate()
+void Skybox::MTechnique::OnCreate()
 {
     mVertexShader.CompileFromFile("Shaders/SkyboxVertexShader.glsl");
     mFragmentShader.CompileFromFile("Shaders/SkyboxFragmentShader.glsl");
@@ -42,27 +42,27 @@ void Skybox::SetCamera(Camera * camera)
 
 void Skybox::Create()
 {
-    mShaderProgram.Create();
-    mShaderProgram.GetCurrentProgram()->Bind();
+    mTechnique.Create();
+    mTechnique.GetCurrentProgram()->Bind();
     LoadCubeMapTexture();
     CreateVAOAndVBOs();
 }
 
 void Skybox::Draw()
 {
-    mShaderProgram.GetCurrentProgram()->Bind();
+    mTechnique.GetCurrentProgram()->Bind();
 
     // disabe depth test to make sure every point rendered
     glDepthMask(GL_FALSE);
     // glEnable(GL_TEXTURE_2D); 
 
     // projection matrix
-    glUniformMatrix4fv(mShaderProgram.GetProjectionMatrixUniform(), 1, GL_FALSE, &(*mCamera->GetProjectionMatrix())[0][0]);
+    glUniformMatrix4fv(mTechnique.GetProjectionMatrixUniform(), 1, GL_FALSE, &(*mCamera->GetProjectionMatrix())[0][0]);
 
     // the View matrix is very different
     glm::mat4 viewMatrix = *mCamera->GetViewMatrix();
     viewMatrix[3][0] = viewMatrix[3][1] = viewMatrix[3][2] = 0.0f; // can rotate, cannot translate
-    glUniformMatrix4fv(mShaderProgram.GetViewMatrixUniform(), 1, GL_FALSE, &viewMatrix[0][0]);
+    glUniformMatrix4fv(mTechnique.GetViewMatrixUniform(), 1, GL_FALSE, &viewMatrix[0][0]);
 
     for (int i = 0; i < 6; ++i)
     {
@@ -106,7 +106,7 @@ void Skybox::LoadCubeMapTexture()
 
 void Skybox::CreateVAOAndVBOs()
 {
-    mShaderProgram.GetCurrentProgram()->Bind();
+    mTechnique.GetCurrentProgram()->Bind();
     GLfloat vertices[][20] =
     {
         {   // right face, +X, CCW 
@@ -167,14 +167,14 @@ void Skybox::CreateVAOAndVBOs()
         mVAOs[i].Bind();
         mVBOPositions[i].Bind();
         mVBOPositions[i].SetData(vertices[i], sizeof(vertices[i]));
-        glEnableVertexAttribArray(mShaderProgram.GetPositionAttribute());
-        glVertexAttribPointer(mShaderProgram.GetPositionAttribute(), 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GL_FLOAT), NULL);
+        glEnableVertexAttribArray(mTechnique.GetPositionAttribute());
+        glVertexAttribPointer(mTechnique.GetPositionAttribute(), 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GL_FLOAT), NULL);
 
         // return;
         mVBOTextureCoords[i].Bind();
         mVBOTextureCoords[i].SetData(vertices[i], sizeof(vertices[i]));
-        glEnableVertexAttribArray(mShaderProgram.GetTextureCoordAttribute());
-        glVertexAttribPointer(mShaderProgram.GetTextureCoordAttribute(), 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GL_FLOAT), (void *)(3 * sizeof(GL_FLOAT)));
+        glEnableVertexAttribArray(mTechnique.GetTextureCoordAttribute());
+        glVertexAttribPointer(mTechnique.GetTextureCoordAttribute(), 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GL_FLOAT), (void *)(3 * sizeof(GL_FLOAT)));
 
         mEBO.Bind();
         mEBO.SetData(indices, sizeof(indices));

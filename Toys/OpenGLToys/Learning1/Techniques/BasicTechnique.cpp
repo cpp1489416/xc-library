@@ -1,6 +1,6 @@
-#include "BasicShaderProgram.h"
+#include "BasicTechnique.h"
 
-void BasicShaderProgram::AddThing(Thing * thing)
+void BasicTechnique::AddThing(Thing * thing)
 {
     thing->mNeedNormal = false;
     thing->mNeedTexture = false;
@@ -12,7 +12,7 @@ void BasicShaderProgram::AddThing(Thing * thing)
     mThings.push_back(thing);
 }
 
-void BasicShaderProgram::OnCreate()
+void BasicTechnique::OnCreate()
 {
     mVertexShader.CompileFromFile("Shaders/BasicVS.glsl");
     mFragmentShader.CompileFromFile("Shaders/BasicPS.glsl");
