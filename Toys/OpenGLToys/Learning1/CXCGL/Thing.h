@@ -23,17 +23,16 @@ public:
     virtual void TransformToTechnique();
     virtual bool IsCreated() const { return mCreated; }
     virtual void UpdateCurrentTechnique();
+    virtual void OnCreate() {}
+    virtual void OnChangeTechnique(Technique * shaderProgram) {}
+    virtual void OnDraw() {}
+    virtual void OnDestroy() {}
 
 public:
     Transform mTransform;
     bool mNeedNormal = false;
     bool mNeedTexture = false;
 
-protected:
-    virtual void OnCreate() {}
-    virtual void OnChangeTechnique(Technique * shaderProgram) {}
-    virtual void OnDraw() {}
-    virtual void OnDestroy() {}
 
 protected:
     Buffer * GetArrayBuffer(VertexType vertexType) { return nullptr; }

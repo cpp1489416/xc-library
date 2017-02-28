@@ -146,6 +146,7 @@
     <ClCompile Include="UnitTest.cpp" />
     <ClCompile Include="QTGUI\GLWindowsWidget.cpp" />
     <ClCompile Include="UnitTest\MagicCube.cpp" />
+    <ClCompile Include="UnitTest\MagicCubeRotationState.cpp" />
     <ClCompile Include="UnitTest\MagicInsideCube.cpp" />
     <ClCompile Include="UnitTest\Main.cpp" />
   </ItemGroup>
@@ -193,6 +194,8 @@
     <ClInclude Include="Math\Vector3D.h" />
     <ClInclude Include="Meshes\MeshProvider.h" />
     <ClInclude Include="UnitTest\MagicCube.h" />
+    <ClInclude Include="UnitTest\MagicCubeEnums.h" />
+    <ClInclude Include="UnitTest\MagicCubeRotationState.h" />
     <ClInclude Include="UnitTest\MagicInsideCube.h" />
     <CustomBuild Include="QTGUI\CameraSettingsDock.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>

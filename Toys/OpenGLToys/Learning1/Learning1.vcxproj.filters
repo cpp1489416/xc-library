@@ -213,6 +213,9 @@
     <ClCompile Include="UnitTest\MagicInsideCube.cpp">
       <Filter>UnitTest Files</Filter>
     </ClCompile>
+    <ClCompile Include="UnitTest\MagicCubeRotationState.cpp">
+      <Filter>UnitTest Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Learning1.qrc">
@@ -329,6 +332,12 @@
       <Filter>UnitTest Files</Filter>
     </ClInclude>
     <ClInclude Include="UnitTest\MagicInsideCube.h">
+      <Filter>UnitTest Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UnitTest\MagicCubeEnums.h">
+      <Filter>UnitTest Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UnitTest\MagicCubeRotationState.h">
       <Filter>UnitTest Files</Filter>
     </ClInclude>
   </ItemGroup>
