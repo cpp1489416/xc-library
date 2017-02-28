@@ -41,7 +41,7 @@ void GLHouseWidget::OnInitializeOpenGL()
 
     mBasicTechnique.Create();
 
-    mShadowTechnique.mLargerFactor = 10;
+    mShadowTechnique.mLargerFactor = 1;
     mShadowTechnique.Create();
     mShadowTechnique.UpdateFromLightCamera(&mLightCamera);
 

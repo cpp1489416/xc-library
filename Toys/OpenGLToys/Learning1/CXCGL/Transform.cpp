@@ -17,10 +17,6 @@ glm::mat4 * Transform::GetMatrix()
     return &mMatrix;
 }
 
-void Transform::Ratate(float angle, glm::vec3 & axis)
-{
-}
-
 void Transform::UpdateMatrix()
 {
     glm::mat4 ans = glm::mat4(1.0f);

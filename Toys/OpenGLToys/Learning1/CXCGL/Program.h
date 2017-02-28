@@ -7,6 +7,13 @@
 class Program
 {
 public:
+    static int GetPositionAttributeID() { return 0; }
+    static int GetColorAttributeID() { return 1; }
+    static int GetTextureCoordAttributeID() { return 2; }
+    static int GetNormalAttributeID() { return 3; }
+    static int GetInstancedModelMatrixAttributeID() { return 10; }
+
+public:
     void Create();
     void Destroy();
     void AddShader(Shader * shader);

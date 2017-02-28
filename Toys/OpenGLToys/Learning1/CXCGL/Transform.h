@@ -10,9 +10,9 @@ class Transform
 public:
     Transform();
 
+public:
     glm::mat4 * GetMatrix();
-    void Ratate(float angle, glm::vec3 & axis);
-
+    
 public:
     glm::vec3 mPosition = glm::vec3(0, 0, 0);
     glm::vec3 mRotation = glm::vec3(0, 0, 0);

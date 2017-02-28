@@ -61,6 +61,9 @@
     <Filter Include="Source Files\Techniques">
       <UniqueIdentifier>{43529e9f-d70d-4080-bc8d-75e0f04117e4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UnitTest Files">
+      <UniqueIdentifier>{82f74871-d4a3-49eb-ade1-f7585bde3956}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeneratedFiles\qrc_Learning1.cpp">
@@ -201,6 +204,15 @@
     <ClCompile Include="Techniques\TextureTechnique.cpp">
       <Filter>Source Files\Techniques</Filter>
     </ClCompile>
+    <ClCompile Include="UnitTest\Main.cpp">
+      <Filter>UnitTest Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitTest\MagicCube.cpp">
+      <Filter>UnitTest Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitTest\MagicInsideCube.cpp">
+      <Filter>UnitTest Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Learning1.qrc">
@@ -312,6 +324,12 @@
     </ClInclude>
     <ClInclude Include="Techniques\TextureTechnique.h">
       <Filter>Source Files\Techniques</Filter>
+    </ClInclude>
+    <ClInclude Include="UnitTest\MagicCube.h">
+      <Filter>UnitTest Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UnitTest\MagicInsideCube.h">
+      <Filter>UnitTest Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
