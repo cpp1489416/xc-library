@@ -14,15 +14,15 @@ namespace MagicCubes
     public:
         MagicInsideCube * GetInsideCube(int x, int y, int z);
         const RotationState & GetRotationState() & { return mRotationState; }
+        int GetCountRows() const { return mCountRows; }
         void SetRotationState(const RotationState & rotationState);
         bool IsFinishedRotation() const { return mRotationState.IsFinished(); }
-
         void Update();
 
     public:
         void OnCreate() override;
         void OnDraw() override;
-        void OnChangeTechnique(Technique *technique) {}
+        void OnChangeTechnique(Technique * technique) {}
 
     private:
         void InitializeInsideCubes();
@@ -35,5 +35,5 @@ namespace MagicCubes
         CubeArray mInsideCubes = CubeArray(mCountRows);
         bool mFinishedRotation = true;
         RotationState mRotationState;
-     };
+    };
 }

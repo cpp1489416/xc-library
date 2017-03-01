@@ -14,7 +14,7 @@ namespace MagicCubes
 
     enum class Face : int
     {
-        Front, Right, Up,
+        Front = 0, Right, Up,
     };
 
     enum class Clockwise

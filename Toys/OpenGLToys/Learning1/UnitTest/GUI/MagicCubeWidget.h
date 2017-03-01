@@ -19,9 +19,12 @@ protected:
     void OnInitializeOpenGL() override;
     void OnResizeOpenGL(int width, int height) override;
     void OnPaintOpenGL() override;
-    void mousePressEvent(QMouseEvent * event) override final;
-    void mouseMoveEvent(QMouseEvent * event) override final;
-    void keyPressEvent(QKeyEvent *event) override final;
+    void mousePressEvent(QMouseEvent * event) override;
+    void mouseMoveEvent(QMouseEvent * event) override;
+    void keyPressEvent(QKeyEvent *event) override;
+
+private:
+    void Timeout();
 
 private:
     Cube mCube;

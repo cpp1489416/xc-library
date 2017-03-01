@@ -17,7 +17,7 @@ namespace MagicCubes
     {
         mRotationState = rotationState;
         Update();
-    }
+    }              
 
     void MagicCube::Update()
     {

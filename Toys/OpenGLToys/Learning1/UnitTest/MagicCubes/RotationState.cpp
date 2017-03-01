@@ -1,6 +1,8 @@
 #include "RotationState.h"
 #include "MagicCube.h"
 #include <glm/ext.hpp>
+#include <cstdlib>
+#include <ctime>
 
 namespace
 {
@@ -9,6 +11,17 @@ namespace
 
 namespace MagicCubes
 {
+    RotationState RotationState::GetRandomRotationState(int countRows)
+    {
+        RotationState state;
+        state.mFace = Face(rand() % 3);
+        state.mClockwise = Clockwise::CCW; //rand() % 2 == 1 | 0 ? Clockwise::CCW : Clockwise::CW;
+        state.mTimes = rand() % 3 + 1;
+        // state.mLineIndex = 1;
+        state.mLineIndex = rand() % countRows;
+        return state;
+    }
+  
     glm::mat4 RotationState::GetRotationMatrix() const
     {
         // rotation i2s left handed !

@@ -39,11 +39,13 @@ namespace MagicCubes
         }
         case Face::Up:
         {
-            int times = 4 - rotationState.GetTimes();
+            int times = rotationState.GetTimes();
             if (rotationState.GetClockwise() == Clockwise::CW)
             {
                 times = 4 - times;
             }
+
+            times %= 4;
             
             while (times--)
             {
@@ -59,6 +61,8 @@ namespace MagicCubes
             {
                 times = 4 - times;
             }
+
+            times %= 4;
             
             while (times--)
             {
