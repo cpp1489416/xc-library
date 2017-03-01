@@ -6,6 +6,7 @@
 #include "../MagicCubes/MagicCube.h"
 #include "Things/Cube.h"
 #include "Things/Anchor.h"
+#include <stack>
 
 class MagicCubeWidget : public GLWindowsWidget
 {
@@ -33,4 +34,5 @@ private:
     MagicCubes::MagicCube mMagicCube;
     Anchor mAnchor;
     QPointF mLastPosition;
+    std::stack<MagicCubes::RotationState> mRotationStates;
 };

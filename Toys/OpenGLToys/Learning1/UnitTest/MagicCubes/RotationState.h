@@ -14,7 +14,9 @@ namespace MagicCubes
         static RotationState GetRandomRotationState(int countRows);
 
     public:
-        RotationState(Face face = Face::Front, int lineIndex = 0, Clockwise clockwise = Clockwise::CCW, int times = 1) :
+        RotationState();
+
+        RotationState(Face face , int lineIndex = 0, Clockwise clockwise = Clockwise::CCW, int times = 1) :
             mFace(face), mLineIndex(lineIndex), mClockwise(clockwise), mTimes(times) {}
 
         RotationState & operator = (const RotationState &) = default;
@@ -26,6 +28,7 @@ namespace MagicCubes
         int GetLineIndex() const { return mLineIndex; }
         int GetTimes() const { return mTimes; }
         glm::mat4 GetRotationMatrix() const;
+        RotationState GetOppositeRotationState() const;
 
     private:
         Face mFace;

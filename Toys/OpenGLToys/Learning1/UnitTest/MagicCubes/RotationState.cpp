@@ -13,7 +13,7 @@ namespace MagicCubes
 {
     RotationState RotationState::GetRandomRotationState(int countRows)
     {
-        RotationState state; // generate random state          
+        RotationState state(Face::Front, 1); // generate random state          
         state.mFace = Face(rand() % 3);
         state.mClockwise = Clockwise::CCW; //rand() % 2 == 1 | 0 ? Clockwise::CCW : Clockwise::CW;
         state.mTimes = rand() % 3 + 1;
@@ -21,7 +21,12 @@ namespace MagicCubes
         state.mLineIndex = rand() % countRows;
         return state;
     }
-  
+
+    RotationState::RotationState() :
+        mFinished(true)
+    {
+    }
+
     glm::mat4 RotationState::GetRotationMatrix() const
     {
         // rotation is left handed !
@@ -31,8 +36,8 @@ namespace MagicCubes
         {
         case Face::Front:
             ans = glm::rotate(ans, PI / 2.0f * mTimes, glm::vec3(0, 0, directionFlag));
-         //   ans = glm::rotate(ans, PI / 2.0f * mTimes, glm::vec3(-directionFlag, 0, 0));
-            
+            //   ans = glm::rotate(ans, PI / 2.0f * mTimes, glm::vec3(-directionFlag, 0, 0));
+
             break;
         case Face::Right:
             ans = glm::rotate(ans, PI / 2.0f * mTimes, glm::vec3(-directionFlag, 0, 0));
@@ -45,5 +50,10 @@ namespace MagicCubes
         }
 
         return ans;
+    }
+
+    RotationState RotationState::GetOppositeRotationState() const
+    {
+        return RotationState(mFace, mLineIndex, mClockwise == Clockwise::CCW ? Clockwise::CW : Clockwise::CCW, mTimes);
     }
 }

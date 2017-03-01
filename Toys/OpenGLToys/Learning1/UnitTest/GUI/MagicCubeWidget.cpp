@@ -9,7 +9,7 @@ MagicCubeWidget::MagicCubeWidget(QWidget *parent)
 {
     QTimer * timer = new QTimer();
     connect(timer, &QTimer::timeout, this, &MagicCubeWidget::Timeout);
-    timer->start(100);
+    timer->start(500);
 }
 
 MagicCubeWidget::~MagicCubeWidget()
@@ -35,7 +35,7 @@ void MagicCubeWidget::OnInitializeOpenGL()
     glEnable(GL_DEPTH_TEST);
     glDepthMask(GL_TRUE);
 
-    mMagicCube.SetRotationState(RotationState(Face::Front, 0, Clockwise::CCW, 2));
+    //mMagicCube.SetRotationState(RotationState(Face::Front, 0, Clockwise::CCW, 2));
     // mMagicCube.mTransform.mPosition = glm::vec3(3, 3, 0);
 }
 
@@ -130,6 +130,29 @@ void MagicCubeWidget::keyPressEvent(QKeyEvent * event)
 
 void MagicCubeWidget::Timeout()
 {
-    mMagicCube.SetRotationState(RotationState::GetRandomRotationState(mMagicCube.GetCountRows()));
+    static bool bigger = true;
+
+    if (bigger)
+    {
+        mRotationStates.push(RotationState::GetRandomRotationState(mMagicCube.GetCountRows()));
+        mMagicCube.SetRotationState(mRotationStates.top());
+
+        if (mRotationStates.size() > 10)
+        {
+            bigger = false;
+        }
+    }
+    else
+    {
+        if (mRotationStates.empty())
+        {
+            return;
+        }
+
+        mRotationStates.top() = mRotationStates.top().GetOppositeRotationState();
+        mMagicCube.SetRotationState(mRotationStates.top());
+        mRotationStates.pop();
+    }
+
     update();
 }
