@@ -14,8 +14,8 @@ namespace MagicCubes
         static RotationState GetRandomRotationState(int countRows);
 
     public:
-        RotationState(Face face = Face::Front, Clockwise clockwise = Clockwise::CCW, int lineIndex = 0, int times = 1) :
-            mFace(face), mClockwise(clockwise), mLineIndex(lineIndex), mTimes(times) {}
+        RotationState(Face face = Face::Front, int lineIndex = 0, Clockwise clockwise = Clockwise::CCW, int times = 1) :
+            mFace(face), mLineIndex(lineIndex), mClockwise(clockwise), mTimes(times) {}
 
         RotationState & operator = (const RotationState &) = default;
 

@@ -13,7 +13,7 @@ namespace MagicCubes
 {
     RotationState RotationState::GetRandomRotationState(int countRows)
     {
-        RotationState state;
+        RotationState state; // generate random state          
         state.mFace = Face(rand() % 3);
         state.mClockwise = Clockwise::CCW; //rand() % 2 == 1 | 0 ? Clockwise::CCW : Clockwise::CW;
         state.mTimes = rand() % 3 + 1;
@@ -24,7 +24,7 @@ namespace MagicCubes
   
     glm::mat4 RotationState::GetRotationMatrix() const
     {
-        // rotation i2s left handed !
+        // rotation is left handed !
         glm::mat4 ans(1.0f);
         int directionFlag = mClockwise == Clockwise::CCW ? 1 : -1;
         switch (mFace)
