@@ -1,9 +1,10 @@
 #pragma once 
 
 #include "MagicInsideCube.h"
-#include "MagicCubeRotationState.h"
+#include "RotationState.h"
+#include "CubeArray.h"
 
-namespace MagicCube
+namespace MagicCubes
 {
     class MagicCube : public Thing
     {
@@ -11,7 +12,7 @@ namespace MagicCube
         MagicCube();
 
     public:
-        MagicInsideCube * GetInsideCube(int x, int y, int z) const;
+        MagicInsideCube * GetInsideCube(int x, int y, int z);
         const RotationState & GetRotationState() & { return mRotationState; }
         void SetRotationState(const RotationState & rotationState);
         bool IsFinishedRotation() const { return mRotationState.IsFinished(); }
@@ -31,7 +32,7 @@ namespace MagicCube
         static const int mCountRows = 4; // static for easy code
 
     private:
-        MagicInsideCube * mInsideCubes[mCountRows][mCountRows][mCountRows];
+        CubeArray mInsideCubes = CubeArray(mCountRows);
         bool mFinishedRotation = true;
         RotationState mRotationState;
      };

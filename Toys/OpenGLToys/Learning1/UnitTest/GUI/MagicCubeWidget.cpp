@@ -1,5 +1,8 @@
 #include "MagicCubeWidget.h"
 #include <qevent.h>
+#include "qinputdialog.h"
+
+using namespace MagicCubes;
 
 MagicCubeWidget::MagicCubeWidget(QWidget *parent)
     : GLWindowsWidget(parent)
@@ -12,10 +15,13 @@ MagicCubeWidget::~MagicCubeWidget()
 
 void MagicCubeWidget::OnInitializeOpenGL()
 {
-    mCamera.LookAt(0, 0, 4, 0, 0, 0, 0, 1, 0);
+    mCamera.LookAt(0, 0, -10, 0, 0, 0, 0, 1, 0);
     mCamera.SetPerspective(60, 0.1, 1000);
 
     mBasicTechnique.Create();
+
+    mBasicTechnique.AddThing(&mAnchor);
+    mAnchor.mTransform.mScale = glm::vec3(10, 10, 10);
 
     mBasicTechnique.AddThing(&mMagicCube);
     //mBasicTechnique.AddThing(&mCube);
@@ -25,6 +31,14 @@ void MagicCubeWidget::OnInitializeOpenGL()
     glFrontFace(GL_CCW); // default
     glEnable(GL_DEPTH_TEST);
     glDepthMask(GL_TRUE);
+
+    mMagicCube.SetRotationState(RotationState(Face::Front, Clockwise::CCW, 0));
+    mMagicCube.SetRotationState(RotationState(Face::Right, Clockwise::CCW, 2));
+    mMagicCube.SetRotationState(RotationState(Face::Front, Clockwise::CCW, 3));
+    mMagicCube.SetRotationState(RotationState(Face::Right, Clockwise::CCW, 0));
+    mMagicCube.SetRotationState(RotationState(Face::Up, Clockwise::CCW, 1, 3));
+    mMagicCube.SetRotationState(RotationState(Face::Up, Clockwise::CCW, 0));
+    //   mMagicCube.mTransform.mPosition = glm::vec3(3, 3, 0);
 }
 
 void MagicCubeWidget::OnResizeOpenGL(int width, int height)
@@ -35,9 +49,10 @@ void MagicCubeWidget::OnResizeOpenGL(int width, int height)
 
 void MagicCubeWidget::OnPaintOpenGL()
 {
+    mMagicCube.Update();
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
     glDisable(GL_CULL_FACE);
-  
+
     mBasicTechnique.UpdateFromCamera(&mCamera);
     glDepthMask(GL_TRUE);
     //  glDisable(GL_CULL_FACE);

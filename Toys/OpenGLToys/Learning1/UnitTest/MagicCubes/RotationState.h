@@ -4,7 +4,7 @@
 #include "MagicCubeEnums.h"
 #include "glm/matrix.hpp"
 
-namespace MagicCube
+namespace MagicCubes
 {
     class MagicCube;
 

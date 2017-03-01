@@ -152,9 +152,10 @@
     <ClCompile Include="UnitTest.cpp" />
     <ClCompile Include="QTGUI\GLWindowsWidget.cpp" />
     <ClCompile Include="UnitTest\GUI\MagicCubeWidget.cpp" />
-    <ClCompile Include="UnitTest\MagicCube.cpp" />
-    <ClCompile Include="UnitTest\MagicCubeRotationState.cpp" />
-    <ClCompile Include="UnitTest\MagicInsideCube.cpp" />
+    <ClCompile Include="UnitTest\MagicCubes\CubeArray.cpp" />
+    <ClCompile Include="UnitTest\MagicCubes\MagicCube.cpp" />
+    <ClCompile Include="UnitTest\MagicCubes\RotationState.cpp" />
+    <ClCompile Include="UnitTest\MagicCubes\MagicInsideCube.cpp" />
     <ClCompile Include="UnitTest\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -200,6 +201,11 @@
     <ClInclude Include="Math\Matrix4x4.h" />
     <ClInclude Include="Math\Vector3D.h" />
     <ClInclude Include="Meshes\MeshProvider.h" />
+    <ClInclude Include="UnitTest\MagicCubes\CubeArray.h" />
+    <ClInclude Include="UnitTest\MagicCubes\MagicCube.h" />
+    <ClInclude Include="UnitTest\MagicCubes\MagicCubeEnums.h" />
+    <ClInclude Include="UnitTest\MagicCubes\RotationState.h" />
+    <ClInclude Include="UnitTest\MagicCubes\MagicInsideCube.h" />
     <CustomBuild Include="UnitTest\GUI\MagicCubeWidget.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing MagicCubeWidget.h...</Message>
@@ -210,10 +216,6 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB "-I." "-I.\Include" "-I.\GeneratedFiles" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\QtWidgets" "-I.\QTGUI" "-I.\UnitTest\GUI"</Command>
     </CustomBuild>
-    <ClInclude Include="UnitTest\MagicCube.h" />
-    <ClInclude Include="UnitTest\MagicCubeEnums.h" />
-    <ClInclude Include="UnitTest\MagicCubeRotationState.h" />
-    <ClInclude Include="UnitTest\MagicInsideCube.h" />
     <CustomBuild Include="QTGUI\CameraSettingsDock.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing CameraSettingsDock.h...</Message>

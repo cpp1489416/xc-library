@@ -1,10 +1,10 @@
 #pragma once
 
-namespace MagicCube
+namespace MagicCubes
 {
     enum class Direction : int
     {
-        Front = 0, Back, Left, Right, Up, Down,
+        Right, Left, Up, Down, Back, Front,
     };
 
     enum class Color : int

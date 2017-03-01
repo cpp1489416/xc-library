@@ -5,7 +5,7 @@
 #include "../CXCGL/VertexArrayObject.h"
 #include <glm/matrix.hpp>
 
-namespace MagicCube
+namespace MagicCubes
 {
     class RotationState;
 
@@ -19,7 +19,7 @@ namespace MagicCube
         VertexArrayObject * GetVertexArrayObject() { return &mVertexArrayObject; }
         glm::mat4 GetRotationMatrix() const { return mRotationMatrix; }
         void SetRotationMatrix(const glm::mat4 rotationMatrix) { mRotationMatrix = rotationMatrix; }
-
+  
     public:
         void OnCreate() override;
         void OnChangeTechnique(Technique * technique) override {}

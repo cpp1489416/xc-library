@@ -1,6 +1,6 @@
 #include "MagicInsideCube.h"
 
-namespace MagicCube
+namespace MagicCubes
 {
     MagicInsideCube::MagicInsideCube()
     {

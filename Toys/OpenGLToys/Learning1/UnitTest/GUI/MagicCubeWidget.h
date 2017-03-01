@@ -3,8 +3,9 @@
 #include <qwidget.h>
 #include "../../QTGUI/GLWindowsWidget.h"
 #include "../../Techniques/BasicTechnique.h"
-#include "../MagicCube.h"
+#include "../MagicCubes/MagicCube.h"
 #include "Things/Cube.h"
+#include "Things/Anchor.h"
 
 class MagicCubeWidget : public GLWindowsWidget
 {
@@ -26,6 +27,7 @@ private:
     Cube mCube;
     Camera mCamera;
     BasicTechnique mBasicTechnique;
-    MagicCube::MagicCube mMagicCube;
+    MagicCubes::MagicCube mMagicCube;
+    Anchor mAnchor;
     QPointF mLastPosition;
 };

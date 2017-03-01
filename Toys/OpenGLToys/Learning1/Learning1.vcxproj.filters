@@ -67,6 +67,9 @@
     <Filter Include="UnitTest Files\GUI">
       <UniqueIdentifier>{76a894ee-8140-4601-9341-926227f822b8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UnitTest Files\MagicCubes">
+      <UniqueIdentifier>{e1a9efcc-3610-4350-bffc-d6ae2f51620c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeneratedFiles\qrc_Learning1.cpp">
@@ -210,15 +213,6 @@
     <ClCompile Include="UnitTest\Main.cpp">
       <Filter>UnitTest Files</Filter>
     </ClCompile>
-    <ClCompile Include="UnitTest\MagicCube.cpp">
-      <Filter>UnitTest Files</Filter>
-    </ClCompile>
-    <ClCompile Include="UnitTest\MagicInsideCube.cpp">
-      <Filter>UnitTest Files</Filter>
-    </ClCompile>
-    <ClCompile Include="UnitTest\MagicCubeRotationState.cpp">
-      <Filter>UnitTest Files</Filter>
-    </ClCompile>
     <ClCompile Include="UnitTest\GUI\MagicCubeWidget.cpp">
       <Filter>UnitTest Files\GUI</Filter>
     </ClCompile>
@@ -227,6 +221,18 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_MagicCubeWidget.cpp">
       <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitTest\MagicCubes\MagicCube.cpp">
+      <Filter>UnitTest Files\MagicCubes</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitTest\MagicCubes\MagicInsideCube.cpp">
+      <Filter>UnitTest Files\MagicCubes</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitTest\MagicCubes\RotationState.cpp">
+      <Filter>UnitTest Files\MagicCubes</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitTest\MagicCubes\CubeArray.cpp">
+      <Filter>UnitTest Files\MagicCubes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -343,17 +349,20 @@
     <ClInclude Include="Techniques\TextureTechnique.h">
       <Filter>Source Files\Techniques</Filter>
     </ClInclude>
-    <ClInclude Include="UnitTest\MagicCube.h">
-      <Filter>UnitTest Files</Filter>
+    <ClInclude Include="UnitTest\MagicCubes\MagicCube.h">
+      <Filter>UnitTest Files\MagicCubes</Filter>
     </ClInclude>
-    <ClInclude Include="UnitTest\MagicInsideCube.h">
-      <Filter>UnitTest Files</Filter>
+    <ClInclude Include="UnitTest\MagicCubes\MagicCubeEnums.h">
+      <Filter>UnitTest Files\MagicCubes</Filter>
     </ClInclude>
-    <ClInclude Include="UnitTest\MagicCubeEnums.h">
-      <Filter>UnitTest Files</Filter>
+    <ClInclude Include="UnitTest\MagicCubes\MagicInsideCube.h">
+      <Filter>UnitTest Files\MagicCubes</Filter>
     </ClInclude>
-    <ClInclude Include="UnitTest\MagicCubeRotationState.h">
-      <Filter>UnitTest Files</Filter>
+    <ClInclude Include="UnitTest\MagicCubes\RotationState.h">
+      <Filter>UnitTest Files\MagicCubes</Filter>
+    </ClInclude>
+    <ClInclude Include="UnitTest\MagicCubes\CubeArray.h">
+      <Filter>UnitTest Files\MagicCubes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

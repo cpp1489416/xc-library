@@ -1,14 +1,14 @@
 #include "MagicCube.h"
-#include "MagicCubeRotationState.h"
+#include "RotationState.h"
 #include "../CXCGL/Technique.h"
 
-namespace MagicCube
+namespace MagicCubes
 {
     MagicCube::MagicCube() // count if rows is always 4
     {
     }
 
-    MagicInsideCube * MagicCube::GetInsideCube(int x, int y, int z) const
+    MagicInsideCube * MagicCube::GetInsideCube(int x, int y, int z)
     {
         return mInsideCubes[x][y][z];
     }
@@ -16,6 +16,7 @@ namespace MagicCube
     void MagicCube::SetRotationState(const RotationState & rotationState)
     {
         mRotationState = rotationState;
+        Update();
     }
 
     void MagicCube::Update()
@@ -34,23 +35,25 @@ namespace MagicCube
                 MagicInsideCube * cube = nullptr;
                 if (mRotationState.GetFace() == Face::Right)
                 {
-                    int index = 3 - mRotationState.GetLineIndex();
+                    int index = mCountRows - 1 - mRotationState.GetLineIndex();
                     cube = mInsideCubes[index][i][j];
                 }
                 else if (mRotationState.GetFace() == Face::Up)
                 {
-                    int index = 3 - mRotationState.GetLineIndex();
+                    int index = mCountRows - 1 - mRotationState.GetLineIndex();
                     cube = mInsideCubes[i][index][j];
                 }
                 else if (mRotationState.GetFace() == Face::Front)
                 {
-                    int index = 3 - mRotationState.GetLineIndex();
+                    int index = mRotationState.GetLineIndex();
                     cube = mInsideCubes[i][j][index];
                 }
 
-                cube->SetRotationMatrix(cube->GetRotationMatrix() * mRotationState.GetRotationMatrix());
+                cube->SetRotationMatrix(mRotationState.GetRotationMatrix() * cube->GetRotationMatrix());
             }
         }
+
+        mInsideCubes.Rotate(mRotationState);
     }
 
     void MagicCube::OnCreate()
@@ -69,19 +72,15 @@ namespace MagicCube
                 for (int k = 0; k < mCountRows; ++k)
                 {
                     MagicInsideCube * cube = mInsideCubes[i][j][k];
-                    float xDiff = i*2;(i - (mCountRows / 2.0f - 0.5f)) * 2.0f;
-                    float yDiff = j*2;(j - (mCountRows / 2.0f - 0.5f)) * 2.0f;
-                    float zDiff = k*2;(k - (mCountRows / 2.0f - 0.5f)) * 2.0f;
-                    glm::mat4 translateMatrix = glm::translate(glm::mat4(1), glm::vec3(xDiff, yDiff, zDiff));
-                    glm::mat4 rotationMatrix = glm::mat4(1);//cube->GetRotationMatrix();
-                    glm::mat4 modelMatrix = translateMatrix * rotationMatrix;// *selfModelMatrix;
+                    glm::mat4 rotationMatrix = cube->GetRotationMatrix();
+                    glm::mat4 modelMatrix = selfModelMatrix * rotationMatrix ;// *;
                     glUniformMatrix4fv(mTechnique->GetUniformLocation("modelMatrix"), 1, GL_FALSE, glm::value_ptr(modelMatrix));
                     cube->OnDraw();
                 }
             }
         }
 
-    //    mInsideCubes[0][0][0]->OnDraw();
+        //    mInsideCubes[0][0][0]->OnDraw();
     }
 
     void MagicCube::InitializeInsideCubes()
@@ -128,6 +127,26 @@ namespace MagicCube
                 for (int k = 0; k < mCountRows; ++k)
                 {
                     mInsideCubes[i][j][k]->Create();
+                }
+            }
+        }
+
+        for (int i = 0; i < mCountRows; ++i)
+        {
+            for (int j = 0; j < mCountRows; ++j)
+            {
+                for (int k = 0; k < mCountRows; ++k)
+                {
+                    MagicInsideCube * cube = mInsideCubes[i][j][k];
+                    float xDiff = (i - (mCountRows / 2.0f - 0.5f)) * 3.0f;
+                    float yDiff = (j - (mCountRows / 2.0f - 0.5f)) * 3.0f;
+                    float zDiff = (k - (mCountRows / 2.0f - 0.5f)) * 3.0f;
+                    glm::mat4 translateMatrix = glm::translate(glm::mat4(1), glm::vec3(xDiff, yDiff, zDiff));
+                    glm::mat4 rotationMatrix = cube->GetRotationMatrix();
+                    glm::mat4 modelMatrix = rotationMatrix* translateMatrix;// *;
+                    //glUniformMatrix4fv(mTechnique->GetUniformLocation("modelMatrix"), 1, GL_FALSE, glm::value_ptr(modelMatrix));
+                    //cube->OnDraw();
+                    cube->SetRotationMatrix(modelMatrix);
                 }
             }
         }
