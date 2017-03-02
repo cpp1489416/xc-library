@@ -1,19 +1,8 @@
 #include "GAMap.h"
 
-
-
-GAMap::GAMap()
-{
-}
-
-
-GAMap::~GAMap()
-{
-}
-
 namespace GA
 {
-    GA::Map::Map()
+    Map::Map(int width, int height)
     {
     }
 

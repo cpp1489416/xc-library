@@ -138,7 +138,7 @@ void MagicCubeWidget::Timeout()
             mRotationStates.push(RotationState::GetRandomRotationState(mMagicCube.GetCountRows()));
             mMagicCube.RequireRotationState(mRotationStates.top());
 
-            if (mRotationStates.size() > 4)
+            if (mRotationStates.size() > 50)
             {
                 bigger = false;
             }

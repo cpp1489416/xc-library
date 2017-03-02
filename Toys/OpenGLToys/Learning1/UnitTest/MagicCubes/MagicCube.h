@@ -28,7 +28,7 @@ namespace MagicCubes
     public:
         void OnCreate() override;
         void OnDraw() override;
-        void OnChangeTechnique(Technique * technique) {}
+        void OnChangeTechnique(Technique * technique) override {}
 
     public:
         TimeoutEventHandler TimeoutEvent;
@@ -42,7 +42,7 @@ namespace MagicCubes
         void OnTimeout();
 
     private:
-        static const int mCountRows = 4; // static for easy code
+        static const int mCountRows = 10; // static for easy code
 
     private:
         QTimer * mTimer;
@@ -51,7 +51,7 @@ namespace MagicCubes
         bool mRotationFinished = true;
         double mCurrentRotationRadius;
         double mRotationFinishedRadius;
-        const double mDeltaRadius = 0.01f;
+        const double mDeltaRadius = 0.10f;
         glm::mat4 mRotationMatrix;
     };
 }

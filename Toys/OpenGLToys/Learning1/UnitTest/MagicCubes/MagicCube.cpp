@@ -29,6 +29,7 @@ namespace MagicCubes
 
     void MagicCube::Update()
     {
+        return;
         FinishRotation();
     }
 
@@ -120,9 +121,9 @@ namespace MagicCubes
                 for (int k = 0; k < mCountRows; ++k)
                 {
                     MagicInsideCube * cube = mInsideCubes[i][j][k];
-                    float xDiff = (i - (mCountRows / 2.0f - 0.5f)) * 3.0f;
-                    float yDiff = (j - (mCountRows / 2.0f - 0.5f)) * 3.0f;
-                    float zDiff = (k - (mCountRows / 2.0f - 0.5f)) * 3.0f;
+                    float xDiff = (i - (mCountRows / 2.0f - 0.5f)) * 2.1f;
+                    float yDiff = (j - (mCountRows / 2.0f - 0.5f)) * 2.1f;
+                    float zDiff = (k - (mCountRows / 2.0f - 0.5f)) * 2.1f;
                     glm::mat4 translateMatrix = glm::translate(glm::mat4(1), glm::vec3(xDiff, yDiff, zDiff));
                     glm::mat4 rotationMatrix = cube->GetRotationMatrix();
                     glm::mat4 modelMatrix = translateMatrix * rotationMatrix;

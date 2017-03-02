@@ -1,6 +1,6 @@
 
 #include <iostream>
-#include "AutoSnake.h"`
+#include "AutoSnake.h"
 #include "SnakeMap.h"
 
 namespace
