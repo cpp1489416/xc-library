@@ -1,11 +1,11 @@
 #ifndef XCALGORITHM_H
 #define XCALGORITHM_H
 
-#include "../Iterators.h"
+#include "../Iterators/Iterators.h"
 
 namespace XC
 {
-    namespace Algorithm
+    namespace Algorithms
     {
         template <typename T>
         inline T GetMin(T a, T b)
@@ -50,13 +50,13 @@ namespace XC
             return first;
         }
 
-        // Heap Algorithm
+        // Heap Algorithms
         template <typename RandomAccessIterator>
         void PushHeap(RandomAccessIterator first, RandomAccessIterator last);
 
         namespace Detail // The detail namespace means the functions or class in it must be used inside.
         {
-            // Heap Algorithm
+            // Heap Algorithms
             template <typename RandomAccessIterator, typename Distance, typename T>
             void PushHeapAUX(RandomAccessIterator first, RandomAccessIterator last, Distance *, T *);
 

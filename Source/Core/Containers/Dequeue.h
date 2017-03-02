@@ -3,15 +3,20 @@
 
 #include <iostream>
 
-#include "../Basic.h"
-#include "../Memory.h"
-#include "../Iterators.h"
-#include "../Algorithm.h"
+#include "../Types/Types.h"
+#include "../Memories/Memories.h"
+#include "../Iterators/Iterators.h"
+#include "../Algorithms/Algorithms.h"
 
 namespace XC
 {  
+    namespace Details
+    {
+
+    }
+
     template <typename T, xsize TBufferSize = 5, typename TAllocator = void>
-    class Dequeue
+    class DEQueue
     {
     public:
         template <typename TReference, typename TPointer>
@@ -28,7 +33,7 @@ namespace XC
             typedef TPointer Pointer;
             typedef TReference Reference;
             typedef xsize SizeType;
-            typedef xpointerdifference DifferenceType;
+            typedef xptrdiff DifferenceType;
 
             // The map pointer :
             typedef T * * MapPointer; 
@@ -40,13 +45,13 @@ namespace XC
             ~BaseIterator() {}
             Self & operator = (const Self &) = default;
 
-            // The BaseIterator feunctions :
+        public:
             Reference operator * () const { return *mCurrent; }
             Pointer operator -> () const { return &(operator * ()); }
-            Self operator + (xpointerdifference n) const;
-            Self operator - (xpointerdifference n) const;
-            xpointerdifference operator - (const Self & rhs) const; // Two Iterators minus together is a pointer difference.
-            Reference operator [] (xpointerdifference n) const { return *(this + n); } // operator * and opeartor +
+            Self operator + (xptrdiff n) const;
+            Self operator - (xptrdiff n) const;
+            xptrdiff operator - (const Self & rhs) const; // Two Iterators minus together is a pointer difference.
+            Reference operator [] (xptrdiff n) const { return *(this + n); } // operator * and opeartor +
             bool operator == (const Self & rhs) const { return mCurrent == rhs.mCurrent; }
             bool operator != (const Self & rhs) const { return !(*this == rhs); }
             bool operator < (const Self & rhs) const { return mNode == rhs.mNode ? mCurrent < rhs.mCurrent : mNode < rhs.mNode; }
@@ -56,8 +61,8 @@ namespace XC
             Self & operator -- ();
             Self operator ++ (int);
             Self operator -- (int);
-            Self & operator += (xpointerdifference n);
-            Self & operator -= (xpointerdifference n) { return *this += -n; }
+            Self & operator += (xptrdiff n);
+            Self & operator -= (xptrdiff n) { return *this += -n; }
             
         public:
             T * mCurrent;
@@ -70,7 +75,7 @@ namespace XC
             
             void SetNode(T * * newNode);
 
-            friend class Dequeue<T, TBufferSize, TAllocator>;
+            friend class DEQueue<T, TBufferSize, TAllocator>;
         };
     
     public:
@@ -86,13 +91,13 @@ namespace XC
         // The map pointer :
         typedef T * * MapPointer;
 
-        typedef Dequeue<T, TBufferSize, TAllocator> Self;
+        typedef DEQueue<T, TBufferSize, TAllocator> Self;
 
     public:
-        Dequeue() { EmptyInitialize(); }
-        Dequeue(xsize count, const T & value) { FillInitialize(count, value); }
-        Dequeue(const Self & rhs) { CopyWithoutReleaseMemory(rhs); }
-        ~Dequeue() { ReleaseMemory(); }
+        DEQueue() { EmptyInitialize(); }
+        DEQueue(xsize count, const T & value) { FillInitialize(count, value); }
+        DEQueue(const Self & rhs) { CopyWithoutReleaseMemories(rhs); }
+        ~DEQueue() { ReleaseMemories(); }
         Self & operator = (const Self &);
 
         ConstantIterator GetBegin() const { return ConstantIterator(mStart); }
@@ -143,9 +148,9 @@ namespace XC
         T * * AllocateMap() { return MapAllocator::Allocate(mMapSize); }
         void ReserveIfMapAtBack(xsize nodesToAdd = 1);
         void ReserveIfMapAtFront(xsize nodesToAdd = 1);
-        void OutOfMemorySolve(xsize nodesToAdd, bool isAddBack);
-        void ReleaseMemory();
-        void CopyWithoutReleaseMemory(const Self & other);
+        void OutOfMemoriesSolve(xsize nodesToAdd, bool isAddBack);
+        void ReleaseMemories();
+        void CopyWithoutReleaseMemories(const Self & other);
 
     protected:
         T * * mMap; // Each element of the map contains a pointer of T type.
@@ -156,8 +161,8 @@ namespace XC
 
     template <typename T, xsize TBufferSize, typename TAllocator>
     template <typename TReference, typename TPointer>
-    inline typename Dequeue<T, TBufferSize, TAllocator>::template BaseIterator<TReference, TPointer>::Self
-        Dequeue<T, TBufferSize, TAllocator>::BaseIterator<TReference, TPointer>::operator + (xpointerdifference n) const
+    inline typename DEQueue<T, TBufferSize, TAllocator>::template BaseIterator<TReference, TPointer>::Self
+        DEQueue<T, TBufferSize, TAllocator>::BaseIterator<TReference, TPointer>::operator + (xptrdiff n) const
     {
         Self ans = *this;
         return ans += n;
@@ -165,8 +170,8 @@ namespace XC
 
     template <typename T, xsize TBufferSize, typename TAllocator>
     template <typename TReference, typename TPointer>
-    inline typename Dequeue<T, TBufferSize, TAllocator>::template BaseIterator<TReference, TPointer>::Self
-        Dequeue<T, TBufferSize, TAllocator>::BaseIterator<TReference, TPointer>::operator - (xpointerdifference n) const 
+    inline typename DEQueue<T, TBufferSize, TAllocator>::template BaseIterator<TReference, TPointer>::Self
+        DEQueue<T, TBufferSize, TAllocator>::BaseIterator<TReference, TPointer>::operator - (xptrdiff n) const 
     {
         Self ans = *this;
         return ans += -n;
@@ -174,22 +179,22 @@ namespace XC
 
     template <typename T, xsize TBufferSize, typename TAllocator>
     template <typename TReference, typename TPointer>
-    inline xpointerdifference
-        Dequeue<T, TBufferSize, TAllocator>::BaseIterator<TReference, TPointer>::operator - (const Self & rhs) const
+    inline xptrdiff
+        DEQueue<T, TBufferSize, TAllocator>::BaseIterator<TReference, TPointer>::operator - (const Self & rhs) const
     {
-        return xpointerdifference((mNode - rhs.mNode) * xpointerdifference(GetBufferSize(TBufferSize))
+        return xptrdiff((mNode - rhs.mNode) * xptrdiff(GetBufferSize(TBufferSize))
             + (mCurrent - rhs.mCurrent) + (rhs.mLast - mLast));        
     }
 
     template <typename T, xsize TBufferSize, typename TAllocator>
     template <typename TReference, typename TPointer>
-    typename Dequeue<T, TBufferSize, TAllocator>::template BaseIterator<TReference, TPointer>::Self &
-        Dequeue<T, TBufferSize, TAllocator>::BaseIterator<TReference, TPointer>::operator ++ ()
+    typename DEQueue<T, TBufferSize, TAllocator>::template BaseIterator<TReference, TPointer>::Self &
+        DEQueue<T, TBufferSize, TAllocator>::BaseIterator<TReference, TPointer>::operator ++ ()
     {
         ++mCurrent;
         if (mCurrent == mLast)
         {
-            SetNode(mNode + xpointerdifference(1));
+            SetNode(mNode + xptrdiff(1));
             mCurrent = mFirst;
         }
 
@@ -198,12 +203,12 @@ namespace XC
 
     template <typename T, xsize TBufferSize, typename TAllocator>
     template <typename TReference, typename TPointer>
-    typename Dequeue<T, TBufferSize, TAllocator>::template BaseIterator<TReference, TPointer>::Self &
-        Dequeue<T, TBufferSize, TAllocator>::BaseIterator<TReference, TPointer>::operator -- ()
+    typename DEQueue<T, TBufferSize, TAllocator>::template BaseIterator<TReference, TPointer>::Self &
+        DEQueue<T, TBufferSize, TAllocator>::BaseIterator<TReference, TPointer>::operator -- ()
     {
         if (mCurrent == mFirst)
         {
-            SetNode(mNode - xpointerdifference(1));
+            SetNode(mNode - xptrdiff(1));
             mCurrent = mLast - 1;
         }
         else
@@ -216,8 +221,8 @@ namespace XC
 
     template <typename T, xsize TBufferSize, typename TAllocator>
     template <typename TReference, typename TPointer>
-    inline typename Dequeue<T, TBufferSize, TAllocator>::template BaseIterator<TReference, TPointer>::Self
-        Dequeue<T, TBufferSize, TAllocator>::BaseIterator<TReference, TPointer>::operator ++ (int) 
+    inline typename DEQueue<T, TBufferSize, TAllocator>::template BaseIterator<TReference, TPointer>::Self
+        DEQueue<T, TBufferSize, TAllocator>::BaseIterator<TReference, TPointer>::operator ++ (int) 
     {
         Self ans = *this;
         ++(*this);
@@ -226,8 +231,8 @@ namespace XC
 
     template <typename T, xsize TBufferSize, typename TAllocator>
     template <typename TReference, typename TPointer>
-    inline typename Dequeue<T, TBufferSize, TAllocator>::template BaseIterator<TReference, TPointer>::Self
-        Dequeue<T, TBufferSize, TAllocator>::BaseIterator<TReference, TPointer>::operator -- (int)
+    inline typename DEQueue<T, TBufferSize, TAllocator>::template BaseIterator<TReference, TPointer>::Self
+        DEQueue<T, TBufferSize, TAllocator>::BaseIterator<TReference, TPointer>::operator -- (int)
     {
         Self ans = *this;
         --(*this);
@@ -236,21 +241,21 @@ namespace XC
 
     template <typename T, xsize TBufferSize, typename TAllocator>
     template <typename TReference, typename TPointer>
-    typename Dequeue<T, TBufferSize, TAllocator>::template BaseIterator<TReference, TPointer>::Self &
-        Dequeue<T, TBufferSize, TAllocator>::BaseIterator<TReference, TPointer>::operator += (xpointerdifference n)
+    typename DEQueue<T, TBufferSize, TAllocator>::template BaseIterator<TReference, TPointer>::Self &
+        DEQueue<T, TBufferSize, TAllocator>::BaseIterator<TReference, TPointer>::operator += (xptrdiff n)
     {
-        xpointerdifference offset = (mCurrent - mFirst) + n;
-        if (offset >= 0 && offset < xpointerdifference(GetBufferSize(TBufferSize)))
+        xptrdiff offset = (mCurrent - mFirst) + n;
+        if (offset >= 0 && offset < xptrdiff(GetBufferSize(TBufferSize)))
         {
             mCurrent += n;
         }
         else
         {
-            xpointerdifference nodeOffset = offset > 0 ? 
-                offset / xpointerdifference(GetBufferSize(TBufferSize)) :
-                (-offset - 1) / xpointerdifference(GetBufferSize(TBufferSize)) - 1;
+            xptrdiff nodeOffset = offset > 0 ? 
+                offset / xptrdiff(GetBufferSize(TBufferSize)) :
+                (-offset - 1) / xptrdiff(GetBufferSize(TBufferSize)) - 1;
             SetNode(mNode + nodeOffset);
-            mCurrent = mFirst + (offset - nodeOffset * xpointerdifference(GetBufferSize(TBufferSize)));
+            mCurrent = mFirst + (offset - nodeOffset * xptrdiff(GetBufferSize(TBufferSize)));
         }
 
         return *this;
@@ -258,64 +263,64 @@ namespace XC
 
     template <typename T, xsize TBufferSize, typename TAllocator>
     template <typename TReference, typename TPointer>
-    inline void Dequeue<T, TBufferSize, TAllocator>::BaseIterator<TReference, TPointer>::SetNode(T * * newNode)
+    inline void DEQueue<T, TBufferSize, TAllocator>::BaseIterator<TReference, TPointer>::SetNode(T * * newNode)
     {
         mNode = newNode;
         mFirst = *newNode;
-        mLast = mFirst + xpointerdifference(GetBufferSize(TBufferSize));
+        mLast = mFirst + xptrdiff(GetBufferSize(TBufferSize));
     }
 
     template <typename T, xsize TBufferSize, typename TAllocator>
-    inline typename Dequeue<T, TBufferSize, TAllocator>::Self &
-    Dequeue<T, TBufferSize, TAllocator>::operator = (const Self & other)
+    inline typename DEQueue<T, TBufferSize, TAllocator>::Self &
+    DEQueue<T, TBufferSize, TAllocator>::operator = (const Self & other)
     {
-        ReleaseMemory();
-        CopyWithoutReleaseMemory(other);
+        ReleaseMemories();
+        CopyWithoutReleaseMemories(other);
         return *this;
     }
 
     template <typename T, xsize TBufferSize, typename TAllocator>
-    void Dequeue<T, TBufferSize, TAllocator>::PushBack(const T & value)
+    void DEQueue<T, TBufferSize, TAllocator>::PushBack(const T & value)
     {
         if (mFinish.mCurrent != mFinish.mLast - 1) // Should last - 1, make sure there will always be a node at the end.
         {
-            Memory::Construct(mFinish.mCurrent, value);
+            Memories::Construct(mFinish.mCurrent, value);
             ++mFinish.mCurrent;
         }
         else // Should jump to next node.
         {
             ReserveIfMapAtBack();
             *(mFinish.mNode + 1) = AllocateNode();
-            Memory::Construct(mFinish.mCurrent, value);
+            Memories::Construct(mFinish.mCurrent, value);
             mFinish.SetNode(mFinish.mNode + 1);
             mFinish.mCurrent = mFinish.mFirst;
         }
     }
 
     template <typename T, xsize TBufferSize, typename TAllocator>
-    void Dequeue<T, TBufferSize, TAllocator>::PopBack()
+    void DEQueue<T, TBufferSize, TAllocator>::PopBack()
     {
         if (mFinish.mCurrent != mFinish.mFirst)
         {
             --mFinish.mCurrent;
-            Memory::Destroy(mFinish.mCurrent);
+            Memories::Destroy(mFinish.mCurrent);
         }
         else
         {
             DeallocateNode(mFinish.mFirst);
             mFinish.SetNode(mFinish.mNode - 1);
             mFinish.mCurrent = mFinish.mLast - 1;
-            Memory::Destroy(mFinish.mCurrent);
+            Memories::Destroy(mFinish.mCurrent);
         }
     }
 
     // PushFront is different from PushBack
     template <typename T, xsize TBufferSize, typename TAllocator>
-    void Dequeue<T, TBufferSize, TAllocator>::PushFront(const T & value)
+    void DEQueue<T, TBufferSize, TAllocator>::PushFront(const T & value)
     {
         if (mStart.mCurrent != mStart.mFirst) // do not need to have more free space.
         {
-            Memory::Construct(mStart.mCurrent - 1, value);
+            Memories::Construct(mStart.mCurrent - 1, value);
             --mStart.mCurrent;
         }
         else
@@ -324,21 +329,21 @@ namespace XC
             *(mStart.mNode - 1) = AllocateNode();
             mStart.SetNode(mStart.mNode - 1);
             mStart.mCurrent = mStart.mLast - 1;
-            Memory::Construct(mStart.mCurrent, value);
+            Memories::Construct(mStart.mCurrent, value);
         }
     }
 
     template <typename T, xsize TBufferSize, typename TAllocator>
-    void Dequeue<T, TBufferSize, TAllocator>::PopFront()
+    void DEQueue<T, TBufferSize, TAllocator>::PopFront()
     {
         if (mStart.mCurrent != mStart.mLast - 1)
         {
-            Memory::Destroy(mStart.mCurrent);
+            Memories::Destroy(mStart.mCurrent);
             ++mStart.mCurrent;
         }
         else
         {
-            Memory::Destroy(mStart.mCurrent);
+            Memories::Destroy(mStart.mCurrent);
             DeallocateNode(mStart.mFirst);
             mStart.SetNode(mStart.mNode + 1);
             mStart.mCurrent = mStart.mFirst;
@@ -346,7 +351,7 @@ namespace XC
     }
 
     template <typename T, xsize TBufferSize, typename TAllocator>
-    void Dequeue<T, TBufferSize, TAllocator>::Clear()
+    void DEQueue<T, TBufferSize, TAllocator>::Clear()
     {
         if (IsEmpty())
         {
@@ -355,39 +360,39 @@ namespace XC
         
         for (T * * node = mStart.mNode + 1; node < mFinish.mNode; ++node)
         {
-            Memory::Destroy(*node, *node + GetBufferSize());
+            Memories::Destroy(*node, *node + GetBufferSize());
             DataAllocator::Deallocate(*node, GetBufferSize());
         }
 
         if (mStart.mNode != mFinish.mNode)
         {
-            Memory::Destroy(mStart.mCurrent, mStart.mLast);
-            Memory::Destroy(mFinish.mFirst, mFinish.mCurrent);
+            Memories::Destroy(mStart.mCurrent, mStart.mLast);
+            Memories::Destroy(mFinish.mFirst, mFinish.mCurrent);
             DataAllocator::Deallocate(mFinish.mFirst, GetBufferSize());
         }
         else
         {
-            Memory::Destroy(mStart.mCurrent, mFinish.mCurrent);
+            Memories::Destroy(mStart.mCurrent, mFinish.mCurrent);
         }
 
         mFinish = mStart; // Two iterators equal.
     }    
 
     template <typename T, xsize TBufferSize, typename TAllocator>
-    typename Dequeue<T, TBufferSize, TAllocator>::Iterator 
-        Dequeue<T, TBufferSize, TAllocator>::Erase(Iterator position)
+    typename DEQueue<T, TBufferSize, TAllocator>::Iterator 
+        DEQueue<T, TBufferSize, TAllocator>::Erase(Iterator position)
     {
         Iterator next = position;
         ++next;
         xsize index = position - mStart;
         if (index < GetSize() / 2)
         {
-            Memory::CopyBackward(mStart, position, next);
+            Memories::CopyBackward(mStart, position, next);
             PopFront();
         } 
         else
         {
-            Memory::Copy(next, mFinish, position);
+            Memories::Copy(next, mFinish, position);
             PopBack();
         }
 
@@ -395,8 +400,8 @@ namespace XC
     }
 
     template <typename T, xsize TBufferSize, typename TAllocator>
-    typename Dequeue<T, TBufferSize, TAllocator>::Iterator 
-        Dequeue<T, TBufferSize, TAllocator>::Erase(Iterator first, Iterator last)
+    typename DEQueue<T, TBufferSize, TAllocator>::Iterator 
+        DEQueue<T, TBufferSize, TAllocator>::Erase(Iterator first, Iterator last)
     {
         if (first == mStart && last == mFinish)
         {
@@ -405,13 +410,13 @@ namespace XC
         }
         else
         {
-            xpointerdifference n = first - last;
-            xpointerdifference elemsBefore = first - mStart;
+            xptrdiff n = first - last;
+            xptrdiff elemsBefore = first - mStart;
             if (elemsBefore < GetSize() / 2) // Front have fewer elements, should move front.
             {
-                Memory::CopyBackward(mStart, first, last);
+                Memories::CopyBackward(mStart, first, last);
                 Iterator newStart = mStart + n;
-                Memory::Destroy(mStart, newStart);
+                Memories::Destroy(mStart, newStart);
                 for (T * * cur = mStart.mNode; cur < newStart.mNode; ++cur)
                 {
                     DataAllocator::Deallocate(*cur, GetBufferSize());
@@ -420,9 +425,9 @@ namespace XC
             }
             else // Back have    fewer elements, should move after.
             {
-                Memory::Copy(last, mFinish, first);
+                Memories::Copy(last, mFinish, first);
                 Iterator newFinish = mFinish - n;
-                Memory::Destroy(newFinish, mFinish);
+                Memories::Destroy(newFinish, mFinish);
                 for (T * * cur = newFinish.mNode + 1; cur <= mFinish.mNode; ++cur)
                 {
                     DataAllocator::Deallocate(*cur, GetBufferSize());
@@ -435,8 +440,8 @@ namespace XC
     }
 
     template <typename T, xsize TBufferSize, typename TAllocator>
-    typename Dequeue<T, TBufferSize, TAllocator>::Iterator
-        Dequeue<T, TBufferSize, TAllocator>::Insert(Iterator position, const T & value)
+    typename DEQueue<T, TBufferSize, TAllocator>::Iterator
+        DEQueue<T, TBufferSize, TAllocator>::Insert(Iterator position, const T & value)
     {
         if (position == mStart)
         {
@@ -455,13 +460,13 @@ namespace XC
             if (index < GetSize() / 2) // Front have fewer elements.
             {
                 PushFront(GetFront());
-                Memory::Copy(mStart + 2, mStart + index + 1, mStart + 1);
+                Memories::Copy(mStart + 2, mStart + index + 1, mStart + 1);
                 ans = mStart + index; // must update
             }
             else // Back have fewer elements.
             {
                 PushBack(GetBack());
-                Memory::CopyBackward(mStart + index, mFinish - 2, mFinish - 1);
+                Memories::CopyBackward(mStart + index, mFinish - 2, mFinish - 1);
                 ans = mStart + index; // must update
             }
 
@@ -471,7 +476,7 @@ namespace XC
     }
 
     template <typename T, xsize TBufferSize, typename TAllocator>
-    void Dequeue<T, TBufferSize, TAllocator>::EmptyCreateMapAndNodes()
+    void DEQueue<T, TBufferSize, TAllocator>::EmptyCreateMapAndNodes()
     {
         mMapSize = GetInitialMapSize();
         mMap = MapAllocator::Allocate(mMapSize);
@@ -484,12 +489,12 @@ namespace XC
     }
 
     template <typename T, xsize TBufferSize, typename TAllocator>
-    void Dequeue<T, TBufferSize, TAllocator>::CreateMapAndNodes(xsize count) // Count is the count of the elements of the DEQueue.
+    void DEQueue<T, TBufferSize, TAllocator>::CreateMapAndNodes(xsize count) // Count is the count of the elements of the DEQueue.
     {
         // std::cout << "CreateMapAndNodes\n";
         xsize numNodes = count / GetBufferSize() + 1; // Include finish node.
         // std::cout << numNodes << std::endl;
-        mMapSize = Algorithm::GetMax(numNodes, GetInitialMapSize()) + 2; // Plus 2 because front and back free space.   
+        mMapSize = Algorithms::GetMax(numNodes, GetInitialMapSize()) + 2; // Plus 2 because front and back free space.   
         // std::cout << mMapSize << std::endl;
         mMap = MapAllocator::Allocate(mMapSize);
         T * * nodeStart = mMap + (mMapSize - numNodes) / 2;
@@ -509,47 +514,47 @@ namespace XC
     }
 
     template <typename T, xsize TBufferSize, typename TAllocator>
-    void Dequeue<T, TBufferSize, TAllocator>::EmptyInitialize()
+    void DEQueue<T, TBufferSize, TAllocator>::EmptyInitialize()
     {
         EmptyCreateMapAndNodes();
     }
 
     template <typename T, xsize TBufferSize, typename TAllocator>
-    void Dequeue<T, TBufferSize, TAllocator>::FillInitialize(xsize count, const T & value)
+    void DEQueue<T, TBufferSize, TAllocator>::FillInitialize(xsize count, const T & value)
     {
         CreateMapAndNodes(count);
         for (T * * cur = mStart.mNode; cur < mFinish.mNode; ++cur)
         {
-            Memory::UninitializedFillN(*cur, GetBufferSize(), value);
+            Memories::UninitializedFillN(*cur, GetBufferSize(), value);
         }
 
-        Memory::UninitializedFill(mFinish.mFirst, mFinish.mCurrent, value); // Not all the last should be initialized.
+        Memories::UninitializedFill(mFinish.mFirst, mFinish.mCurrent, value); // Not all the last should be initialized.
     }
 
     template <typename T, xsize TBufferSize, typename TAllocator>
-    void Dequeue<T, TBufferSize, TAllocator>::ReserveIfMapAtBack(xsize nodesToAdd)
+    void DEQueue<T, TBufferSize, TAllocator>::ReserveIfMapAtBack(xsize nodesToAdd)
     {
         if (nodesToAdd > mMapSize - (mFinish.mNode - mMap + 1))
         {
-            OutOfMemorySolve(nodesToAdd, true);
+            OutOfMemoriesSolve(nodesToAdd, true);
         }
     }
 
     template <typename T, xsize TBufferSize, typename TAllocator>
-    void Dequeue<T, TBufferSize, TAllocator>::ReserveIfMapAtFront(xsize nodesToAdd)
+    void DEQueue<T, TBufferSize, TAllocator>::ReserveIfMapAtFront(xsize nodesToAdd)
     {
         if (nodesToAdd > xsize(mStart.mNode - mMap))
         {
-            OutOfMemorySolve(nodesToAdd, false);
+            OutOfMemoriesSolve(nodesToAdd, false);
         }
     }
 
     template <typename T, xsize TBufferSize, typename TAllocator>
-    void Dequeue<T, TBufferSize, TAllocator>::OutOfMemorySolve(xsize nodesToAdd, bool isAddBack)
+    void DEQueue<T, TBufferSize, TAllocator>::OutOfMemoriesSolve(xsize nodesToAdd, bool isAddBack)
     {
         // the iterators will be changed after the function, we must update them at the end
-        xpointerdifference startDiff = mStart.mCurrent - mStart.mFirst;
-        xpointerdifference finishDiff = mFinish.mCurrent - mFinish.mFirst; // this two functions must be written, but the book did not write them
+        xptrdiff startDiff = mStart.mCurrent - mStart.mFirst;
+        xptrdiff finishDiff = mFinish.mCurrent - mFinish.mFirst; // this two functions must be written, but the book did not write them
         
         xsize numOldNodes = mFinish.mNode - mStart.mNode + 1;
         xsize numNewNodes = numOldNodes + nodesToAdd;
@@ -559,19 +564,19 @@ namespace XC
             newStart = mMap + (mMapSize - numNewNodes) / 2 + (isAddBack ? 0 : nodesToAdd);
             if (newStart < mStart.mNode)
             {
-                Memory::Copy(mStart.mNode, mFinish.mNode + 1, newStart);
+                Memories::Copy(mStart.mNode, mFinish.mNode + 1, newStart);
             }
             else 
             {
-                Memory::CopyBackward(mStart.mNode, mFinish.mNode + 1, newStart + numOldNodes);
+                Memories::CopyBackward(mStart.mNode, mFinish.mNode + 1, newStart + numOldNodes);
             } 
         }
         else
         {
-            xsize newMapSize = mMapSize + Algorithm::GetMax(mMapSize, nodesToAdd) + 2;
+            xsize newMapSize = mMapSize + Algorithms::GetMax(mMapSize, nodesToAdd) + 2;
             T * * newMap = MapAllocator::Allocate(newMapSize);
             newStart = newMap + (newMapSize - numNewNodes) / 2 + (isAddBack ? 0 : nodesToAdd);
-            Memory::Copy(mStart.mNode, mFinish.mNode + 1, newStart);
+            Memories::Copy(mStart.mNode, mFinish.mNode + 1, newStart);
             MapAllocator::Deallocate(mMap, mMapSize);
             mMap = newMap;
             mMapSize = newMapSize; // std::cout << mMapSize << std::endl;
@@ -586,7 +591,7 @@ namespace XC
     }
 
     template <typename T, xsize TBufferSize, typename TAllocator>
-    inline void Dequeue<T, TBufferSize, TAllocator>::ReleaseMemory()
+    inline void DEQueue<T, TBufferSize, TAllocator>::ReleaseMemories()
     {
         Clear();
         DataAllocator::Deallocate(mStart.mFirst, GetBufferSize());
@@ -594,14 +599,14 @@ namespace XC
     }
 
     template <typename T, xsize TBufferSize, typename TAllocator>
-    void Dequeue<T, TBufferSize, TAllocator>::CopyWithoutReleaseMemory(const Self & other)
+    void DEQueue<T, TBufferSize, TAllocator>::CopyWithoutReleaseMemories(const Self & other)
     {
         mMapSize = other.mMapSize;
         mMap = MapAllocator::Allocate(mMapSize);
  
         // Have not alloate, should allocate first.       
-        T * * startNode = mMap + xpointerdifference(other.mStart.mNode - other.mMap);
-        T * * finishNode = mMap + xpointerdifference(other.mFinish.mNode - other.mMap);
+        T * * startNode = mMap + xptrdiff(other.mStart.mNode - other.mMap);
+        T * * finishNode = mMap + xptrdiff(other.mFinish.mNode - other.mMap);
 
         // std::cout << "haha" << std::endl;
         for (T * * cur = startNode; cur <= finishNode; ++cur)
@@ -619,7 +624,7 @@ namespace XC
 
         // std::cout << "copy" << std::endl;
         // Copy
-        Memory::UninitializedCopy(other.mStart, other.mFinish, mStart);
+        Memories::UninitializedCopy(other.mStart, other.mFinish, mStart);
     }
 }
 

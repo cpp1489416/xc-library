@@ -1,2 +1,5 @@
 #include "Array.h"
-#include "XCList.h"
+#include "List.h"
+#include "DEQueue.h"
+#include "Queue.h"
+#include "Stack.h"

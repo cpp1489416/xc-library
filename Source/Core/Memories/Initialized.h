@@ -3,7 +3,7 @@
 
 namespace XC
 {
-    namespace Memory
+    namespace Memories
     {
 	template <typename ForwardIterator, typename T>
 	void Fill(ForwardIterator first, ForwardIterator last, const T & value)

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Containers/Array.h"
-#include "Object.h"
+#include "../Containers/Array.h"
+#include "CallableObject.h"
 
 namespace XC
 {

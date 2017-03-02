@@ -1,16 +1,16 @@
 #ifndef XCQUEUE_H
 #define XCQUEUE_H
 
-#include "Dequeue.h"
+#include "DEQueue.h"
 
 namespace XC
 {
-	template <typename T, typename TContainer = Dequeue<T> >
+	template <typename T, typename TContainer = DEQueue<T> >
 	class Queue
 	{
 	public:
-		typedef typename Queue<T, TContainer> Self;
-		typedef typename TContainer::SizeType SizeType;
+        using Self = Queue<T, TContainer>;
+        using SizeType = typename TContainer::SizeType;
 
 	public:
 		Queue() = default;
@@ -18,13 +18,13 @@ namespace XC
 		~Queue() = default;
 		Self & operator = (const Self & rhs) { mContainer = rhs; }
 
+    public:
 		const T & GetFront() const { return mContainer.GetFront(); }
 		const T & GetBack() const { return mContainer.GetBack(); }
 		SizeType GetSize() const { return mContainer.GetSize(); }
 		bool IsEmpty() const { return mContainer.IsEmpty(); }
 		bool operator == (const Self & rhs) const { return mContainer == rhs.mContainer; }
-		bool operator != (const Self & rhs) const { return !(*this == rhs); }
-
+        bool operator != (const Self & rhs) const { return !(*this == rhs); }
 		T & GetFront() { return mContainer.GetFront(); }
 		T & GetBack() { return mContainer.GetBack(); }
 		void Push(const T & value) { mContainer.PushBack(value); }

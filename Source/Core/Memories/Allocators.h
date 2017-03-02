@@ -2,7 +2,7 @@
 #define XCALLOCATORS_H
 
 #include <new>
-#include "../Basic.h"
+#include "../Types/Types.h"
 #include "Construts.h"
 
 namespace XC
@@ -18,11 +18,11 @@ namespace XC
         static T * Allocate(xsize count) { return (T *)::operator new(count * sizeof(T)); }
         static void Deallocate(T * location) { ::operator delete(location); }
         static void Deallocate(T * location, xsize n) { if (n != 0) ::operator delete(location); }
-        static void Construct(T * location, const T & value) { Memory::Construct(location, value); }
-        static void Destroy(T * location) { Memory::Destroy(location); }
+        static void Construct(T * location, const T & value) { Memories::Construct(location, value); }
+        static void Destroy(T * location) { Memories::Destroy(location); }
     };
 
-    template <typename T, typename TAllocator>
+    template <typename T, typename TAllocator> 
     class InsideAllocator
     {
     public:

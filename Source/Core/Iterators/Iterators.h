@@ -1,7 +1,7 @@
 #ifndef XCITERATORS_H
 #define XCITERATORS_H
 
-#include "Basic.h"
+#include "../Types/Types.h"
 
 namespace XC
 {
@@ -25,7 +25,7 @@ namespace XC
     class BidirectionalIteratorTag : public FordwardIteratorTag	{};
     class RandomAccessIteratorTag : public BidirectionalIteratorTag {};
 
-    template <typename TCategory, typename T, typename TDifference = xpointerdifference,
+    template <typename TCategory, typename T, typename TDifference = xptrdiff,
 	typename TPointer = T *, typename TReference = T &>
     class Iterator
     {
@@ -54,7 +54,7 @@ namespace XC
     public:
 	typedef RandomAccessIteratorTag IteratorCategory;
 	typedef T ValueType;
-	typedef xpointerdifference DifferenceType;
+	typedef xptrdiff DifferenceType;
 	typedef T * Pointer;
 	typedef T & Reference;
     };
@@ -65,7 +65,7 @@ namespace XC
     public:
 	typedef RandomAccessIteratorTag IteratorCategory;
 	typedef T ValueType;
-	typedef	xpointerdifference DifferenceType;
+	typedef	xptrdiff DifferenceType;
 	typedef const T * Pointer;
 	typedef const T & Reference;
     };

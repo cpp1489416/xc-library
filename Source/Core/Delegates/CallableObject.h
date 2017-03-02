@@ -2,7 +2,7 @@
 
 namespace XC
 {
-    class Object
+    class CallableObject
     {
 
     };

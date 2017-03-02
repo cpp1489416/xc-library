@@ -7,14 +7,23 @@
     <Filter Include="Containers">
       <UniqueIdentifier>{5798278d-f520-4429-a345-d02f6ed950a3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Algorithm">
+    <Filter Include="SyntaxSugars">
+      <UniqueIdentifier>{d83ab83f-dbaa-42db-a0ea-be9d5ef84ebd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Types">
+      <UniqueIdentifier>{10fa6791-10cb-46f9-acfb-59275e447973}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Delegates">
+      <UniqueIdentifier>{a4e3b147-f24a-428f-9f57-7cac67f4dc7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Memories">
+      <UniqueIdentifier>{1aaaf6b8-5e31-4a89-84c7-8c27793a37b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms">
       <UniqueIdentifier>{fe1759e1-d0c5-4e87-b94d-40b541d2f8d5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Pointers\AutoPointer.h">
-      <Filter>Pointers</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\Array.h">
       <Filter>Containers</Filter>
     </ClInclude>
@@ -30,19 +39,68 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\Stack.h">
       <Filter>Containers</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Algorithm.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Basic.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Iterators.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Memory.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Pointers.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Tuples.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\TypeTraits.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Algorithm\Heap.h">
-      <Filter>Algorithm</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SyntaxSugars\NamespaceSyntaxSugar.h">
+      <Filter>SyntaxSugars</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Property.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Delegate.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Object.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SyntaxSugars\SyntaxSugars.h">
+      <Filter>SyntaxSugars</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SyntaxSugars\UnitTestSyntaxSugar.h">
+      <Filter>SyntaxSugars</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Delegates\Delegate.h">
+      <Filter>Delegates</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Delegates\Delegates.h">
+      <Filter>Delegates</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Delegates\CallableObject.h">
+      <Filter>Delegates</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Types\TypeTraits.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SyntaxSugars\Property.h">
+      <Filter>SyntaxSugars</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Pointers\IMPLPointer.h">
+      <Filter>Pointers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Pointers\Pointers.h">
+      <Filter>Pointers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Pointers\UniquePointer.h">
+      <Filter>Pointers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Pointers\ValuePointer.h">
+      <Filter>Pointers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Types\Basic.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Types\Types.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Memories\Construts.h">
+      <Filter>Memories</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Memories\Allocators.h">
+      <Filter>Memories</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Memories\Initialized.h">
+      <Filter>Memories</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Memories\Uninitializeds.h">
+      <Filter>Memories</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Memories\Memories.h">
+      <Filter>Memories</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Algorithms\Algorithms.h">
+      <Filter>Algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Algorithms\Heap.h">
+      <Filter>Algorithms</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

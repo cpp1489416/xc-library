@@ -1,33 +1,18 @@
 #ifndef XCHEAP_H
 #define XCHEAP_H
 
-#include "../XCIterators.h"
+#include "../SyntaxSugars/SyntaxSugars.h"
+#include "../Iterators.h"
 
-namespace XC
+XC_BEGIN_NAMESPACE_2(XC, Algorithms)
 {
-    template <typename RandomAccessIterator>
-    void PushHeaåp(RandomAccessIterator first, RandomAccessIterator last); // heap must make sure parent is bigger
-
-    namespace Detail
-    {
-        template <typename RandomAccessIterator, typename Distance, typename T>
-        void PushHeapAUX(RandomAccessIterator first, RandomAccessIterator last, Distance *, T *);
-
-        template <typename RandomAccessIterator, typename Distance, typename T>
-        void PushHeap__(RandomAccessIterator first, Distance holeIndex, Distance topIndex, T value);
-    }
-}
-
-namespace XC
-{
-
     template <typename RandomAccessIterator>
     void PushHeap(RandomAccessIterator first, RandomAccessIterator last)
     {
         Detail::PushHeapAUX(first, last, Iterators::GetDifferencePointer(first), Iterators::GetValuePointer(first));
     }
 
-    namespace Detail
+    XC_BEGIN_NAMESPACE_1(Details)
     {
         template <typename RandomAccessIterator, typename Distance, typename T>
         void PushHeapAUX(RandomAccessIterator first, RandomAccessIterator last)
@@ -45,11 +30,11 @@ namespace XC
                 *(first + holeIndex) = *(first + parent);
                 holeIndex = parent;
                 parent = (holeIndex - 1) / 2;
-            }  
+            }
 
             *(first + holeIndex) = value;
-        }
+        } XC_END_NAMESPACE_1
     }
-}
+} XC_END_NAMESPACE_2
 
 #endif // XCHEAP_H

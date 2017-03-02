@@ -2,10 +2,9 @@
 #ifndef XCLIST_H
 #define XCLIST_H
 
-#include "../XCBasic.h"
-#include "../XCMemory.h"
-#include "../XCIterators.h"
-#include "../XCTypeTraits.h"
+#include "../Types/Types.h"
+#include "../Memories/Memories.h"
+#include "../Iterators/Iterators.h"
 
 namespace XC
 {
@@ -32,7 +31,7 @@ namespace XC
             // These five typedefs are for the iterator traits.
             typedef BidirectionalIteratorTag IteratorCategory;
             typedef T ValueType;
-            typedef xpointerdifference DifferenceType;
+            typedef xptrdiff DifferenceType;
             typedef TPointer Pointer; // Pointer and reference type declares if it is const.
             typedef TReference Reference;
 
@@ -61,7 +60,7 @@ namespace XC
     public:
         // These are basic defs.
         typedef T ValueType;
-        typedef xpointerdifference DifferenceType;
+        typedef xptrdiff DifferenceType;
         typedef T * Pointer;
         typedef T & Reference;
         typedef xsize SizeType;
@@ -76,7 +75,7 @@ namespace XC
     public:
         List() { EmptyInitialize(); }
         List(const Self & rhs);
-        ~List() { ReleaseMemory(); }
+        ~List() { ReleaseMemories(); }
         Self & operator = (const Self & rhs);
         bool operator == (const Self & rhs) const;
         bool operator != (const Self & rhs) const { return !(*this == rhs); }
@@ -113,7 +112,7 @@ namespace XC
         Node * CreateNode(const T & value);
         void RemoveNode(Node * node);
         void EmptyInitialize();
-        void ReleaseMemory();
+        void ReleaseMemories();
         void CopyAll(const Self & rhs);
 
         Node * mNode;
@@ -242,14 +241,14 @@ namespace XC
     List<T, TAllocator>::CreateNode(const T & value)
     {
         Node * ans = AllocateNode();
-        Memory::Construct(&ans->mData, value);
+        Memories::Construct(&ans->mData, value);
         return ans;
     }
 
     template <typename T, typename TAllocator>
     inline void List<T, TAllocator>::RemoveNode(Node * node)
     {
-        Memory::Destroy(node);
+        Memories::Destroy(node);
         DeallocateNode(node);
     }
 
@@ -262,7 +261,7 @@ namespace XC
     }
 
     template <typename T, typename TAllocator>
-    inline void List<T, TAllocator>::ReleaseMemory()
+    inline void List<T, TAllocator>::ReleaseMemories()
     {
         Clear();
         NodeAllocator::Deallocate(mNode);

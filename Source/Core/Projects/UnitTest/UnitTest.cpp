@@ -2,11 +2,12 @@
 //
 
 #include "stdafx.h"
-#include <Pointers.h>
-#include <Delegate.h>
-#include <Property.h>
+#include <Pointers/Pointers.h>
+#include <Delegates/Delegates.h>
+#include <SyntaxSugars/SyntaxSugars.h>
 #include <functional>
 #include <iostream>
+#include <Containers/Containers.h>
 
 using namespace std;
 using namespace XC;
@@ -14,7 +15,7 @@ using namespace XC;
 class A
 {
 public:
-    void Get(Object *sender, EventArguments *arguments) const
+    void Get(CallableObject *sender, void *arguments) const
     {
         std::cout << "A" << std::endl;
     }
@@ -24,13 +25,13 @@ public:
 class B
 {
 public:
-    void Get(Object *sender, EventArguments *arguments)
+    void Get(CallableObject *sender, void *arguments)
     {
         std::cout << "B" << std::endl;
     }
 };
 
-void Get(Object *sender, EventArguments *arguments)
+void Get(CallableObject *sender, void *arguments)
 {
     std::cout << "Static" << std::endl;
 }
@@ -43,8 +44,8 @@ public:
     }
 
 public:
-    Property<int> Value = Property<int>(this, &Test::GetValue, &Test::SetValue);
-    BasicProperty<double> BasicValue;
+//    Property<int> Value = Property<int>(this, &Test::GetValue, &Test::SetValue);
+//    BasicProperty<double> BasicValue;
 
 private:
     const int & GetValue() const
@@ -64,21 +65,10 @@ private:
 
 int main()
 {
+    XC::Array<int> arrays(10);
+
     A a;
     B b;
-    XC::EventHandler handler;
-    handler.Add(&a, &A::Get);
-    handler.Add(&b, &B::Get);
-    handler.Add(&Get);
-    handler.Invoke(nullptr, nullptr);
-
-    Test test;
-    int elseA = test.Value;
-    test.Value = 1000;
-    test.Value = test.Value + 100;
-    std::cout << "test value " << test.Value << std::endl;
-    test.BasicValue = 100;
-    std::cout << test.BasicValue << std::endl;
     system("Pause");
     return 0;
 }

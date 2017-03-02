@@ -1,13 +1,13 @@
 #ifndef XCUNINITIALIZEDS_H
 #define XCUNINITIALIZEDS_H
 
-#include "../Iterators.h"
-#include "../TypeTraits.h"
+#include "../Types/Types.h"
+#include "../Iterators/Iterators.h"
 #include "Construts.h"
 
 namespace XC
 {
-    namespace Memory
+    namespace Memories
     {
         template <typename ForwardIterator, typename Size, typename T>
         ForwardIterator UninitializedFillN(ForwardIterator first, Size n,
@@ -59,7 +59,7 @@ namespace XC
                                                  ForwardIterator result, TrueTraitType);
     }
 
-    namespace Memory
+    namespace Memories
     {
         template<typename ForwardIterator, typename Size, typename T>
         inline ForwardIterator UninitializedFillN(ForwardIterator first, Size n,
@@ -148,7 +148,7 @@ namespace XC
         {
             for (; first < last; ++first)
             {
-                Memory::Construct(&*first, value);
+                Memories::Construct(&*first, value);
             }
         }
 
@@ -186,7 +186,7 @@ namespace XC
         {
             for (; first < last; ++first, ++result)
             {
-                Memory::Construct(&*result, *first);
+                Memories::Construct(&*result, *first);
             }
             return result;
         }

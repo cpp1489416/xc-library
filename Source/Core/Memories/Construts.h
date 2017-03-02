@@ -2,13 +2,12 @@
 #define XCCONSTRUCTS_H
 
 #include <new>
-#include "../Basic.h"
-#include "../TypeTraits.h"
-#include "../Iterators.h"
+#include "../Types/Types.h"
+#include "../Iterators/Iterators.h"
 
 namespace XC
 {
-    namespace Memory
+    namespace Memories
     {
         template <typename T1, typename T2>
         T1 * Construct(T1 * p, const T2 & value);
@@ -29,7 +28,7 @@ namespace XC
         void DestroyPlusAUX(ForwardIterator first, ForwardIterator last, FalseTraitType);
     }
 
-    namespace Memory
+    namespace Memories
     {
         template <typename T1, typename T2>
         inline T1 * Construct(T1 * p, const T2 & value)
