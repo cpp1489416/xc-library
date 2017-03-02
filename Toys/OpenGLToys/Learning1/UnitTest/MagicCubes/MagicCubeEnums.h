@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../Include/XC/Core/Delegate.h"
+
 namespace MagicCubes
 {
     enum class Direction : int
@@ -21,4 +23,6 @@ namespace MagicCubes
     {
         CW, CCW
     };
+
+    using TimeoutEventHandler = XC::Delegate<void>;
 }

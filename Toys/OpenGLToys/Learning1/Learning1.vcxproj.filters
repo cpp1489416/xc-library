@@ -70,6 +70,15 @@
     <Filter Include="UnitTest Files\MagicCubes">
       <UniqueIdentifier>{e1a9efcc-3610-4350-bffc-d6ae2f51620c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Include Files">
+      <UniqueIdentifier>{1c8e18d0-2651-42d8-a64b-5f60b41c6d18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include Files\XC">
+      <UniqueIdentifier>{b2394aba-4e9e-4434-9c2f-c14c4dd20305}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include Files\XC\Core">
+      <UniqueIdentifier>{d6f8391c-0ae3-49b4-bfeb-8228576db775}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeneratedFiles\qrc_Learning1.cpp">
@@ -234,6 +243,9 @@
     <ClCompile Include="UnitTest\MagicCubes\CubeArray.cpp">
       <Filter>UnitTest Files\MagicCubes</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MagicCube.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Learning1.qrc">
@@ -257,181 +269,196 @@
     <CustomBuild Include="UnitTest\GUI\MagicCubeWidget.h">
       <Filter>UnitTest Files\GUI</Filter>
     </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="CXCGL\Shader.h">
-      <Filter>Source Files\CXCGL</Filter>
-    </ClInclude>
-    <ClInclude Include="CXCGL.h">
+    <CustomBuild Include="UnitTest\MagicCubes\MagicCube.h">
+      <Filter>UnitTest Files\MagicCubes</Filter>
+    </CustomBuild>
+    <CustomBuild Include="CXCGL.h">
       <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Meshes\MeshProvider.h">
+    </CustomBuild>
+    <CustomBuild Include="CXCGL\Camera.h">
+      <Filter>Source Files\CXCGL</Filter>
+    </CustomBuild>
+    <CustomBuild Include="CXCGL\FramebufferObject.h">
+      <Filter>Source Files\CXCGL</Filter>
+    </CustomBuild>
+    <CustomBuild Include="CXCGL\PointLight.h">
+      <Filter>Source Files\CXCGL</Filter>
+    </CustomBuild>
+    <CustomBuild Include="CXCGL\Program.h">
+      <Filter>Source Files\CXCGL</Filter>
+    </CustomBuild>
+    <CustomBuild Include="CXCGL\Shader.h">
+      <Filter>Source Files\CXCGL</Filter>
+    </CustomBuild>
+    <CustomBuild Include="CXCGL\Technique.h">
+      <Filter>Source Files\CXCGL</Filter>
+    </CustomBuild>
+    <CustomBuild Include="CXCGL\Skybox.h">
+      <Filter>Source Files\CXCGL</Filter>
+    </CustomBuild>
+    <CustomBuild Include="CXCGL\Texture.h">
+      <Filter>Source Files\CXCGL</Filter>
+    </CustomBuild>
+    <CustomBuild Include="CXCGL\Thing.h">
+      <Filter>Source Files\CXCGL</Filter>
+    </CustomBuild>
+    <CustomBuild Include="CXCGL\Transform.h">
+      <Filter>Source Files\CXCGL</Filter>
+    </CustomBuild>
+    <CustomBuild Include="CXCGL\VertexArrayObject.h">
+      <Filter>Source Files\CXCGL</Filter>
+    </CustomBuild>
+    <CustomBuild Include="CXCGL\Buffer.h">
+      <Filter>Source Files\CXCGL</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Things\Anchor.h">
+      <Filter>Source Files\Things</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Things\Circle.h">
+      <Filter>Source Files\Things</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Things\Cube.h">
+      <Filter>Source Files\Things</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Things\MengerSpongeCube.h">
+      <Filter>Source Files\Things</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Things\Quad.h">
+      <Filter>Source Files\Things</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Things\Sphere.h">
+      <Filter>Source Files\Things</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Things\TriangularPyramid.h">
+      <Filter>Source Files\Things</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Meshes\MeshProvider.h">
       <Filter>Source Files\Meshes</Filter>
-    </ClInclude>
-    <ClInclude Include="Things\Cube.h">
-      <Filter>Source Files\Things</Filter>
-    </ClInclude>
-    <ClInclude Include="Things\Circle.h">
-      <Filter>Source Files\Things</Filter>
-    </ClInclude>
-    <ClInclude Include="Things\Anchor.h">
-      <Filter>Source Files\Things</Filter>
-    </ClInclude>
-    <ClInclude Include="CXCGL\Camera.h">
-      <Filter>Source Files\CXCGL</Filter>
-    </ClInclude>
-    <ClInclude Include="CXCGL\Skybox.h">
-      <Filter>Source Files\CXCGL</Filter>
-    </ClInclude>
-    <ClInclude Include="FileLoaders\DDSFileLoader.h">
+    </CustomBuild>
+    <CustomBuild Include="FileLoaders\DDSFileLoader.h">
       <Filter>Source Files\FileLoaders</Filter>
-    </ClInclude>
-    <ClInclude Include="FileLoaders\ImageFileLoader.h">
+    </CustomBuild>
+    <CustomBuild Include="FileLoaders\ImageFileLoader.h">
       <Filter>Source Files\FileLoaders</Filter>
-    </ClInclude>
-    <ClInclude Include="CXCGL\Transform.h">
-      <Filter>Source Files\CXCGL</Filter>
-    </ClInclude>
-    <ClInclude Include="Things\MengerSpongeCube.h">
-      <Filter>Source Files\Things</Filter>
-    </ClInclude>
-    <ClInclude Include="CXCGL\PointLight.h">
-      <Filter>Source Files\CXCGL</Filter>
-    </ClInclude>
-    <ClInclude Include="Things\Sphere.h">
-      <Filter>Source Files\Things</Filter>
-    </ClInclude>
-    <ClInclude Include="Things\Quad.h">
-      <Filter>Source Files\Things</Filter>
-    </ClInclude>
-    <ClInclude Include="CXCGL\Thing.h">
-      <Filter>Source Files\CXCGL</Filter>
-    </ClInclude>
-    <ClInclude Include="CXCGL\Buffer.h">
-      <Filter>Source Files\CXCGL</Filter>
-    </ClInclude>
-    <ClInclude Include="CXCGL\FramebufferObject.h">
-      <Filter>Source Files\CXCGL</Filter>
-    </ClInclude>
-    <ClInclude Include="CXCGL\VertexArrayObject.h">
-      <Filter>Source Files\CXCGL</Filter>
-    </ClInclude>
-    <ClInclude Include="CXCGL\Texture.h">
-      <Filter>Source Files\CXCGL</Filter>
-    </ClInclude>
-    <ClInclude Include="CXCGL\Program.h">
-      <Filter>Source Files\CXCGL</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Matrix4x4.h">
+    </CustomBuild>
+    <CustomBuild Include="Math\Matrix4x4.h">
       <Filter>Source Files\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Vector3D.h">
+    </CustomBuild>
+    <CustomBuild Include="Math\Vector3D.h">
       <Filter>Source Files\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="CXCGL\Technique.h">
-      <Filter>Source Files\CXCGL</Filter>
-    </ClInclude>
-    <ClInclude Include="Techniques\BasicTechnique.h">
+    </CustomBuild>
+    <CustomBuild Include="Techniques\BasicTechnique.h">
       <Filter>Source Files\Techniques</Filter>
-    </ClInclude>
-    <ClInclude Include="Techniques\LightingTechnique.h">
+    </CustomBuild>
+    <CustomBuild Include="Techniques\LightingTechnique.h">
       <Filter>Source Files\Techniques</Filter>
-    </ClInclude>
-    <ClInclude Include="Techniques\ShadowTechnique.h">
+    </CustomBuild>
+    <CustomBuild Include="Techniques\ShadowTechnique.h">
       <Filter>Source Files\Techniques</Filter>
-    </ClInclude>
-    <ClInclude Include="Techniques\ShodowVolumnTechnique.h">
+    </CustomBuild>
+    <CustomBuild Include="Techniques\ShodowVolumnTechnique.h">
       <Filter>Source Files\Techniques</Filter>
-    </ClInclude>
-    <ClInclude Include="Techniques\TextureLightingTechnique.h">
+    </CustomBuild>
+    <CustomBuild Include="Techniques\TextureLightingTechnique.h">
       <Filter>Source Files\Techniques</Filter>
-    </ClInclude>
-    <ClInclude Include="Techniques\TextureTechnique.h">
+    </CustomBuild>
+    <CustomBuild Include="Techniques\TextureTechnique.h">
       <Filter>Source Files\Techniques</Filter>
-    </ClInclude>
-    <ClInclude Include="UnitTest\MagicCubes\MagicCube.h">
+    </CustomBuild>
+    <CustomBuild Include="Shaders\BasicPS.glsl">
+      <Filter>Shader Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Shaders\LightingFragmentShader.glsl">
+      <Filter>Shader Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Shaders\LightingVertexShader.glsl">
+      <Filter>Shader Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Shaders\ShadowPS.glsl">
+      <Filter>Shader Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Shaders\ShadowVS.glsl">
+      <Filter>Shader Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Shaders\SkyboxFragmentShader.glsl">
+      <Filter>Shader Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Shaders\SkyboxVertexShader.glsl">
+      <Filter>Shader Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Shaders\TextureFragmentShader.glsl">
+      <Filter>Shader Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Shaders\TextureLightingFragmentShader.glsl">
+      <Filter>Shader Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Shaders\TextureLightingVertexShader.glsl">
+      <Filter>Shader Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Shaders\TextureVertexShader.glsl">
+      <Filter>Shader Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Shaders\BasicVS.glsl">
+      <Filter>Shader Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Textures\CubeMapNX.png">
+      <Filter>Texture Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Textures\CubeMapNY.png">
+      <Filter>Texture Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Textures\CubeMapNZ.png">
+      <Filter>Texture Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Textures\CubeMapPX.png">
+      <Filter>Texture Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Textures\CubeMapPY.png">
+      <Filter>Texture Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Textures\CubeMapPZ.png">
+      <Filter>Texture Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Textures\EarthCylindricalMap.jpg">
+      <Filter>Texture Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Textures\Main.dds">
+      <Filter>Texture Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="UnitTest\MagicCubes\CubeArray.h">
       <Filter>UnitTest Files\MagicCubes</Filter>
-    </ClInclude>
-    <ClInclude Include="UnitTest\MagicCubes\MagicCubeEnums.h">
+    </CustomBuild>
+    <CustomBuild Include="UnitTest\MagicCubes\MagicCubeEnums.h">
       <Filter>UnitTest Files\MagicCubes</Filter>
-    </ClInclude>
-    <ClInclude Include="UnitTest\MagicCubes\MagicInsideCube.h">
+    </CustomBuild>
+    <CustomBuild Include="UnitTest\MagicCubes\RotationState.h">
       <Filter>UnitTest Files\MagicCubes</Filter>
-    </ClInclude>
-    <ClInclude Include="UnitTest\MagicCubes\RotationState.h">
+    </CustomBuild>
+    <CustomBuild Include="UnitTest\MagicCubes\MagicInsideCube.h">
       <Filter>UnitTest Files\MagicCubes</Filter>
-    </ClInclude>
-    <ClInclude Include="UnitTest\MagicCubes\CubeArray.h">
-      <Filter>UnitTest Files\MagicCubes</Filter>
-    </ClInclude>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\SkyboxFragmentShader.glsl">
-      <Filter>Shader Files</Filter>
-    </None>
-    <None Include="Shaders\SkyboxVertexShader.glsl">
-      <Filter>Shader Files</Filter>
-    </None>
-    <None Include="Shaders\LightingFragmentShader.glsl">
-      <Filter>Shader Files</Filter>
-    </None>
-    <None Include="Shaders\LightingVertexShader.glsl">
-      <Filter>Shader Files</Filter>
-    </None>
-    <None Include="Shaders\TextureFragmentShader.glsl">
-      <Filter>Shader Files</Filter>
-    </None>
-    <None Include="Shaders\TextureVertexShader.glsl">
-      <Filter>Shader Files</Filter>
-    </None>
-    <None Include="Shaders\ShadowPS.glsl">
-      <Filter>Shader Files</Filter>
-    </None>
-    <None Include="Shaders\ShadowVS.glsl">
-      <Filter>Shader Files</Filter>
-    </None>
-    <None Include="Shaders\BasicPS.glsl">
-      <Filter>Shader Files</Filter>
-    </None>
-    <None Include="Shaders\BasicVS.glsl">
-      <Filter>Shader Files</Filter>
-    </None>
-    <None Include="Shaders\TextureLightingFragmentShader.glsl">
-      <Filter>Shader Files</Filter>
-    </None>
-    <None Include="Shaders\TextureLightingVertexShader.glsl">
-      <Filter>Shader Files</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Things\TriangularPyramid.h">
-      <Filter>Source Files\Things</Filter>
-    </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Textures\Main.dds">
-      <Filter>Texture Files</Filter>
-    </Image>
-    <Image Include="Textures\CubeMapNX.png">
-      <Filter>Texture Files</Filter>
-    </Image>
-    <Image Include="Textures\CubeMapNY.png">
-      <Filter>Texture Files</Filter>
-    </Image>
-    <Image Include="Textures\CubeMapNZ.png">
-      <Filter>Texture Files</Filter>
-    </Image>
-    <Image Include="Textures\CubeMapPX.png">
-      <Filter>Texture Files</Filter>
-    </Image>
-    <Image Include="Textures\CubeMapPY.png">
-      <Filter>Texture Files</Filter>
-    </Image>
-    <Image Include="Textures\CubeMapPZ.png">
-      <Filter>Texture Files</Filter>
-    </Image>
-    <Image Include="Textures\EarthCylindricalMap.jpg">
-      <Filter>Texture Files</Filter>
-    </Image>
+    <ClInclude Include="Include\XC\Core\Basic.h">
+      <Filter>Include Files\XC\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\XC\Core\Core.h">
+      <Filter>Include Files\XC\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\XC\Core\Delegate.h">
+      <Filter>Include Files\XC\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\XC\Core\Iterators.h">
+      <Filter>Include Files\XC\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\XC\Core\Object.h">
+      <Filter>Include Files\XC\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\XC\Core\Property.h">
+      <Filter>Include Files\XC\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\XC\Core\TypeTraits.h">
+      <Filter>Include Files\XC\Core</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
