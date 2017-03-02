@@ -17,6 +17,10 @@ namespace MagicCubes
         mFaceColors[faceID] = color;
     }
 
+    void MagicInsideCube::RequireRotationState(const RotationState rotationState)
+    {
+    }
+
     void MagicInsideCube::OnCreate()
     {
         float positions[] =

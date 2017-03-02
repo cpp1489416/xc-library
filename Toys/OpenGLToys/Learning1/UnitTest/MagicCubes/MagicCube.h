@@ -13,9 +13,9 @@ namespace MagicCubes
 
     public:
         MagicInsideCube * GetInsideCube(int x, int y, int z);
-        const RotationState & GetRotationState() & { return mRotationState; }
         int GetCountRows() const { return mCountRows; }
-        void SetRotationState(const RotationState & rotationState);
+        void RequireRotationState(const RotationState & rotationState);
+        const RotationState & GetRotationState() & { return mRotationState; }
         bool IsFinishedRotation() const { return mRotationState.IsFinished(); }
         void Update();
 

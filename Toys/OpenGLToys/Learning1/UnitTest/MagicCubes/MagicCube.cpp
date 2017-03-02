@@ -13,7 +13,7 @@ namespace MagicCubes
         return mInsideCubes[x][y][z];
     }
 
-    void MagicCube::SetRotationState(const RotationState & rotationState)
+    void MagicCube::RequireRotationState(const RotationState & rotationState)
     {
         mRotationState = rotationState;
         Update();

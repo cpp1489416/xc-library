@@ -31,12 +31,9 @@ void MagicCubeWidget::OnInitializeOpenGL()
 
     glClearColor(0, 0.5, 0, 1);
     glEnable(GL_CULL_FACE);
-    glFrontFace(GL_CCW); // default
+    glFrontFace(GL_CCW); 
     glEnable(GL_DEPTH_TEST);
     glDepthMask(GL_TRUE);
-
-    //mMagicCube.SetRotationState(RotationState(Face::Front, 0, Clockwise::CCW, 2));
-    // mMagicCube.mTransform.mPosition = glm::vec3(3, 3, 0);
 }
 
 void MagicCubeWidget::OnResizeOpenGL(int width, int height)
@@ -135,7 +132,7 @@ void MagicCubeWidget::Timeout()
     if (bigger)
     {
         mRotationStates.push(RotationState::GetRandomRotationState(mMagicCube.GetCountRows()));
-        mMagicCube.SetRotationState(mRotationStates.top());
+        mMagicCube.RequireRotationState(mRotationStates.top());
 
         if (mRotationStates.size() > 10)
         {
@@ -150,7 +147,7 @@ void MagicCubeWidget::Timeout()
         }
 
         mRotationStates.top() = mRotationStates.top().GetOppositeRotationState();
-        mMagicCube.SetRotationState(mRotationStates.top());
+        mMagicCube.RequireRotationState(mRotationStates.top());
         mRotationStates.pop();
     }
 

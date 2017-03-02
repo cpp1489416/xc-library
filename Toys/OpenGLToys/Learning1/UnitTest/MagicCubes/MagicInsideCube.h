@@ -3,6 +3,7 @@
 #include "MagicCubeEnums.h"
 #include "../CXCGL/Thing.h"
 #include "../CXCGL/VertexArrayObject.h"
+#include "RotationState.h"
 #include <glm/matrix.hpp>
 
 namespace MagicCubes
@@ -19,7 +20,8 @@ namespace MagicCubes
         VertexArrayObject * GetVertexArrayObject() { return &mVertexArrayObject; }
         glm::mat4 GetRotationMatrix() const { return mRotationMatrix; }
         void SetRotationMatrix(const glm::mat4 rotationMatrix) { mRotationMatrix = rotationMatrix; }
-  
+        void RequireRotationState(const RotationState rotationState);
+
     public:
         void OnCreate() override;
         void OnChangeTechnique(Technique * technique) override {}
