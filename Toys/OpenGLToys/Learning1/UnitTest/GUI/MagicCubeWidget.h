@@ -26,6 +26,7 @@ protected:
 
 private:
     void Timeout();
+    void OnMagicCubeUpdated() { update(); }
 
 private:
     Cube mCube;

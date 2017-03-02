@@ -10,6 +10,8 @@ MagicCubeWidget::MagicCubeWidget(QWidget *parent)
     QTimer * timer = new QTimer();
     connect(timer, &QTimer::timeout, this, &MagicCubeWidget::Timeout);
     timer->start(500);
+
+    connect(&mMagicCube, &MagicCube::UpdatedSignal, this, &MagicCubeWidget::OnMagicCubeUpdated);
 }
 
 MagicCubeWidget::~MagicCubeWidget()
@@ -31,7 +33,7 @@ void MagicCubeWidget::OnInitializeOpenGL()
 
     glClearColor(0, 0.5, 0, 1);
     glEnable(GL_CULL_FACE);
-    glFrontFace(GL_CCW); 
+    glFrontFace(GL_CCW);
     glEnable(GL_DEPTH_TEST);
     glDepthMask(GL_TRUE);
 }
@@ -44,7 +46,7 @@ void MagicCubeWidget::OnResizeOpenGL(int width, int height)
 
 void MagicCubeWidget::OnPaintOpenGL()
 {
-    mMagicCube.Update();
+    //mMagicCube.Update();
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
     glDisable(GL_CULL_FACE);
 
@@ -127,29 +129,32 @@ void MagicCubeWidget::keyPressEvent(QKeyEvent * event)
 
 void MagicCubeWidget::Timeout()
 {
-    static bool bigger = true;
-
-    if (bigger)
+    if (mMagicCube.IsRotationFinished())
     {
-        mRotationStates.push(RotationState::GetRandomRotationState(mMagicCube.GetCountRows()));
-        mMagicCube.RequireRotationState(mRotationStates.top());
+        static bool bigger = true;
 
-        if (mRotationStates.size() > 10)
+        if (bigger)
         {
-            bigger = false;
+            mRotationStates.push(RotationState::GetRandomRotationState(mMagicCube.GetCountRows()));
+            mMagicCube.RequireRotationState(mRotationStates.top());
+
+            if (mRotationStates.size() > 4)
+            {
+                bigger = false;
+            }
         }
-    }
-    else
-    {
-        if (mRotationStates.empty())
+        else
         {
-            return;
-        }
+            if (mRotationStates.empty())
+            {
+                return;
+            }
 
-        mRotationStates.top() = mRotationStates.top().GetOppositeRotationState();
-        mMagicCube.RequireRotationState(mRotationStates.top());
-        mRotationStates.pop();
+            mRotationStates.top() = mRotationStates.top().GetOppositeRotationState();
+            mMagicCube.RequireRotationState(mRotationStates.top());
+            mRotationStates.pop();
+        }
+        update();
     }
 
-    update();
 }

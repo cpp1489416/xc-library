@@ -37,5 +37,8 @@ namespace MagicCubes
         Buffer mPositionArrayBuffer = Buffer(GL_ARRAY_BUFFER, GL_STATIC_DRAW);
         Buffer mColorArrayBuffer = Buffer(GL_ARRAY_BUFFER, GL_STATIC_DRAW);
         glm::mat4 mRotationMatrix = glm::mat4(1.0f);
+        bool mInRotation = false;
+
+        friend class MagicCube;
     };
 }

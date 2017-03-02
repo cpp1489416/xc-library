@@ -128,7 +128,8 @@ namespace AStarAlgorithm
                     if (Row < other.Row)
                     {
                         return -1;
-                    } else if (Row > other.Row)
+                    } 
+                    else if (Row > other.Row)
                     {
                         return 1;
                     }
