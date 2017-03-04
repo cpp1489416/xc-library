@@ -11,7 +11,7 @@ XC_BEGIN_NAMESPACE_2(XC, Algorithms)
         void PushHeapAUX(TRandomAccessIterator first, TRandomAccessIterator last, TDistance *, T *)
         {
             // attention : new object is inserted to the end of the heap
-            PushHeaMain(first, TDistance(last - first - 1), Iterators::GetDifferencePointerType(first), T(*(last - 1)));
+            PushHeapMain(first, TDistance(last - first - 1), TDistance(0), T(*(last - 1)));
         }
 
         template <typename TRandomAccessIterator, typename TDistance, typename T>
@@ -102,7 +102,7 @@ XC_BEGIN_NAMESPACE_2(XC, Algorithms)
     template <typename TRandomAccessIterator>
     void PushHeap(TRandomAccessIterator first, TRandomAccessIterator last)
     {
-        Details::PushHeapAUX(first, last, Iterators::GetDifferencePointerType(first), Iterators::GetValuePointer(first));
+        Details::PushHeapAUX(first, last, Iterators::GetDifferencePointerType(first), Iterators::GetValuePointerType(first));
     }
 
     template <typename TRandomAccessIterator>

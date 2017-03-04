@@ -33,9 +33,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\Array.h">
       <Filter>Containers</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\Dequeue.h">
-      <Filter>Containers</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\List.h">
       <Filter>Containers</Filter>
     </ClInclude>
@@ -115,6 +112,20 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Iterators\Iterators.h">
       <Filter>Iterators</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\PriorityQueue.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\PriorityQueue.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Functors\Functors.h">
+      <Filter>Functors</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\Containers.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\DEQueue.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\RBTree.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -6,3 +6,4 @@
 #include "DEQueue.h"
 #include "Queue.h"
 #include "Stack.h"
+#include "PriorityQueue.h"

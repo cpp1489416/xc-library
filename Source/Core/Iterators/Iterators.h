@@ -12,12 +12,8 @@ XC_BEGIN_NAMESPACE_2(XC, Iterators)
         typedef T ValueType;
         typedef TDifference DifferenceType;
         typedef TPointer Pointer;
-        typedef TReference Reference;
+        typedef TReference Reference;   
     };
-
-    template <typename T> class IteratorTraits;
-    template <typename T> class IteratorTraits<T *>;
-    template <typename T> class IteratorTraits<const T *>;
 
     class InputIteratorTag {};
     class OutputIteratorTag {};
