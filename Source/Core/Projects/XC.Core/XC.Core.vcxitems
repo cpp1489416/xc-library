@@ -21,9 +21,11 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\List.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\Queue.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\Stack.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Delegates\Delegate.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Delegates\Delegates.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Delegates\CallableObject.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Delegates\Property.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Memories\Allocators.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Memories\Construts.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Memories\Initialized.h" />
@@ -34,7 +36,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Pointers\UniquePointer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Pointers\ValuePointer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SyntaxSugars\NamespaceSyntaxSugar.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SyntaxSugars\Property.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SyntaxSugars\SyntaxSugars.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SyntaxSugars\UnitTestSyntaxSugar.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Types\Basic.h" />

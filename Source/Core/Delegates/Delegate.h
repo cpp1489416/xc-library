@@ -2,6 +2,7 @@
 
 #include "../Containers/Array.h"
 #include "CallableObject.h"
+#include <map>
 
 namespace XC
 {
@@ -12,6 +13,8 @@ namespace XC
         {
         public:
             virtual bool IsConstant() const = 0;
+            virtual bool IsStatic() const = 0; // rule : static function's class name is nullptr
+            virtual void * GetClass() const { return nullptr; }
             virtual TReturnType Invoke(TArguments ...) const = 0;
         };
 
@@ -30,6 +33,11 @@ namespace XC
 
         public:
             bool IsConstant() const override
+            {
+                return true;
+            }
+
+            bool IsStatic() const override
             {
                 return true;
             }
@@ -70,6 +78,16 @@ namespace XC
             bool IsConstant() const override
             {
                 return false;
+            }
+
+            bool IsStatic() const override
+            {
+                return false;
+            }
+
+            void * GetClass() const override
+            {
+                return static_cast<void *>(mClassName);
             }
 
             TReturnType Invoke(TArguments ... arguments) const override
@@ -113,6 +131,16 @@ namespace XC
                 return (mClassName->*mFunctionPointer)(arguments ...);
             }
 
+            TClassType * GetClass() const
+            {
+                return mClassName;
+            }
+
+            FunctionPointer * GetFunctionPointer() const
+            {
+                return mFunctionPointer;
+            }
+
         private:
             TClassType * mClassName;
             FunctionPointer mFunctionPointer;
@@ -124,11 +152,42 @@ namespace XC
         {
             return new MemberFunction<true, TReturnType, TClassType, TArguments ...>(className, function);
         }
+
+        class IErasebaleDelegate
+        {
+        public:
+            virtual void Erase(void * className) = 0;
+        };
     }
 
     template <typename TReturnType, typename ... TArguments>
     class Delegate;
 
+    class CallableObject
+    {
+    public:
+        virtual ~CallableObject()
+        {
+            for (auto itr : mEraseableDelegates)
+            {
+                itr->Erase(this);
+            }
+        }
+
+    private:
+        void OnAddingDelegate(Details::IErasebaleDelegate * delegate)
+        {
+            mEraseableDelegates.PushBack(delegate);
+        }
+
+    private:
+        Array<Details::IErasebaleDelegate *> mEraseableDelegates;
+    
+        template <typename TReturnType, typename ... TArguments>
+        friend class Delegate;
+    };
+
+    /*
     // return type is not void, only one function.
     template <typename TReturnType, typename ... TArguments>
     class Delegate
@@ -199,13 +258,15 @@ namespace XC
     private:
         Details::Function<TReturnType, TArguments ...> * mFunction;
     };
+    */
 
     // return type is void, have many functions
     template <typename ... TArguments>
-    class Delegate <void, TArguments ...>
+    class Delegate <void, TArguments ...> : public Details::IErasebaleDelegate
     {
     public:
-        typedef Delegate<void, TArguments ...> Self;
+        using Self = Delegate<void, TArguments ...>;
+        using FunctionPointer = Details::Function<void, TArguments ...> *;
 
     public:
         Delegate() = default;
@@ -229,12 +290,67 @@ namespace XC
         void Add(TClassType * className, void(TClassType::*function)(TArguments ...))
         {
             mFunctions.PushBack(Details::CreateMemberFunction(className, function));
+            className->OnAddingDelegate(this);
         }
 
         template <typename TClassType>
         void Add(TClassType * className, void(TClassType::*function)(TArguments ...) const)
         {
             mFunctions.PushBack(Details::CreateMemberFunction(className, function));
+            className->OnAddingDelegate(this);
+        }
+
+        template <typename TClassType>
+        bool Erase(TClassType * className, void(TClassType::*function)(TArguments ...) const)
+        {
+            for (auto i : mFunctions)
+            {
+                if (i->GetClass() == className && i->GetFunctiono() == function)
+                {
+                    mFunctions.Erase(i);
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        
+        template <typename TClassType>
+        bool Erase(TClassType * className, void(TClassType::*function)(TArguments ...))
+        {
+            for (auto i : mFunctions)
+            {
+                if (i->GetClass() == className && i->GetFunctiono() == function)
+                {
+                    mFunctions.Erase(i);
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        template <typename TClassType>
+        void Erase(TClassType * className)
+        {
+            Erase(static_cast<void *>(className));
+        }
+
+        void Erase(void * className) override
+        {
+            auto iterator = mFunctions.GetBegin();
+            while (iterator != static_cast<void *>(mFunctions.GetEnd()))
+            {
+                if (!(*iterator)->IsStatic())
+                {
+                    if ((*iterator)->GetClass() == className)
+                    {
+                        mFunctions.Erase(iterator);
+                        iterator = mFunctions.GetBegin();
+                    }
+                }
+
+                ++iterator;
+            }
         }
 
         void Invoke(TArguments ... arguments) const
@@ -272,6 +388,7 @@ namespace XC
         }
 
     private:
+        Array<Details::StaticFunction<void, TArguments ...> *> mStaticFunctions;
         Array<Details::Function<void, TArguments ...> *> mFunctions;
     };
 }

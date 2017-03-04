@@ -62,6 +62,7 @@ namespace XC
         Iterator Insert(Iterator position, xsize count, const T & value);
         void PushFront(const T & value) { Insert(GetBegin(), value); }
         void PopFront() { Erase(GetBegin()); }
+        void Remove(T value);
 
         // these functions are provided for c++ for statement
         ConstantIterator begin() const { return GetBegin(); }
@@ -271,6 +272,24 @@ namespace XC
         }
 
         return position + count;
+    }
+
+    template<typename T, typename TAllocator>
+    void Array<T, TAllocator>::Remove(T value)
+    {
+        Iterator itr = GetBegin();
+        while (itr != GetEnd())
+        {
+            if (*itr == value)
+            {
+                Erase(value);
+                itr = GetBegin();
+            }
+            else
+            {
+                ++itr;
+            }
+        }
     }
 
     template <typename T, typename TAllocator>

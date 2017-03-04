@@ -1,3 +1,6 @@
-#include "SyntaxSugars/SyntaxSugars.h"
+#pragma once
+
 #include "Pointers/Pointers.h"
-#include "Delegate.h"
+#include "Delegates/Delegates.h"
+#include "Containers/Containers.h"
+#include "Algorithms/Algorithms.h"

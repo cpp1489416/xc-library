@@ -1,75 +1,76 @@
-// UnitTest.cpp : 定义控制台应用程序的入口点。
-//
-
 #include "stdafx.h"
-#include <Pointers/Pointers.h>
-#include <Delegates/Delegates.h>
-#include <SyntaxSugars/SyntaxSugars.h>
-#include <functional>
-#include <iostream>
-#include <Containers/Containers.h>
 
-using namespace std;
+#include <cstdlib>
+#include <iostream>
+#include <Core.h>
 using namespace XC;
 
-class A
+XC_TEST_CASE(ARRAY_TEST)
+{
+}
+
+class A : public CallableObject
 {
 public:
-    void Get(CallableObject *sender, void *arguments) const
+    void Get()
     {
-        std::cout << "A" << std::endl;
+        std::cout << mValue << "haha\n";
+
     }
+private:
+    int mValue = 5;
 };
 
+class AA : public CallableObject
+{
+public:
+    ~AA()
+    {
+
+    }
+    void Get()
+    {
+        std::cout << mValue << "haha AA\n";
+
+    }
+private:
+    int mValue = 5;
+};
+
+using EventHandler = XC::Delegate<void>;
 
 class B
 {
 public:
-    void Get(CallableObject *sender, void *arguments)
+    void Get()
     {
-        std::cout << "B" << std::endl;
     }
+
+    void Invoke()
+    {
+        mEventHandler.Invoke();
+    }
+
+    EventHandler mEventHandler;
 };
 
-void Get(CallableObject *sender, void *arguments)
+XC_TEST_CASE(DELEGATE_TESET)
 {
-    std::cout << "Static" << std::endl;
+    A * a = new A();
+    AA aa;
+    //a->Get();
+    B b;
+    b.mEventHandler.Add(a, &A::Get);
+
+    b.mEventHandler.Add(&aa, &AA::Get);
+    
+    b.mEventHandler.Invoke();
+    delete a;
+    b.mEventHandler.Invoke();
 }
-
-class Test
-{
-public:
-    Test()
-    {
-    }
-
-public:
-//    Property<int> Value = Property<int>(this, &Test::GetValue, &Test::SetValue);
-//    BasicProperty<double> BasicValue;
-
-private:
-    const int & GetValue() const
-    {
-        return mValue;
-        std::cout << "Get Value" << std::endl;
-    }
-
-    void SetValue(const int & value)
-    {
-        mValue = value;
-        std::cout << "Set Value" << std::endl;
-    }
-
-    int mValue;
-};
 
 int main()
 {
-    XC::Array<int> arrays(10);
-
-    A a;
-    B b;
-    system("Pause");
-    return 0;
+    Array<int> array(21);
+    system("pause");
 }
-

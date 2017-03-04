@@ -16,11 +16,14 @@
     <Filter Include="Delegates">
       <UniqueIdentifier>{a4e3b147-f24a-428f-9f57-7cac67f4dc7a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Memories">
-      <UniqueIdentifier>{1aaaf6b8-5e31-4a89-84c7-8c27793a37b5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Algorithms">
       <UniqueIdentifier>{fe1759e1-d0c5-4e87-b94d-40b541d2f8d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Functors">
+      <UniqueIdentifier>{b9aa72b1-83d8-4508-9858-2f03a1ef3424}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Memories">
+      <UniqueIdentifier>{1aaaf6b8-5e31-4a89-84c7-8c27793a37b5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -60,9 +63,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Types\TypeTraits.h">
       <Filter>Types</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SyntaxSugars\Property.h">
-      <Filter>SyntaxSugars</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Pointers\IMPLPointer.h">
       <Filter>Pointers</Filter>
     </ClInclude>
@@ -101,6 +101,10 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Algorithms\Heap.h">
       <Filter>Algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Delegates\Property.h">
+      <Filter>Delegates</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

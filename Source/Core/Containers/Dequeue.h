@@ -1,5 +1,4 @@
-#ifndef XCDEQUEUE_H
-#define XCDEQUEUE_H
+#pragma once
 
 #include <iostream>
 
@@ -627,5 +626,3 @@ namespace XC
         Memories::UninitializedCopy(other.mStart, other.mFinish, mStart);
     }
 }
-
-#endif // XCDEQUEUE_H
