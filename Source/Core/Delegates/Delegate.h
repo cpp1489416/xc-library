@@ -339,23 +339,19 @@ namespace XC
 
         void Erase(void * className) override
         {
-          //  auto iterator = mFunctions.GetBegin();
-            xsize  index = 0;
-            while (index < mFunctions.GetSize())
+            auto iterator = mFunctions.GetBegin();
+          //  xsize  index = 0;
+            while (static_cast<void *>(iterator) != static_cast<void *>(mFunctions.GetEnd()))
             {
-                if (!mFunctions[index]->IsStatic())
+                if ((*iterator)->GetClass() == className)
                 {
-                    if (mFunctions[index]->GetClass() == className)
-                    {
-                        delete mFunctions[index];
-                        mFunctions.Erase(mFunctions.GetIteratorAt(index));
-                        index = 0; //iterator = mFunctions.GetBegin();
-                        continue;
-                    }
+                    delete *iterator;
+                    mFunctions.Erase(iterator);
+                    iterator = mFunctions.GetBegin();
+                    continue;
                 }
 
-                mFunctions[0];
-                ++index;
+                ++iterator;
             }
         }
 
