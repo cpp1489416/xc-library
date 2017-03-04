@@ -12,6 +12,8 @@ namespace XC
         class Function
         {
         public:
+            virtual ~Function() {}
+
             virtual bool IsConstant() const = 0;
             virtual bool IsStatic() const = 0; // rule : static function's class name is nullptr
             virtual void * GetClass() const { return nullptr; }
@@ -337,19 +339,23 @@ namespace XC
 
         void Erase(void * className) override
         {
-            auto iterator = mFunctions.GetBegin();
-            while (iterator != static_cast<void *>(mFunctions.GetEnd()))
+          //  auto iterator = mFunctions.GetBegin();
+            xsize  index = 0;
+            while (index < mFunctions.GetSize())
             {
-                if (!(*iterator)->IsStatic())
+                if (!mFunctions[index]->IsStatic())
                 {
-                    if ((*iterator)->GetClass() == className)
+                    if (mFunctions[index]->GetClass() == className)
                     {
-                        mFunctions.Erase(iterator);
-                        iterator = mFunctions.GetBegin();
+                        delete mFunctions[index];
+                        mFunctions.Erase(mFunctions.GetIteratorAt(index));
+                        index = 0; //iterator = mFunctions.GetBegin();
+                        continue;
                     }
                 }
 
-                ++iterator;
+                mFunctions[0];
+                ++index;
             }
         }
 
