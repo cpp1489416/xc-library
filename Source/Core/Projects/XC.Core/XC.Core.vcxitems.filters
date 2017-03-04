@@ -115,5 +115,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Iterators\Iterators.h">
       <Filter>Iterators</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\PriorityQueue.h" />
   </ItemGroup>
 </Project>

@@ -7,7 +7,7 @@
 #include "../Iterators/Iterators.h"
 #include "../Algorithms/Algorithms.h"
 
-namespace XC
+XC_BEGIN_NAMESPACE_1(XC)
 {  
     template <typename T, xsize TBufferSize = 5, typename TAllocator = void>
     class DEQueue
@@ -620,4 +620,5 @@ namespace XC
         // Copy
         Memories::UninitializedCopy(other.mStart, other.mFinish, mStart);
     }
-}
+
+} XC_END_NAMESPACE_1

@@ -1,12 +1,11 @@
 
-#ifndef XCLIST_H
-#define XCLIST_H
+#pragma once
 
 #include "../Types/Types.h"
 #include "../Memories/Memories.h"
 #include "../Iterators/Iterators.h"
 
-namespace XC
+XC_BEGIN_NAMESPACE_1(XC)
 {
     template <typename T, typename TAllocator = DefaultAllocator<T> > // The TAllocator typename is unused
     class List
@@ -275,6 +274,5 @@ namespace XC
             PushBack(*itr);
         }
     }
-}
 
-#endif // XCLIST_H
+} XC_END_NAMESPACE_1

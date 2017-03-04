@@ -7,7 +7,7 @@
 #include "../Iterators/Iterators.h"
 #include "../Algorithms/Algorithms.h"
 
-namespace XC
+XC_BEGIN_NAMESPACE_1(XC)
 {
     template <typename T, typename TAllocator = DefaultAllocator<T> >
     class Array
@@ -330,4 +330,5 @@ namespace XC
         mEndOfStorage = mStart + rhs.GetCapacity();
         mFinish = Memories::UninitializedCopy(rhs.GetBegin(), rhs.GetEnd(), mStart);
     }
-}
+
+} XC_END_NAMESPACE_1

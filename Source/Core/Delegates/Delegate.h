@@ -4,16 +4,16 @@
 #include "CallableObject.h"
 #include <map>
 
-namespace XC
+XC_BEGIN_NAMESPACE_1(XC)
 {
-    namespace Details
+    XC_BEGIN_NAMESPACE_1(Details)
     {
         template <typename TReturnType, typename ... TArguments>
         class Function
         {
         public:
             virtual ~Function() {}
-            
+
             virtual bool IsConstant() const = 0;
             virtual bool IsStatic() const = 0; // rule : static function's class name is nullptr
             virtual void * GetClass() const { return nullptr; }
@@ -160,7 +160,8 @@ namespace XC
         public:
             virtual void Erase(void * className) = 0;
         };
-    }
+
+    } XC_END_NAMESPACE_1;
 
     template <typename TReturnType, typename ... TArguments>
     class Delegate;
@@ -184,7 +185,7 @@ namespace XC
 
     private:
         Array<Details::IErasebaleDelegate *> mEraseableDelegates;
-    
+
         template <typename TReturnType, typename ... TArguments>
         friend class Delegate;
     };
@@ -316,7 +317,7 @@ namespace XC
 
             return false;
         }
-        
+
         template <typename TClassType>
         bool Erase(TClassType * className, void(TClassType::*function)(TArguments ...))
         {
@@ -392,4 +393,5 @@ namespace XC
         Array<Details::StaticFunction<void, TArguments ...> *> mStaticFunctions;
         Array<Details::Function<void, TArguments ...> *> mFunctions;
     };
-}
+
+} XC_END_NAMESPACE_1

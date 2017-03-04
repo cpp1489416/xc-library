@@ -1,9 +1,8 @@
-#ifndef XCSTACK_H
-#define XCSTACK_H
+#pragma once
 
 #include "DEQueue.h"
 
-namespace XC
+XC_BEGIN_NAMESPACE_1(XC)
 {
 	template <typename T, typename TContainer = DEQueue<T> >
 	class Stack
@@ -32,6 +31,5 @@ namespace XC
 	private:
 		TContainer mContainer;	
     };
-}
 
-#endif // XCSTACK_H
+} XC_END_NAMESPACE_1

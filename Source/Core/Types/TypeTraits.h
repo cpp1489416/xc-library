@@ -177,4 +177,5 @@ XC_BEGIN_NAMESPACE_2(XC, Types)
         typedef TrueTraitType HasTrivalDestructor;
         typedef TrueTraitType IsPlainOldDataType;
     };
+
 } XC_END_NAMESPACE_2;

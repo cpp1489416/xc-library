@@ -4,7 +4,6 @@
 
 XC_BEGIN_NAMESPACE_2(XC, Iterators)
 {
-    // 
     template <typename TCategory, typename T, typename TDifference = xptrdiff, typename TPointer = T *, typename TReference = T &>
     class Iterator
     {
@@ -22,8 +21,8 @@ XC_BEGIN_NAMESPACE_2(XC, Iterators)
 
     class InputIteratorTag {};
     class OutputIteratorTag {};
-    class FordwardIteratorTag : public InputIteratorTag {};
-    class BidirectionalIteratorTag : public FordwardIteratorTag {};
+    class ForwardIteratorTag : public InputIteratorTag {};
+    class BidirectionalIteratorTag : public ForwardIteratorTag {};
     class RandomAccessIteratorTag : public BidirectionalIteratorTag {};
 
     template <typename TIterator>
@@ -76,6 +75,82 @@ XC_BEGIN_NAMESPACE_2(XC, Iterators)
     inline typename IteratorTraits<Iterator>::DifferenceType * GetDifferencePointerType(const Iterator &)
     {
         return static_cast<typename IteratorTraits<Iterator>::DifferenceType *>(nullptr);
+    }
+
+    XC_BEGIN_NAMESPACE_1(Details)
+    {
+        template <typename TInputIterator, typename TDistance>
+        void Advance(TInputIterator & iterator, TDistance n, InputIteratorTag)
+        {
+            while (n--)
+            {
+                ++iterator;
+            }
+        }
+
+        template <typename TForwardIterator, typename TDistance>
+        void Advance(TForwardIterator & iterator, TDistance n, ForwardIteratorTag)
+        {
+            Advance(iterator, n, InputIteratorTag());
+        }
+
+        template <typename TBidirectionalIterator, typename TDistance>
+        void Advance(TBidirectionalIterator & iterator, TDistance n, BidirectionalIteratorTag)
+        {
+            if (n > 0)
+            {
+                while (n--)
+                {
+                    ++iterator;
+                }
+            }
+            else
+            {
+                while (n++)
+                {
+                    --iterator;
+                }
+            }
+        }
+
+        template <typename TRandomAccessIterator, typename TDistance>
+        void Advance(TRandomAccessIterator & iterator, TDistance n, RandomAccessIteratorTag)
+        {
+            iterator += n;
+        }
+
+        template <typename TInputIterator>
+        typename IteratorTraits<TInputIterator>::DifferenceType GetDistance(TInputIterator first, TInputIterator last, InputIteratorTag)
+        {
+            IteratorTraits<TInputIterator>::DifferenceType ans = 0;
+            while (first != last)
+            {
+                ++first;
+                ++ans;
+            }
+
+            return ans;
+        }
+
+        template <typename TRandomAccessIterator>
+        typename IteratorTraits<TRandomAccessIterator>::DifferenceType GetDistance(TRandomAccessIterator first, TRandomAccessIterator last, RandomAccessIteratorTag)
+        {
+            return last - first;
+        }
+
+    } XC_END_NAMESPACE_1;
+
+    template <typename TInputIterator, typename TDistance>
+    void Advance(TInputIterator & iterator, TDistance n)
+    {
+        Details::Advance(iterator, n, IteratorTraits<TIterator>::IteratorCategory);
+    }
+
+    template <typename TInputIterator>
+    typename IteratorTraits<TInputIterator>::DifferenceType GetDistance(TInputIterator first, TInputIterator last)
+    {
+        using Category = IteratorTraits<TInputIterator>::IteratorCategory;
+        return Details::GetDistance(first, last, Category());
     }
 
 } XC_END_NAMESPACE_2
