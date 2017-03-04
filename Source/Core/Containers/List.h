@@ -29,7 +29,7 @@ namespace XC
             typedef BaseIterator<TReference, TPointer> Self;
 
             // These five typedefs are for the iterator traits.
-            typedef BidirectionalIteratorTag IteratorCategory;
+            typedef Iterators::BidirectionalIteratorTag IteratorCategory;
             typedef T ValueType;
             typedef xptrdiff DifferenceType;
             typedef TPointer Pointer; // Pointer and reference type declares if it is const.

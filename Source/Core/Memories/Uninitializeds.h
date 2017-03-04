@@ -1,64 +1,10 @@
-#ifndef XCUNINITIALIZEDS_H
-#define XCUNINITIALIZEDS_H
+#pragma once
 
-#include "../Types/Types.h"
 #include "../Iterators/Iterators.h"
 #include "Construts.h"
 
 namespace XC
 {
-    namespace Memories
-    {
-        template <typename ForwardIterator, typename Size, typename T>
-        ForwardIterator UninitializedFillN(ForwardIterator first, Size n,
-                                           const T & value);
-
-        template <typename ForwardIterator, typename Size, typename T,
-                  typename ValueType>
-        ForwardIterator UninitializedFillNPlus(ForwardIterator first,
-                                               ForwardIterator last, Size n, const T & value, ValueType *);
-
-        template <typename ForwardIterator, typename Size, typename T>
-        ForwardIterator UninitializedFillNPlusAUX(ForwardIterator first, Size n,
-                                                  const T & value, FalseTraitType);
-
-        template <typename ForwardIterator, typename Size, typename T>
-        ForwardIterator UninitializedFillNPlusAUX(ForwardIterator first, Size n,
-                                                  const T & value, TrueTraitType);
-
-        template <typename ForwardIterator, typename T>
-        void UninitializedFill(ForwardIterator first, ForwardIterator last, const T & value);
-
-        template <typename ForwardIterator, typename T, typename ValueType>
-        void UninitializedFillPlus(ForwardIterator first,
-                                   const T & value, ValueType *);
-
-        template <typename ForwardIterator, typename T>
-        void UninitializedFillPlusAUX(ForwardIterator first, ForwardIterator last,
-                                      const T & value, TrueTraitType);
-
-        template <typename ForwardIterator, typename T>
-        void UninitiallizedFillPlusAUX(ForwardIterator first, ForwardIterator last,
-                                       const T & value, FalseTraitType);
-
-        template <typename InputIterator, typename ForwardIterator>
-        ForwardIterator UninitializedCopy(InputIterator first, InputIterator last,
-                                          ForwardIterator result);
-
-        template <typename InputIterator, typename ForwardIterator,
-                  typename ValueType>
-        ForwardIterator UninitializedCopyPlus(InputIterator first,
-                                              InputIterator last, ForwardIterator result, ValueType *);
-
-        template <typename InputIterator, typename ForwardIterator>
-        ForwardIterator UninitializedCopyPlusAUX(InputIterator first, InputIterator last,
-                                                 ForwardIterator result, FalseTraitType);
-
-        template <typename InputIterator, typename ForwardIterator>
-        ForwardIterator UninitializedCopyPlusAUX(InputIterator first, InputIterator last,
-                                                 ForwardIterator result, TrueTraitType);
-    }
-
     namespace Memories
     {
         template<typename ForwardIterator, typename Size, typename T>
@@ -75,7 +21,7 @@ namespace XC
 
             return first;
             // return UninitializedFillNPlus(first, n, value,
-            //                              Iterators::GetIteratorValuePointerType(first));
+            //                              Iterators::GetValueType(first));
         }
 
         template<typename ForwardIterator, typename Size, typename T,
@@ -89,7 +35,7 @@ namespace XC
 
         template <typename ForwardIterator, typename Size, typename T>
         ForwardIterator UninitializedFillNPlusAUX(ForwardIterator first, Size n,
-                                                  const T & value, FalseTraitType)
+                                                  const T & value, Types::FalseTraitType)
         {
             while (n--)
             {
@@ -101,7 +47,7 @@ namespace XC
 
         template <typename ForwardIterator, typename Size, typename T>
         ForwardIterator UninitializedFillNPlusAUX(ForwardIterator first, Size n,
-                                                  const T & value, TrueTraitType)
+                                                  const T & value, Types::TrueTraitType)
         {
             while (n--)
             {
@@ -121,7 +67,7 @@ namespace XC
             }
 
             //return UninitializedFillPlus(first, last, value,
-            //                             Iterators::GetIteratorValuePointerType(first));
+            //                             Iterators::GetValueType(first));
         }
 
         template <typename ForwardIterator, typename T, typename ValueType>
@@ -134,7 +80,7 @@ namespace XC
 
         template <typename ForwardIterator, typename T>
         void UninitializedFillPlusAUX(ForwardIterator first, ForwardIterator last,
-                                      const T & value, TrueTraitType)
+                                      const T & value, Types::TrueTraitType)
         {
             for (; first < last; ++first)
             {
@@ -144,7 +90,7 @@ namespace XC
 
         template <typename ForwardIterator, typename T>
         void UninitiallizedFillPlusAUX(ForwardIterator first, ForwardIterator last,
-                                       const T & value, FalseTraitType)
+                                       const T & value, Types::FalseTraitType)
         {
             for (; first < last; ++first)
             {
@@ -168,21 +114,20 @@ namespace XC
 
             return result;
             */
-            return UninitializedCopyPlus(first, last, result,
-                                         Iterators::GetIteratorValuePointerType(first));
+            return UninitializedCopyPlus(first, last, result, Iterators::GetValuePointerType(first));
         }
 
         template <typename InputIterator, typename ForwardIterator, typename ValueType>
         ForwardIterator UninitializedCopyPlus(InputIterator first, InputIterator last,
                                               ForwardIterator result, ValueType *)
         {
-            typedef typename TypeTraits<ValueType>::IsPlainOldDataType IsPOD;
+            typedef typename Types::TypeTraits<ValueType>::IsPlainOldDataType IsPOD;
             return UninitializedCopyPlusAUX(first, last, result, IsPOD());
         }
 
         template <typename InputIterator, typename ForwardIterator>
         ForwardIterator UninitializedCopyPlusAUX(InputIterator first, InputIterator last,
-                                                 ForwardIterator result, FalseTraitType)
+                                                 ForwardIterator result, Types::FalseTraitType)
         {
             for (; first < last; ++first, ++result)
             {
@@ -193,7 +138,7 @@ namespace XC
 
         template <typename InputIterator, typename ForwardIterator>
         ForwardIterator UninitializedCopyPlusAUX(InputIterator first, InputIterator last,
-                                                 ForwardIterator result, TrueTraitType)
+                                                 ForwardIterator result, Types::TrueTraitType)
         {
             for (; first < last; ++first, ++result)
             {
@@ -203,5 +148,3 @@ namespace XC
         }
     }
 }
-
-#endif // XCUNINITIALIZEDS

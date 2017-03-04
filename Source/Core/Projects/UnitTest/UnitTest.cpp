@@ -57,7 +57,8 @@ public:
 XC_TEST_CASE(DELEGATE_TESET)
 {
     A * a = new A();
-    AA aa;
+    AA *paa = new AA();
+    AA & aa = *paa;
     //a->Get();
     B b;
     b.mEventHandler.Add(a, &A::Get);
@@ -65,7 +66,11 @@ XC_TEST_CASE(DELEGATE_TESET)
     b.mEventHandler.Add(&aa, &AA::Get);
 
     b.mEventHandler.Invoke();
+
     delete a;
+    b.mEventHandler.Invoke();
+
+    delete paa; 
     b.mEventHandler.Invoke();
 }
 
@@ -87,11 +92,14 @@ int main()
     delete *itr;
     array.Erase(array.GetIteratorAt(2));
 
-    for (int i = 0; i < array.GetSize(); ++i)
+    for (xsize i = 0; i < array.GetSize(); ++i)
     {
         std::cout << *array[i] << " ";
     }
     std::cout << std::endl;
 
+    std::cout << std::endl;
+    std::cout << std::endl;
+    
     system("pause");
 }

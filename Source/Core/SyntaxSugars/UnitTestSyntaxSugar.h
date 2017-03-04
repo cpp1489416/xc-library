@@ -1,4 +1,5 @@
-// unit test
+#pragma once
+
 #ifndef XC_TEST_CASE_FLAG
 #define XC_TEST_CASE_FLAG
 

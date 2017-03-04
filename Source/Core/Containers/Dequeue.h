@@ -9,11 +9,6 @@
 
 namespace XC
 {  
-    namespace Details
-    {
-
-    }
-
     template <typename T, xsize TBufferSize = 5, typename TAllocator = void>
     class DEQueue
     {
@@ -27,7 +22,7 @@ namespace XC
             typedef BaseIterator<T &, T *> Iterator;
 
             // BaseIterator traits :
-            typedef RandomAccessIteratorTag IteratorCategory;
+            typedef Iterators::RandomAccessIteratorTag IteratorCategory;
             typedef T ValueType;
             typedef TPointer Pointer;
             typedef TReference Reference;

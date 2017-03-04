@@ -1,7 +1,6 @@
-#ifndef XCTYPETRAITS
-#define XCTYPETRAITS
+#pragma once
 
-namespace XC
+XC_BEGIN_NAMESPACE_2(XC, Types)
 {
     class TrueTraitType {};
     class FalseTraitType {};
@@ -178,6 +177,4 @@ namespace XC
         typedef TrueTraitType HasTrivalDestructor;
         typedef TrueTraitType IsPlainOldDataType;
     };
-}
-
-#endif // XCTYPETRAITS
+} XC_END_NAMESPACE_2;

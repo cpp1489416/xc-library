@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Algorithms\Algorithms.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Algorithms\Basic.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Algorithms\Heap.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\Array.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\Dequeue.h" />
@@ -26,6 +27,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Delegates\Delegates.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Delegates\CallableObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Delegates\Property.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Iterators\Iterators.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Memories\Allocators.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Memories\Construts.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Memories\Initialized.h" />
