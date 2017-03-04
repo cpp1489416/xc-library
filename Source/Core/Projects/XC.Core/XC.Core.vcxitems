@@ -20,6 +20,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\Array.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\Dequeue.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\List.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\PriorityQueue.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\Queue.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\Stack.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core.h" />

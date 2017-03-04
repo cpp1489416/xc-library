@@ -72,8 +72,29 @@ XC_BEGIN_NAMESPACE_2(XC, Algorithms)
                 holeIndex = childIndex;
             }
 
-            // *(first + holeIndex) = value;
             PushHeapMain(first, holeIndex, topIndex, value);
+        }
+
+        template <typename TRandomAccessIterator, typename T, typename TDistance>
+        void MakeHeapMain(TRandomAccessIterator first, TRandomAccessIterator last, T *, TDistance *)
+        {
+            if (last - first < 2)
+            {
+                return;
+            }
+
+            TDistance length = last - first;
+            TDistance holeIndex = (length - 2) / 2;
+            while (true)
+            {
+                AdjustHeap(first, holeIndex, length, T(*(first + holeIndex)));
+                if (holeIndex == 0)
+                {
+                    return;
+                }
+
+                --holeIndex;
+            }
         }
 
     } XC_END_NAMESPACE_1;
@@ -90,4 +111,33 @@ XC_BEGIN_NAMESPACE_2(XC, Algorithms)
         Details::PopHeapAUX(first, last, Iterators::GetValuePointerType(first));
     }
 
-} XC_END_NAMESPACE_2
+    template <typename TRandomAccessIterator>
+    void SortHeap(TRandomAccessIterator first, TRandomAccessIterator last)
+    {
+        while (last - first > 1)
+        {
+            PopHeap(first, last--);
+        }
+    }
+
+    template <typename TRandomAccessIterator>
+    void MakeHeap(TRandomAccessIterator first, TRandomAccessIterator last)
+    {
+        Details::MakeHeapMain(first, last, Iterators::GetValuePointerType(first), Iterators::GetDifferencePointerType(first));
+    }
+
+} XC_END_NAMESPACE_2;
+
+#include <iostream>
+
+XC_TEST_CASE(HEAP_TEST)
+{
+    int arr[10] = { 1, 3432,3241,64,314,2,3,3,3,15 };
+    XC::Algorithms::MakeHeap(arr, arr + 10);
+    XC::Algorithms::SortHeap(arr, arr + 10);
+    for (auto i : arr)
+    {
+        std::cout << i << " ";
+    }
+    std::cout << std::endl;
+}

@@ -65,9 +65,6 @@ namespace XC
             {
                 Construct(&*cur, value);
             }
-
-            //return UninitializedFillPlus(first, last, value,
-            //                             Iterators::GetValueType(first));
         }
 
         template <typename ForwardIterator, typename T, typename ValueType>
