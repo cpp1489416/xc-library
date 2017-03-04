@@ -15,7 +15,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
     public:
         using ColorType = RBTreeColorType;
         using BasePointer = RBTreeNodeBase *;
-        
+
     public:
         RBTreeNodeBase * GetMinimum(RBTreeNodeBase * node)
         {
@@ -53,12 +53,12 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
         T mValue;
     };
 
-    class RBTreeBaseIterator 
+    class RBTreeBaseIterator
     {
     public:
         using IteratorCategory = Iterators::BidirectionalIteratorTag;
         using DifferenceType = xptrdiff;
-    
+
     public:
         void Increment()
         {
@@ -81,15 +81,16 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 
                 if (mNode->mRight != parent)
                 {
-                    mNode = parent;     
+                    mNode = parent;
                 }
             }
-
-            void Decrement()
-            {
-
-            }
         }
+
+        void Decrement()
+        {
+
+        }
+
     public:
         RBTreeNodeBase * mNode;
     };
