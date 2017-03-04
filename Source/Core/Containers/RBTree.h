@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../SyntaxSugars/SyntaxSugars.h"
+#include "../Iterators/Iterators.h"
 
 XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 {
@@ -9,14 +10,14 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
         Red = false, Black = true,
     };
 
-    class RBTreeNode
+    class RBTreeNodeBase
     {
     public:
         using ColorType = RBTreeColorType;
-        using BasePointer = RBTreeNode *;
+        using BasePointer = RBTreeNodeBase *;
         
     public:
-        RBTreeNode * GetMinimum(RBTreeNode * node)
+        RBTreeNodeBase * GetMinimum(RBTreeNodeBase * node)
         {
             while (node->mLeft != nullptr)
             {
@@ -26,7 +27,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
             return node;
         }
 
-        RBTreeNode * GetMaximum(RBTreeNode * node)
+        RBTreeNodeBase * GetMaximum(RBTreeNodeBase * node)
         {
             while (node->mRight != nullptr)
             {
@@ -37,9 +38,60 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
         }
 
     public:
-        RBTreeNode * mParent;
-        RBTreeNode * mLeft;
-        RBTreeNode * mRight;
+        RBTreeNodeBase * mParent;
+        RBTreeNodeBase * mLeft;
+        RBTreeNodeBase * mRight;
+    };
+
+    template <typename T>
+    class RBTreeNode : public RBTreeNodeBase
+    {
+    public:
+        using LinkType = RBTreeNode<T> *;
+
+    public:
+        T mValue;
+    };
+
+    class RBTreeBaseIterator 
+    {
+    public:
+        using IteratorCategory = Iterators::BidirectionalIteratorTag;
+        using DifferenceType = xptrdiff;
+    
+    public:
+        void Increment()
+        {
+            if (mNode->mRight != nullptr)
+            {
+                mNode = mNode->mRight;
+                while (mNode->mLeft != nullptr)
+                {
+                    mNode = mNode->mLeft;
+                }
+            }
+            else
+            {
+                RBTreeNodeBase * parent = mNode->mParent;
+                while (mNode == parent->mRight)
+                {
+                    mNode = parent;
+                    parent = parent->mParent;
+                }
+
+                if (mNode->mRight != parent)
+                {
+                    mNode = parent;     
+                }
+            }
+
+            void Decrement()
+            {
+
+            }
+        }
+    public:
+        RBTreeNodeBase * mNode;
     };
 
     template <typename T>
