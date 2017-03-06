@@ -200,9 +200,13 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
         using SizeType = xsize;
         using DifferenceType = xptrdiff;
         using VoidPointer = void *;
-        using LinkType = RBTreeNode<ValueType>  *;
-        using RBTreeNodeAllocator = DefaultAllocator<RBTreeNode<ValueType> >;
+        using Node = RBTreeNode<ValueType>;
+        using LinkType = Node *;
         using Iterator = RBTreeIterator<ValueType, Reference, Pointer>;
+        using Self = RBTree<TKey, TValue, TKeyOfValue, TCompare, TAllocator>;
+
+        // allocators :
+        using RBTreeNodeAllocator = DefaultAllocator<Node >;
 
     public:
         RBTree(const TCompare & compare = Compare()) :
@@ -215,6 +219,11 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
         {
             Clear();
             PutNode(mHeader);
+        }
+
+        Self & operator = (const Self & rhs)
+        {
+            return *this;
         }
 
     protected:
