@@ -16,6 +16,7 @@ namespace XC
     {
     public:
         static T * Allocate(xsize count) { return (T *)::operator new(count * sizeof(T)); }
+        static T * Allocate() { return Allocate(1); }
         static void Deallocate(T * location) { ::operator delete(location); }
         static void Deallocate(T * location, xsize n) { if (n != 0) ::operator delete(location); }
         static void Construct(T * location, const T & value) { Memories::Construct(location, value); }
