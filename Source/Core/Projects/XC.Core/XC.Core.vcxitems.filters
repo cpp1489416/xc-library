@@ -127,5 +127,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\RBTree.h">
       <Filter>Containers</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\Pair.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

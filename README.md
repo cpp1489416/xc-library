@@ -1,7 +1,7 @@
 # XC-Library
-XC-Library is a C++ library, it containes algorithms, GUI, 3D, compilers, and more.
+XC-Library is a C++ library. It contains algorithms, GUI, 3D, compilers, and more.
 
-The library is currently under construction. It has a lot of codes to add.
+The library is currently under construction. It has a lot of code to add.
 
 I just begin to write.
 

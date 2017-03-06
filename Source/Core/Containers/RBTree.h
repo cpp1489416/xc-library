@@ -206,7 +206,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
         using Self = RBTree<TKey, TValue, TKeyOfValue, TCompare, TAllocator>;
 
         // allocators :
-        using RBTreeNodeAllocator = DefaultAllocator<Node >;
+        using RBTreeNodeAllocator = DefaultAllocator<Node>;
 
     public:
         RBTree(const TCompare & compare = Compare()) :
