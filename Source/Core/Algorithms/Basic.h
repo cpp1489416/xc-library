@@ -42,7 +42,7 @@ XC_BEGIN_NAMESPACE_2(XC, Algorithms)
     template <typename I, typename T>
     typename Iterators::IteratorTraits<I>::DifferenceType GetCount(I first, I last, const T & value)
     {
-        typename IteratorTraits<I>::DifferenceType n = 0;
+        typename Iterators::IteratorTraits<I>::DifferenceType n = 0;
         for (; first < last; ++first)
         {
             if (*first == value)

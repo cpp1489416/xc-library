@@ -30,7 +30,7 @@ XC_BEGIN_NAMESPACE_2(XC, Containers)
 
         template <typename TInputIterator>
         PriorityQueue(TInputIterator first, TInputIterator last, TCompare compare) :
-            mSqueue(first, last), mCompare(compare)
+            mSequeue(first, last), mCompare(compare)
         {
             Algorithms::MakeHeap(first, last);
         }

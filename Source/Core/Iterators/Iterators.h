@@ -118,7 +118,7 @@ XC_BEGIN_NAMESPACE_2(XC, Iterators)
         template <typename TInputIterator>
         typename IteratorTraits<TInputIterator>::DifferenceType GetDistance(TInputIterator first, TInputIterator last, InputIteratorTag)
         {
-            IteratorTraits<TInputIterator>::DifferenceType ans = 0;
+            typename IteratorTraits<TInputIterator>::DifferenceType ans = 0;
             while (first != last)
             {
                 ++first;
@@ -139,13 +139,13 @@ XC_BEGIN_NAMESPACE_2(XC, Iterators)
     template <typename TInputIterator, typename TDistance>
     void Advance(TInputIterator & iterator, TDistance n)
     {
-        Details::Advance(iterator, n, IteratorTraits<TIterator>::IteratorCategory);
+        Details::Advance(iterator, n, IteratorTraits<TInputIterator>::IteratorCategory);
     }
 
     template <typename TInputIterator>
     typename IteratorTraits<TInputIterator>::DifferenceType GetDistance(TInputIterator first, TInputIterator last)
     {
-        using Category = IteratorTraits<TInputIterator>::IteratorCategory;
+        using Category = typename IteratorTraits<TInputIterator>::IteratorCategory;
         return Details::GetDistance(first, last, Category());
     }
 

@@ -14,7 +14,7 @@ XC_BEGIN_NAMESPACE_1(XC)
 
     public:
         Queue() = default;
-        Queue(const Self & rhs) : mContanier(rhs.mContainer) {}
+        Queue(const Self & rhs) : mContainer(rhs.mContainer) {}
         ~Queue() = default;
         Self & operator = (const Self & rhs) { mContainer = rhs; }
 

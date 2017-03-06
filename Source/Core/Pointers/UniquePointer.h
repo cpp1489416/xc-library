@@ -10,7 +10,7 @@ namespace XC
         explicit UniquePointer(T * pointer = nullptr) : mPointer(pointer) {}
         ~UniquePointer() { delete mPointer; }
 
-        const T * Get() { return mPointer; }
+        const T * Get() const { return mPointer; }
         
         T * Get() { return mPointer; }
         void Reset(T * pointer = nullptr);

@@ -29,7 +29,7 @@ namespace XC
         inline ForwardIterator UninitializedFillNPlus(ForwardIterator first,
                                                       Size n, const T & value, ValueType *)
         {
-            typedef typename TypeTraits<ValueType>::IsPlainOldDataType IsPOD;
+            typedef typename Types::TypeTraits<ValueType>::IsPlainOldDataType IsPOD;
             return UninitializedFillNPlusAUX(first, n, value, IsPOD());
         }
 
@@ -71,7 +71,7 @@ namespace XC
         inline void UninitializedFillPlus(ForwardIterator first, ForwardIterator last,
                                           const T & value, ValueType *)
         {
-            typedef typename TypeTraits<ValueType>::IsPlainOldDataType IsPOD;
+            typedef typename Types::TypeTraits<ValueType>::IsPlainOldDataType IsPOD;
             return UninitializedFillPlusAUX(first, last, value, IsPOD());
         }
 
@@ -94,22 +94,7 @@ namespace XC
                 Memories::Construct(&*first, value);
             }
         }
-
-        template <typename InputIterator, typename ForwardIterator>
-        ForwardIterator UninitializedCopy(InputIterator first, InputIterator last,
-                                          ForwardIterator result)
-        {
-            return UninitializedCopyPlus(first, last, result, Iterators::GetValuePointerType(first));
-        }
-
-        template <typename InputIterator, typename ForwardIterator, typename ValueType>
-        ForwardIterator UninitializedCopyPlus(InputIterator first, InputIterator last,
-                                              ForwardIterator result, ValueType *)
-        {
-            typedef typename Types::TypeTraits<ValueType>::IsPlainOldDataType IsPOD;
-            return UninitializedCopyPlusAUX(first, last, result, IsPOD());
-        }
-
+        
         template <typename InputIterator, typename ForwardIterator>
         ForwardIterator UninitializedCopyPlusAUX(InputIterator first, InputIterator last,
                                                  ForwardIterator result, Types::FalseTraitType)
@@ -120,7 +105,8 @@ namespace XC
             }
             return result;
         }
-
+        
+        
         template <typename InputIterator, typename ForwardIterator>
         ForwardIterator UninitializedCopyPlusAUX(InputIterator first, InputIterator last,
                                                  ForwardIterator result, Types::TrueTraitType)
@@ -131,5 +117,20 @@ namespace XC
             }
             return result;
         }
-    }
+        
+        template <typename InputIterator, typename ForwardIterator, typename ValueType>
+        ForwardIterator UninitializedCopyPlus(InputIterator first, InputIterator last,
+                                              ForwardIterator result, ValueType *)
+        {
+            typedef typename Types::TypeTraits<ValueType>::IsPlainOldDataType IsPOD;
+            return UninitializedCopyPlusAUX(first, last, result, IsPOD());
+        }
+        
+        template <typename InputIterator, typename ForwardIterator>
+        ForwardIterator UninitializedCopy(InputIterator first, InputIterator last,
+                                          ForwardIterator result)
+        {
+            return UninitializedCopyPlus(first, last, result, Iterators::GetValuePointerType(first));
+        }
+            }
 }

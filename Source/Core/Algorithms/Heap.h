@@ -8,13 +8,6 @@ XC_BEGIN_NAMESPACE_2(XC, Algorithms)
     XC_BEGIN_NAMESPACE_1(Details)
     {
         template <typename TRandomAccessIterator, typename TDistance, typename T>
-        void PushHeapAUX(TRandomAccessIterator first, TRandomAccessIterator last, TDistance *, T *)
-        {
-            // attention : new object is inserted to the end of the heap
-            PushHeapMain(first, TDistance(last - first - 1), TDistance(0), T(*(last - 1)));
-        }
-
-        template <typename TRandomAccessIterator, typename TDistance, typename T>
         void PushHeapMain(TRandomAccessIterator first, TDistance holeIndex, TDistance topIndex, T value)
         {
             // heap's parent is bigger than children, this function is in the condtion of the heap is made
@@ -25,28 +18,18 @@ XC_BEGIN_NAMESPACE_2(XC, Algorithms)
                 holeIndex = parent;
                 parent = (holeIndex - 1) / 2;
             }
-
+            
             *(first + holeIndex) = value;
         }
 
-        template <typename TRandomAccessIterator, typename T>
-        void PopHeapAUX(TRandomAccessIterator first, TRandomAccessIterator last, T *)
+        template <typename TRandomAccessIterator, typename TDistance, typename T>
+        void PushHeapAUX(TRandomAccessIterator first, TRandomAccessIterator last, TDistance *, T *)
         {
-            PopHeapMain(first, last - 1, last - 1, T(*(last - 1)), Iterators::GetDifferencePointerType(first));
+            // attention : new object is inserted to the end of the heap
+            PushHeapMain(first, TDistance(last - first - 1), TDistance(0), T(*(last - 1)));
         }
-
-        template <typename TRandomAccessIterator, typename T, typename TDistance>
-        void PopHeapMain(
-            TRandomAccessIterator first,
-            TRandomAccessIterator last,
-            TRandomAccessIterator result,
-            T value,
-            TDistance *)
-        {
-            *result = *first; // Poped value is last, later can use PopHeap function to get poped value.
-            AdjustHeap(first, TDistance(0), last - first, value);
-        }
-
+        
+        
         // Range from first to first + length, insert value to the heap.
         template <typename TRandomAccessIterator, typename TDistance, typename T>
         void AdjustHeap(TRandomAccessIterator first, TDistance holeIndex, TDistance length, T value)
@@ -59,20 +42,37 @@ XC_BEGIN_NAMESPACE_2(XC, Algorithms)
                 {
                     --childIndex; // child is the bigger child
                 }
-
+                
                 *(first + holeIndex) = *(first + childIndex);
                 holeIndex = childIndex;
                 childIndex = 2 * childIndex + 2; // right child
             }
-
+            
             if (childIndex == length) // childIndex cannot bigger than length
             {
                 --childIndex;
                 *(first + holeIndex) = *(first + childIndex);
                 holeIndex = childIndex;
             }
-
+            
             PushHeapMain(first, holeIndex, topIndex, value);
+        }
+        
+        template <typename TRandomAccessIterator, typename T, typename TDistance>
+        void PopHeapMain(
+                         TRandomAccessIterator first,
+                         TRandomAccessIterator last,
+                         TRandomAccessIterator result,
+                         T value,
+                         TDistance *)
+        {
+            *result = *first; // Poped value is last, later can use PopHeap function to get poped value.
+            AdjustHeap(first, TDistance(0), last - first, value);
+        }
+        template <typename TRandomAccessIterator, typename T>
+        void PopHeapAUX(TRandomAccessIterator first, TRandomAccessIterator last, T *)
+        {
+            PopHeapMain(first, last - 1, last - 1, T(*(last - 1)), Iterators::GetDifferencePointerType(first));
         }
 
         template <typename TRandomAccessIterator, typename T, typename TDistance>
