@@ -171,8 +171,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
         }
 
     public:
-        Self
-            * mNode;
+        Self* mNode;
     };
 
     template <typename TKey, typename TValue, typename TKeyOfValue, typename TCompare, typename TAllocator = XC::DefaultAllocator<TValue>>
