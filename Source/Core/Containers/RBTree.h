@@ -12,7 +12,6 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
         Red = false, Black = true,
     };
 
-
     template <typename T>
     class RBTreeNode
     {
@@ -209,7 +208,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
         using RBTreeNodeAllocator = DefaultAllocator<Node>;
 
     public:
-        RBTree(const TCompare & compare = Compare()) :
+        RBTree(const TCompare & compare = TCompare()) :
             mCountNodes(0), mKeyCompare(compare)
         {
             Initialize();
@@ -536,7 +535,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
             x->mParent = y;
         }
 
-    private:
+    private: public:
         xsize mCountNodes;
         Node* mHeader;
         TCompare mKeyCompare;
@@ -547,10 +546,13 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 #include <cstdlib>
 #include <iostream>
 #include <ctime>
+#include "../Functors/Functors.h"
+
 XC_BEGIN_NAMESPACE_1(XC_RBTREE_TEST)
 {
     using namespace std;
     using namespace XC::Containers::Details;
+    using namespace XC::Functors;
 
 
     class KeyOfValue
@@ -571,7 +573,7 @@ XC_BEGIN_NAMESPACE_1(XC_RBTREE_TEST)
         }
     };
 
-    using Tree = RBTree<int, int, KeyOfValue, Compare>;
+    using Tree = RBTree<int, int, KeyOfValue, Less<int> >;
 
     template <typename T>
     void Print(T & t)
@@ -590,8 +592,8 @@ XC_BEGIN_NAMESPACE_1(XC_RBTREE_TEST)
         std::cout << std::endl;
         std::cout << "Begin RBTree test" << std::endl;
 
-        Compare compare;
-        Tree tree(compare);
+       // Less compare;
+        Tree tree;
         Tree::Iterator begin = tree.GetBegin();
         for (int i = 0; i < 100; ++i)
         {
