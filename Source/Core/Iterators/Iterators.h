@@ -19,7 +19,7 @@ XC_BEGIN_NAMESPACE_2(XC, Iterators)
     class OutputIteratorTag {};
     class ForwardIteratorTag : public InputIteratorTag {};
     class BidirectionalIteratorTag : public ForwardIteratorTag {};
-    class RandomAccessIteratorTag : public BidirectionalIteratorTag {};
+	class RandomAccessIteratorTag : public BidirectionalIteratorTag {};
 
     template <typename TIterator>
     class IteratorTraits
