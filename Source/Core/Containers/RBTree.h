@@ -65,6 +65,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
         using LinkType = RBTreeNode<T> *;
         using IteratorCategory = Iterators::BidirectionalIteratorTag;
         using DifferenceType = xptrdiff;
+        using Node = RBTreeNode<T>;
 
     public:
         RBTreeIterator() = default;
@@ -171,7 +172,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
         }
 
     public:
-        Self* mNode;
+        Node* mNode;
     };
 
     template <typename TKey, typename TValue, typename TKeyOfValue, typename TCompare, typename TAllocator = XC::DefaultAllocator<TValue>>
@@ -213,6 +214,12 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
         Self& operator = (const Self & rhs)
         {
             return *this;
+        }
+
+    public:
+        Iterator GetBegin()
+        {
+            return Iterator(mHeader);
         }
 
     protected:
@@ -552,6 +559,7 @@ XC_BEGIN_NAMESPACE_1(XC_RBTREE_TEST)
 
         Compare compare;
         Tree tree(compare);
+        Tree::Iterator begin = tree.GetBegin();
 
         std::cout << "end RBTree test" << std::endl;
     }
