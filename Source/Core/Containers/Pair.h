@@ -8,6 +8,12 @@ XC_BEGIN_NAMESPACE_2(XC, Containers)
     class Pair
     {
     public:
+        Pair(const T1 first, const T2 second) :
+            mFirst(first), mSecond(second)
+        {
+
+        }
+    public:
         T1 mFirst;
         T2 mSecond;
     };

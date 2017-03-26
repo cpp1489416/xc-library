@@ -173,6 +173,16 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
             return ans;
         }
 
+        bool operator == (const Self& rhs) const
+        {
+            return mNode == rhs.mNode;
+        }
+
+        bool operator != (const Self& rhs) const
+        {
+            return !(*this == rhs);
+        }
+
     public:
         Node* mNode;
     };
@@ -217,6 +227,10 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
         {
             return *this;
         }
+
+    public:
+        Iterator begin() { return GetBegin(); }
+        Iterator end() { return GetEnd(); }
 
     public:
         Iterator GetBegin()
@@ -278,7 +292,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
             return node->mRight;
         }
 
-        TKey & GetKey(Node* node)
+        TKey GetKey(Node* node)
         {
             return TKeyOfValue()(node->mValue);
         }
@@ -353,7 +367,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
         {
             Node* y = mHeader;
             Node* x = GetRoot();
-            bool camp = true;
+            bool comp = true;
             while (x != nullptr)
             {
                 y = x;
@@ -366,7 +380,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
             {
                 if (j == GetBegin())
                 {
-                    return Insert(x, y, value);
+                    return Pair<Iterator, bool>(Insert(x, y, value), true);
                 }
                 else
                 {
@@ -383,7 +397,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
             }
         }
 
-        typename Iterator Insert(Node* x, Node* y, const TValue& value)
+        Iterator Insert(Node* x, Node* y, const TValue& value)
         {
             Node* z = nullptr;
             if (y == mHeader || x != nullptr || mKeyCompare(TKeyOfValue()(value), GetKey(y)))
@@ -497,7 +511,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
             x->mParent = y;
         }
 
-        void RightRotate(Node* x, Node* root)
+        void RightRotate(Node* x, Node* & root)
         {
             Node* y = x->mLeft;
             x->mLeft = y->mRight;
@@ -530,15 +544,19 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 
 } XC_END_NAMESPACE_3;
 
+#include <cstdlib>
+#include <iostream>
+#include <ctime>
 XC_BEGIN_NAMESPACE_1(XC_RBTREE_TEST)
 {
+    using namespace std;
     using namespace XC::Containers::Details;
 
 
     class KeyOfValue
     {
     public:
-        int& operator () (int value)
+        int operator () (int value)
         {
             return value;
         }
@@ -555,18 +573,32 @@ XC_BEGIN_NAMESPACE_1(XC_RBTREE_TEST)
 
     using Tree = RBTree<int, int, KeyOfValue, Compare>;
 
+    template <typename T>
+    void Print(T & t)
+    {
+        std::cout << "gerg ";
+        for (auto itr = t.begin(); itr != t.end(); ++itr)// : t)
+        {
+            std::cout << *itr << " ";
+        }
+        std::cout << std::endl;
+    }
+
     XC_TEST_CASE(FSGEIWEG)
     {
+        srand(time(nullptr));
         std::cout << std::endl;
         std::cout << "Begin RBTree test" << std::endl;
 
         Compare compare;
         Tree tree(compare);
         Tree::Iterator begin = tree.GetBegin();
-        tree.InsertEqual(3);
-        tree.InsertEqual(4);//)
-        tree.InsertEqual(5);
-
+        for (int i = 0; i < 100; ++i)
+        {
+            tree.InsertUnique(rand() % 100);
+        }
+        Print(tree);
         std::cout << "end RBTree test" << std::endl;
     }
-};
+
+} XC_END_NAMESPACE_1;
