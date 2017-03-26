@@ -12,16 +12,19 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
         Red = false, Black = true,
     };
 
-    class RBTreeNodeBase
+
+    template <typename T>
+    class RBTreeNode
     {
     public:
+        using LinkType = RBTreeNode<T> *;
         using ColorType = RBTreeColorType;
-        using BasePointer = RBTreeNodeBase *;
+        using BasePointer = RBTreeNode *;
 
     public:
-        RBTreeNodeBase * GetMinimum()
+        RBTreeNode * GetMinimum()
         {
-            RBTreeNodeBase * node = this;
+            RBTreeNode * node = this;
             while (node->mLeft != nullptr)
             {
                 node = node->mLeft;
@@ -30,9 +33,9 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
             return node;
         }
 
-        RBTreeNodeBase * GetMaximum()
+        RBTreeNode * GetMaximum()
         {
-            RBTreeNodeBase * node = this;
+            RBTreeNode * node = this;
             while (node->mRight != nullptr)
             {
                 node = node->mRight;
@@ -42,27 +45,39 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
         }
 
     public:
-        RBTreeNodeBase * mParent;
-        RBTreeNodeBase * mLeft;
-        RBTreeNodeBase * mRight;
+        RBTreeNode * mParent;
+        RBTreeNode * mLeft;
+        RBTreeNode * mRight;
         RBTreeColorType mColor;
-    };
-
-    template <typename T>
-    class RBTreeNode : public RBTreeNodeBase
-    {
-    public:
-        using LinkType = RBTreeNode<T> *;
-
-    public:
         T mValue;
     };
 
-    class RBTreeBaseIterator
+    template <typename T, typename TReference, typename TPointer>
+    class RBTreeIterator
     {
     public:
+        using ValueType = T;
+        using Reference = TReference;
+        using Pointer = TPointer;
+        using Self = RBTreeIterator<T, TReference, TPointer>;
+        using Iterator = RBTreeIterator<T, T &, T *>;
+        using ConstantIterator = RBTreeIterator<T, const T &, const T *>;
+        using LinkType = RBTreeNode<T> *;
         using IteratorCategory = Iterators::BidirectionalIteratorTag;
         using DifferenceType = xptrdiff;
+
+    public:
+        RBTreeIterator() = default;
+
+        RBTreeIterator(RBTreeNode<T> * node)
+        {
+            mNode = node;
+        }
+
+        RBTreeIterator(const Iterator & iterator)
+        {
+            mNode = iterator.mNode;
+        }
 
     public:
         void Increment()
@@ -77,7 +92,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
             }
             else
             {
-                RBTreeNodeBase * parent = mNode->mParent;
+                RBTreeNode * parent = mNode->mParent;
                 while (mNode == parent->mRight)
                 {
                     mNode = parent;
@@ -99,7 +114,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
             }
             else if (mNode->mLeft != nullptr)
             {
-                RBTreeNodeBase * y = mNode->mLeft;
+                RBTreeNode * y = mNode->mLeft;
                 while (y->mRight != nullptr)
                 {
                     y = y->mRight;
@@ -108,7 +123,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
             }
             else
             {
-                RBTreeNodeBase * y = mNode->mParent;
+                RBTreeNode * y = mNode->mParent;
                 while (mNode == y->mLeft)
                 {
                     mNode = y;
@@ -116,35 +131,6 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
                 }
                 mNode = y;
             }
-        }
-
-    public:
-        RBTreeNodeBase * mNode;
-    };
-
-    template <typename T, typename TReference, typename TPointer>
-    class RBTreeIterator : public RBTreeBaseIterator
-    {
-    public:
-        using ValueType = T;
-        using Reference = TReference;
-        using Pointer = TPointer;
-        using Self = RBTreeIterator<T, TReference, TPointer>;
-        using Iterator = RBTreeIterator<T, T &, T *>;
-        using ConstantIterator = RBTreeIterator<T, const T &, const T *>;
-        using LinkType = RBTreeNode<T> *;
-
-    public:
-        RBTreeIterator() = default;
-
-        RBTreeIterator(RBTreeNode<T> * node)
-        {
-            mNode = node;
-        }
-
-        RBTreeIterator(const Iterator & iterator)
-        {
-            mNode = iterator.mNode;
         }
 
     public:
@@ -185,10 +171,10 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
         }
 
     public:
-        RBTreeNode<T> * mNode;
+        Self * mNode;
     };
 
-    template <typename TKey, typename TValue, typename TKeyOfValue, typename TCompare, typename TAllocator = XC::DefaultAllocator<TValue> >
+    template <typename TKey, typename TValue, typename TKeyOfValue, typename TCompare, typename TAllocator = XC::DefaultAllocator<TValue>>
     class RBTree // TKeyOfValue is a functor
     {
     public:
@@ -235,9 +221,9 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
             return RBTreeNodeAllocator::Allocate();
         }
 
-        Node* PutNode(Node* node)
+        void PutNode(Node* node)
         {
-            return RBTreeNodeAllocator::Deallocate(node);
+            RBTreeNodeAllocator::Deallocate(node);
         }
 
         Node* CreateNode(const TValue & value)
@@ -315,10 +301,6 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
         }
 
     private:
-        Iterator Insert(RBTreeNodeBase * x, RBTreeNodeBase * y, const ValueType & value)
-        {
-            return Iterator();
-        }
 
         void Initialize()
         {
@@ -327,6 +309,11 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
             GetRoot() = nullptr;
             GetMostLeft() = mHeader;
             GetMostRight() = mHeader;
+        }
+
+        void Clear()
+        {
+
         }
 
         // insert functions
@@ -517,7 +504,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 
     private:
         xsize mCountNodes;
-        LinkType mHeader;
+        typename Node* mHeader;
         TCompare mKeyCompare;
     };
 
@@ -554,12 +541,17 @@ XC_BEGIN_NAMESPACE_1(XC_RBTREE_TEST)
             return lhs.mValue < rhs.mValue;
         }
     };
+
+    using Tree = RBTree<int, Element, KeyOfValue, Compare>;
+
     XC_TEST_CASE(FSGEIWEG)
     {
         std::cout << std::endl;
         std::cout << "Begin RBTree test" << std::endl;
-       
-        RBTree<int, Element, KeyOfValue, Compare> tree(Compare());
+
+
+        Compare compare;
+        Tree tree(compare);
 
         std::cout << "end RBTree test" << std::endl;
     }
