@@ -5,7 +5,15 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Learning1", "Learning1\Learning1.vcxproj", "{B12702AD-ABFB-343A-A199-8E24837244A3}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL", "OpenGL\OpenGL.vcxitems", "{45D41ACC-2C3C-43D2-BC10-02AA73FFC7C7}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GUITest1", "GUITest1\GUITest1.vcxproj", "{56DA72E8-DFAB-420D-BECC-B5C318F35875}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		OpenGL\OpenGL.vcxitems*{45d41acc-2c3c-43d2-bc10-02aa73ffc7c7}*SharedItemsImports = 9
+		OpenGL\OpenGL.vcxitems*{56da72e8-dfab-420d-becc-b5c318f35875}*SharedItemsImports = 4
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
@@ -19,6 +27,12 @@ Global
 		{B12702AD-ABFB-343A-A199-8E24837244A3}.Release|x64.ActiveCfg = Release|Win32
 		{B12702AD-ABFB-343A-A199-8E24837244A3}.Release|x86.ActiveCfg = Release|Win32
 		{B12702AD-ABFB-343A-A199-8E24837244A3}.Release|x86.Build.0 = Release|Win32
+		{56DA72E8-DFAB-420D-BECC-B5C318F35875}.Debug|x64.ActiveCfg = Debug|Win32
+		{56DA72E8-DFAB-420D-BECC-B5C318F35875}.Debug|x86.ActiveCfg = Debug|Win32
+		{56DA72E8-DFAB-420D-BECC-B5C318F35875}.Debug|x86.Build.0 = Debug|Win32
+		{56DA72E8-DFAB-420D-BECC-B5C318F35875}.Release|x64.ActiveCfg = Release|Win32
+		{56DA72E8-DFAB-420D-BECC-B5C318F35875}.Release|x86.ActiveCfg = Release|Win32
+		{56DA72E8-DFAB-420D-BECC-B5C318F35875}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -147,7 +147,7 @@ XC_BEGIN_NAMESPACE_1(XC)
         void CopyWithoutReleaseMemories(const Self & other);
 
     protected:
-        T * * mMap; // Each element of the map contains a pointer of T type.
+        T * * mMap; // Each element of the map contains a pointer of T.
         xsize mMapSize; // The count of pointers in a map.
         Iterator mStart; // The start iterator of the whole dequeue.
         Iterator mFinish; // The finish iterator of the whole dequeue.
@@ -517,7 +517,7 @@ XC_BEGIN_NAMESPACE_1(XC)
     void DEQueue<T, TBufferSize, TAllocator>::FillInitialize(xsize count, const T & value)
     {
         CreateMapAndNodes(count);
-        for (T * * cur = mStart.mNode; cur < mFinish.mNode; ++cur)
+        for (T * * cur = mStart.mNode; cur < mFinish.mNode; ++cur)	
         {
             Memories::UninitializedFillN(*cur, GetBufferSize(), value);
         }

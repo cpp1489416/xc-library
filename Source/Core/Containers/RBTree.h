@@ -234,7 +234,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 
         LinkType PutNode(LinkType node)
         {
-            return RBTreeNodeAllocator::(node);
+            return RBTreeNodeAllocator::Deallocate(node);
         }
 
         LinkType CreateNode(const TValue & value)
@@ -263,6 +263,16 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
         {
             return mHeader->mParent;
         }
+
+		Node* & GetLeft(Node* node) const
+		{
+			return node->mLeft;
+		}
+
+		Node* & GetRight(Node* node) const
+		{
+			return node->mRight;
+		}
 
         LinkType & GetMostLeft() const
         {
@@ -293,6 +303,17 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
             GetMostLeft() = mHeader;
             GetMostRight() = mHeader;
         }
+
+		void InsertEqual(const Value & value)
+		{
+			Node* y = mHeader;
+			Node* x = GetRoot();
+			while (x != nullptr)
+			{
+				y = x;
+				x = mKeyCompare(TKeyOfValue()(value), GetKey(x)) ? GetLeft(x) : GetRight(x);
+			}
+		}
 
     private:
         xsize mCountNodes;
