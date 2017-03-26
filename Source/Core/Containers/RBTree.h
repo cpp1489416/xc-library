@@ -3,266 +3,270 @@
 #include "../SyntaxSugars/SyntaxSugars.h"
 #include "../Iterators/Iterators.h"
 #include "../Memories/Allocators.h"
+#include "Pair.h"
 
 XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 {
-    enum class RBTreeColorType : bool
-    {
-        Red = false, Black = true,
-    };
+	enum class RBTreeColorType : bool
+	{
+		Red = false, Black = true,
+	};
 
-    class RBTreeNodeBase
-    {
-    public:
-        using ColorType = RBTreeColorType;
-        using BasePointer = RBTreeNodeBase *;
+	class RBTreeNodeBase
+	{
+	public:
+		using ColorType = RBTreeColorType;
+		using BasePointer = RBTreeNodeBase *;
 
-    public:
-        RBTreeNodeBase * GetMinimum()
-        {
-            RBTreeNodeBase * node = this;
-            while (node->mLeft != nullptr)
-            {
-                node = node->mLeft;
-            }
+	public:
+		RBTreeNodeBase * GetMinimum()
+		{
+			RBTreeNodeBase * node = this;
+			while (node->mLeft != nullptr)
+			{
+				node = node->mLeft;
+			}
 
-            return node;
-        }
+			return node;
+		}
 
-        RBTreeNodeBase * GetMaximum()
-        {
-            RBTreeNodeBase * node = this;
-            while (node->mRight != nullptr)
-            {
-                node = node->mRight;
-            }
+		RBTreeNodeBase * GetMaximum()
+		{
+			RBTreeNodeBase * node = this;
+			while (node->mRight != nullptr)
+			{
+				node = node->mRight;
+			}
 
-            return node;
-        }
+			return node;
+		}
 
-    public:
-        RBTreeNodeBase * mParent;
-        RBTreeNodeBase * mLeft;
-        RBTreeNodeBase * mRight;
-        RBTreeColorType mColor;
-    };
+	public:
+		RBTreeNodeBase * mParent;
+		RBTreeNodeBase * mLeft;
+		RBTreeNodeBase * mRight;
+		RBTreeColorType mColor;
+	};
 
-    template <typename T>
-    class RBTreeNode : public RBTreeNodeBase
-    {
-    public:
-        using LinkType = RBTreeNode<T> *;
+	template <typename T>
+	class RBTreeNode : public RBTreeNodeBase
+	{
+	public:
+		using LinkType = RBTreeNode<T> *;
 
-    public:
-        T mValue;
-    };
+	public:
+		T mValue;
+	};
 
-    class RBTreeBaseIterator
-    {
-    public:
-        using IteratorCategory = Iterators::BidirectionalIteratorTag;
-        using DifferenceType = xptrdiff;
+	class RBTreeBaseIterator
+	{
+	public:
+		using IteratorCategory = Iterators::BidirectionalIteratorTag;
+		using DifferenceType = xptrdiff;
 
-    public:
-        void Increment()
-        {
-            if (mNode->mRight != nullptr)
-            {
-                mNode = mNode->mRight;
-                while (mNode->mLeft != nullptr)
-                {
-                    mNode = mNode->mLeft;
-                }
-            }
-            else
-            {
-                RBTreeNodeBase * parent = mNode->mParent;
-                while (mNode == parent->mRight)
-                {
-                    mNode = parent;
-                    parent = parent->mParent;
-                }
+	public:
+		void Increment()
+		{
+			if (mNode->mRight != nullptr)
+			{
+				mNode = mNode->mRight;
+				while (mNode->mLeft != nullptr)
+				{
+					mNode = mNode->mLeft;
+				}
+			}
+			else
+			{
+				RBTreeNodeBase * parent = mNode->mParent;
+				while (mNode == parent->mRight)
+				{
+					mNode = parent;
+					parent = parent->mParent;
+				}
 
-                if (mNode->mRight != parent) // header
-                {
-                    mNode = parent;
-                }
-            }
-        }
+				if (mNode->mRight != parent) // header
+				{
+					mNode = parent;
+				}
+			}
+		}
 
-        void Decrement()
-        {
-            if (mNode->mColor == RBTreeColorType::Red && mNode->mParent->mParent == mNode)
-            {
-                mNode = mNode->mRight; // header 
-            }
-            else if (mNode->mLeft != nullptr)
-            {
-                RBTreeNodeBase * y = mNode->mLeft;
-                while (y->mRight != nullptr)
-                {
-                    y = y->mRight;
-                }
-                mNode = y;
-            }
-            else
-            {
-                RBTreeNodeBase * y = mNode->mParent;
-                while (mNode == y->mLeft)
-                {
-                    mNode = y;
-                    y = y->mParent;
-                }
-                mNode = y;
-            }
-        }
+		void Decrement()
+		{
+			if (mNode->mColor == RBTreeColorType::Red && mNode->mParent->mParent == mNode)
+			{
+				mNode = mNode->mRight; // header 
+			}
+			else if (mNode->mLeft != nullptr)
+			{
+				RBTreeNodeBase * y = mNode->mLeft;
+				while (y->mRight != nullptr)
+				{
+					y = y->mRight;
+				}
+				mNode = y;
+			}
+			else
+			{
+				RBTreeNodeBase * y = mNode->mParent;
+				while (mNode == y->mLeft)
+				{
+					mNode = y;
+					y = y->mParent;
+				}
+				mNode = y;
+			}
+		}
 
-    public:
-        RBTreeNodeBase * mNode;
-    };
+	public:
+		RBTreeNodeBase * mNode;
+	};
 
-    template <typename T, typename TReference, typename TPointer>
-    class RBTreeIterator : public RBTreeBaseIterator
-    {
-    public:
-        using ValueType = T;
-        using Reference = TReference;
-        using Pointer = TPointer;
-        using Self = RBTreeIterator<T, TReference, TPointer>;
-        using Iterator = RBTreeIterator<T, T &, T *>;
-        using ConstantIterator = RBTreeIterator<T, const T &, const T *>;
-        using LinkType = RBTreeNode<T> *;
+	template <typename T, typename TReference, typename TPointer>
+	class RBTreeIterator : public RBTreeBaseIterator
+	{
+	public:
+		using ValueType = T;
+		using Reference = TReference;
+		using Pointer = TPointer;
+		using Self = RBTreeIterator<T, TReference, TPointer>;
+		using Iterator = RBTreeIterator<T, T &, T *>;
+		using ConstantIterator = RBTreeIterator<T, const T &, const T *>;
+		using LinkType = RBTreeNode<T> *;
 
-    public:
-        RBTreeIterator() = default;
+	public:
+		RBTreeIterator() = default;
 
-        RBTreeIterator(RBTreeNode<T> * node)
-        {
-            mNode = node;
-        }
+		RBTreeIterator(RBTreeNode<T> * node)
+		{
+			mNode = node;
+		}
 
-        RBTreeIterator(const Iterator & iterator)
-        {
-            mNode = iterator.mNode;
-        }
+		RBTreeIterator(const Iterator & iterator)
+		{
+			mNode = iterator.mNode;
+		}
 
-    public:
-        Reference operator * () const
-        {
-            return mNode->mValue;
-        }
+	public:
+		Reference operator * () const
+		{
+			return mNode->mValue;
+		}
 
-        Pointer operator -> () const
-        {
-            return &(operator *());
-        }
+		Pointer operator -> () const
+		{
+			return &(operator *());
+		}
 
-        Self & operator ++ ()
-        {
-            Increment();
-            return *this;
-        }
+		Self & operator ++ ()
+		{
+			Increment();
+			return *this;
+		}
 
-        Self & operator ++ (int)
-        {
-            Self ans = *this;
-            ++(*this);
-            return ans;
-        }
+		Self & operator ++ (int)
+		{
+			Self ans = *this;
+			++(*this);
+			return ans;
+		}
 
-        Self & operator -- ()
-        {
-            Decrement();
-            return *this;
-        }
+		Self & operator -- ()
+		{
+			Decrement();
+			return *this;
+		}
 
-        Self & operator -- (int)
-        {
-            Self ans = *this;
-            --(*this);
-            return ans;
-        }
+		Self & operator -- (int)
+		{
+			Self ans = *this;
+			--(*this);
+			return ans;
+		}
 
-    public:
-        RBTreeNode<T> * mNode;
-    };
+	public:
+		RBTreeNode<T> * mNode;
+	};
 
-    template <typename TKey, typename TValue, typename TKeyOfValue, typename TCompare, typename TAllocator = XC::DefaultAllocator<T> >
-    class RBTree // TKeyOfValue is a functor
-    {
-    public:
-        using KeyType = TKey;
-        using ValueType = TValue;
-        using Pointer = TValue *;
-        using ConstanctPointer = const ValueType *;
-        using Reference = ValueType &;
-        using ConstantReference = const ValueType &;
-        using SizeType = xsize;
-        using DifferenceType = xptrdiff;
-        using VoidPointer = void *;
-        using Node = RBTreeNode<ValueType>;
-        using LinkType = Node *;
-        using Iterator = RBTreeIterator<ValueType, Reference, Pointer>;
-        using Self = RBTree<TKey, TValue, TKeyOfValue, TCompare, TAllocator>;
+	template <typename TKey, typename TValue, typename TKeyOfValue, typename TCompare, typename TAllocator = XC::DefaultAllocator<T> >
+	class RBTree // TKeyOfValue is a functor
+	{
+	public:
+		using KeyType = TKey;
+		using ValueType = TValue;
+		using Pointer = TValue *;
+		using ConstanctPointer = const ValueType *;
+		using Reference = ValueType &;
+		using ConstantReference = const ValueType &;
+		using SizeType = xsize;
+		using DifferenceType = xptrdiff;
+		using VoidPointer = void *;
+		using Node = RBTreeNode<ValueType>;
+		using LinkType = Node *;
+		using Iterator = RBTreeIterator<ValueType, Reference, Pointer>;
+		using Self = RBTree<TKey, TValue, TKeyOfValue, TCompare, TAllocator>;
 
-        // allocators :
-        using RBTreeNodeAllocator = DefaultAllocator<Node>;
+		// allocators :
+		using RBTreeNodeAllocator = DefaultAllocator<Node>;
 
-    public:
-        RBTree(const TCompare & compare = Compare()) :
-            mCountNodes(0), mKeyCompare(compare)
-        {
-            Initialize();
-        }
+	public:
+		RBTree(const TCompare & compare = Compare()) :
+			mCountNodes(0), mKeyCompare(compare)
+		{
+			Initialize();
+		}
 
-        virtual ~RBTree()
-        {
-            Clear();
-            PutNode(mHeader);
-        }
+		RBTree(const Self&) = delete;
 
-        Self & operator = (const Self & rhs)
-        {
-            return *this;
-        }
+		virtual ~RBTree()
+		{
+			Clear();
+			PutNode(mHeader);
+		}
 
-    protected:
-        LinkType GetNode()
-        {
-            return RBTreeNodeAllocator::Allocate();
-        }
+		Self & operator = (const Self & rhs)
+		{
+			return *this;
+		}
 
-        LinkType PutNode(LinkType node)
-        {
-            return RBTreeNodeAllocator::Deallocate(node);
-        }
+	protected:
+		Node* GetNode()
+		{
+			return RBTreeNodeAllocator::Allocate();
+		}
 
-        LinkType CreateNode(const TValue & value)
-        {
-            LinkType ans = GetNode();
-            Memories::Construct(&ans->mValue, value);
-            return ans;
-        }
+		Node* PutNode(Node* node)
+		{
+			return RBTreeNodeAllocator::Deallocate(node);
+		}
 
-        LinkType CloneNode(LinkType node)
-        {
-            LinkType ans = CreateNode(node->mValue);
-            ans->mColor = node->mColor;
-            ans->mLeft = nullptr;
-            ans->mRight = nullptr;
-            return ans;
-        }
+		Node* CreateNode(const TValue & value)
+		{
+			LinkType ans = GetNode();
+			Memories::Construct(&ans->mValue, value);
+			return ans;
+		}
 
-        void DestroyNode(LinkType node)
-        {
-            Memories::Destroy(&node->mValue);
-            PutNode(node);
-        }
+		Node* CloneNode(Node* node)
+		{
+			Node* ans = CreateNode(node->mValue);
+			ans->mColor = node->mColor;
+			ans->mLeft = nullptr;
+			ans->mRight = nullptr;
+			return ans;
+		}
 
-        LinkType & GetRoot() const
-        {
-            return mHeader->mParent;
-        }
+		void DestroyNode(Node* node)
+		{
+			Memories::Destroy(&node->mValue);
+			PutNode(node);
+		}
+
+		// node functions, static like
+		TValue& GetValue(Node* node) const
+		{
+			return node->mValue;
+		}
 
 		Node* & GetLeft(Node* node) const
 		{
@@ -274,37 +278,59 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 			return node->mRight;
 		}
 
-        LinkType & GetMostLeft() const
-        {
-            return mHeader->mLeft;
-        }
+		TKey & GetKey(Node* node) const
+		{
+			return TKeyOfValue()(node->mValue);
+		}
 
-        LinkType & GetMostRight() const
-        {
-            return mHeader->mRight;
-        }
+		RBTreeColorType& GetColor(Node* node) const
+		{
+			return node->mColor;
+		}
 
-        TKey & GetKey(LinkType node) const
-        {
-            return TKeyOfValue()(node->mValue);
-        }
+		// global functions
+		Node* & GetRoot() const
+		{
+			return mHeader->mParent;
+		}
 
-    private:
-        Iterator Insert(RBTreeNodeBase * x, RBTreeNodeBase * y, const ValueType & value)
-        {
-            return Iterator();
-        }
+		Node* & GetMostLeft() const
+		{
+			return mHeader->mLeft;
+		}
 
-        void Initialize()
-        {
-            mHeader = GetNode();
-            mHeader->mColor = RBTreeColorType::Red;
-            GetRoot() = nullptr;
-            GetMostLeft() = mHeader;
-            GetMostRight() = mHeader;
-        }
+		Node* & GetMostRight() const
+		{
+			return mHeader->mRight;
+		}
 
-		void InsertEqual(const Value & value)
+		Node* GetMaximum(Node* node) const
+		{
+			return node->GetMaximum();
+		}
+
+		Node* GetMinimum(Node* node) const
+		{
+			return node->GetMinimum();
+		}
+
+	private:
+		Iterator Insert(RBTreeNodeBase * x, RBTreeNodeBase * y, const ValueType & value)
+		{
+			return Iterator();
+		}
+
+		void Initialize()
+		{
+			mHeader = GetNode();
+			mHeader->mColor = RBTreeColorType::Red;
+			GetRoot() = nullptr;
+			GetMostLeft() = mHeader;
+			GetMostRight() = mHeader;
+		}
+
+		// insert functions
+		Iterator InsertEqual(const TValue& value)
 		{
 			Node* y = mHeader;
 			Node* x = GetRoot();
@@ -313,12 +339,186 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 				y = x;
 				x = mKeyCompare(TKeyOfValue()(value), GetKey(x)) ? GetLeft(x) : GetRight(x);
 			}
+			return Insert(x, y, value);
 		}
 
-    private:
-        xsize mCountNodes;
-        LinkType mHeader;
-        TCompare mKeyCompare;
-    };
+		// bool claims if it is inserted success
+		Pair<Iterator, bool> InsertUnique(const TValue& value)
+		{
+			Node* y = mHeader;
+			Node* x = GetRoot();
+			bool camp = true;
+			while (x != nullptr)
+			{
+				y = x;
+				comp = mKeyCompare(TKeyOfValue()(value), GetKey(x));
+				x = comp ? GetLeft(x) : GetRight(x);
+			}
+
+			Iterator j = Iterator(y);
+			if (comp)
+			{
+				if (j == GetBegin())
+				{
+					return Insert(x, y, value);
+				}
+				else
+				{
+					--j;
+				}
+			}
+			if (mKeyCompare(GetKey(j.mNode), TKeyOfValue()(value)))
+			{
+				return Pair<Iterator, bool>(Insert(x, y, value), true);
+			}
+			else
+			{
+				return Pair<Iterator, bool>(j, false);
+			}
+		}
+
+		Iterator Insert(Node* x, Node* y, const TValue& value)
+		{
+			Node* z = nullptr;
+			if (y == mHeader || x != nullptr || mKeyCompare(TKeyOfValue()(value), GetKey(y)))
+			{
+				z = CreateNode(value);
+				GetLeft(y) = x;
+				if (y == mHeader)
+				{
+					GetRoot() = z;
+					GetMostRight() = z;
+				}
+				else if (y == GetMostLeft())
+				{
+					GetMostLeft() = z;
+				}
+			}
+			else
+			{
+				z = CreateNode(value);
+				GetRight(y) = z;
+				if (y == GetMostRight())
+				{
+					GetMostRight() = z;
+				}
+			}
+
+			GetParent(z) = y;
+			GetLeft(z) = nullptr;
+			GetRight(z) = nullptr;
+
+			Rebalance(z, mHeader->mParent);
+			++mCountNodes;
+			return Iterator(z);
+		}
+
+		void Rebalance(Node* x, Node* & root)
+		{
+			x->mColor = RBTreeColorType::Red;
+			while (x != root && x->mParent->mColor == RBTreeColorType::Red)
+			{
+				if (x->mParent == x->mParent->mParent->mLeft)
+				{
+					Node* y = x->mParent->mParent->mRight;
+					if (y != nullptr && y->mColor == RBTreeColorType::Red)
+					{
+						x->mParent->mColor = RBTreeColorType::Black;
+						y->mColor = RBTreeColorType::Black;
+						x->mParent->mParent->mColor = RBTreeColorType::Red;
+						x = x->mParent->mParent;
+					}
+					else
+					{
+						if (x == x->mParent->mRight)
+						{
+							x = x->mParent;
+							LeftRotate(x, root);
+						}
+						x->mParent->mColor = RBTreeColorType::Black;
+						x->mParent->mParent->mColor = RBTreeColorType::Red;
+						RightRotate(x->mParent->mParent, root);
+					}
+				}
+				else
+				{
+					Node* y = x->mParent->mParent->mLeft;
+					if (y != nullptr && y->mColor == RBTreeColorType::Red)
+					{
+						x->mParent->mColor = RBTreeColorType::Black;
+						y->mColor = RBTreeColorType::Black;
+						x->mParent->mParent->mColor = RBTreeColorType::Red;
+						x = x->mParent->mParent;
+					}
+					else
+					{
+						if (x == x->mParent->mLeft)
+						{
+							x = x->mParent;
+							RightRotate(x, root);
+						}
+						x->mParent->mColor = RBTreeColorType::Black;
+						x->mParent->mParent->mColor = RBTreeColorType::Red;
+						LeftRotate(x->mParent->mParent, root);
+					}
+				}
+			}
+			root->mColor = RBTreeColorType::Black;
+		}
+
+		void LeftRotate(Node* x, Node* & root)
+		{
+			Node* y = x->mRight;
+			x->mRight = y->mLeft;
+			if (y->mLeft != nullptr)
+			{
+				y->mLeft->mParent = x;
+			}
+			y->mParent = x->mParent;
+			if (x == root)
+			{
+				root = y;
+			}
+			else if (x == x->mParent->mLeft)
+			{
+				x->mParent->mLeft = y;
+			}
+			else
+			{
+				x->mParent->mRight = y;
+			}
+			y->mLeft = x;
+			x->mParent = y;
+
+		}
+
+		void RightRotate(Node* x, Node* root)
+		{
+			Node* y = x->mLeft;
+			x->mLeft = y->mRight;
+			if (x->mRight != nullptr)
+			{
+				y->mRight->mParent = x;
+			}
+			y->mParent = x->mParent;
+			if (x == root)
+			{
+				root = y;
+			}
+			else if (x == x->mParent->mRight)
+			{
+				x->mParent->mRight = y;
+			}
+			else
+			{
+				x->mParent->mLeft = y;
+			}
+		}
+
+	private:
+		xsize mCountNodes;
+		LinkType mHeader;
+		TCompare mKeyCompare;
+	};
 
 } XC_END_NAMESPACE_3;
