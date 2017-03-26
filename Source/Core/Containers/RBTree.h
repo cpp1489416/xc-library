@@ -292,9 +292,9 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
             return node->mRight;
         }
 
-        TKey GetKey(Node* node)
+        const TKey& GetKey(Node* node)
         {
-            return TKeyOfValue()(node->mValue);
+            return TKeyOfValue()(GetValue(node));
         }
 
         Node* & GetParent(Node* node) const
@@ -556,7 +556,7 @@ XC_BEGIN_NAMESPACE_1(XC_RBTREE_TEST)
     class KeyOfValue
     {
     public:
-        int operator () (int value)
+        const int& operator () (const int& value) const
         {
             return value;
         }
