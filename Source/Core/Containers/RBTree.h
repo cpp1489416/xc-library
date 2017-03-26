@@ -224,7 +224,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 			PutNode(mHeader);
 		}
 
-		Self & operator = (const Self & rhs)
+		Self& operator = (const Self & rhs)
 		{
 			return *this;
 		}
