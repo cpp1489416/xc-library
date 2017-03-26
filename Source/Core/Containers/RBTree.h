@@ -80,6 +80,8 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
             mNode = iterator.mNode;
         }
 
+        Self& operator = (const Self&) = default;
+
     public:
         void Increment()
         {
@@ -93,7 +95,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
             }
             else
             {
-                RBTreeNode * parent = mNode->mParent;
+                Node * parent = mNode->mParent;
                 while (mNode == parent->mRight)
                 {
                     mNode = parent;
@@ -115,7 +117,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
             }
             else if (mNode->mLeft != nullptr)
             {
-                RBTreeNode * y = mNode->mLeft;
+                Node * y = mNode->mLeft;
                 while (y->mRight != nullptr)
                 {
                     y = y->mRight;
@@ -124,7 +126,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
             }
             else
             {
-                RBTreeNode * y = mNode->mParent;
+                Node * y = mNode->mParent;
                 while (mNode == y->mLeft)
                 {
                     mNode = y;
@@ -219,7 +221,12 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
     public:
         Iterator GetBegin()
         {
-            return Iterator(mHeader);
+            return GetMostLeft();
+        }
+
+        Iterator GetEnd()
+        {
+            return mHeader;
         }
 
     protected:
@@ -271,9 +278,14 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
             return node->mRight;
         }
 
-        TKey & GetKey(Node* node) const
+        TKey & GetKey(Node* node)
         {
             return TKeyOfValue()(node->mValue);
+        }
+
+        Node* & GetParent(Node* node) const
+        {
+            return node->mParent;
         }
 
         RBTreeColorType& GetColor(Node* node) const
@@ -307,7 +319,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
             return node->GetMinimum();
         }
 
-    private:
+    private: public:
 
         void Initialize()
         {
@@ -320,7 +332,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 
         void Clear()
         {
-
+           
         }
 
         // insert functions
@@ -377,7 +389,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
             if (y == mHeader || x != nullptr || mKeyCompare(TKeyOfValue()(value), GetKey(y)))
             {
                 z = CreateNode(value);
-                GetLeft(y) = x;
+                GetLeft(y) = z;
                 if (y == mHeader)
                 {
                     GetRoot() = z;
@@ -483,7 +495,6 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
             }
             y->mLeft = x;
             x->mParent = y;
-
         }
 
         void RightRotate(Node* x, Node* root)
@@ -507,11 +518,13 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
             {
                 x->mParent->mLeft = y;
             }
+            y->mRight = x;
+            x->mParent = y;
         }
 
     private:
         xsize mCountNodes;
-        typename Node* mHeader;
+        Node* mHeader;
         TCompare mKeyCompare;
     };
 
@@ -521,45 +534,38 @@ XC_BEGIN_NAMESPACE_1(XC_RBTREE_TEST)
 {
     using namespace XC::Containers::Details;
 
-    class Element
-    {
-    public:
-        using Value = int;
-        using Key = int;
-
-        int mValue;
-        int mKey;
-    };
 
     class KeyOfValue
     {
     public:
-        int operator () (const Element & value)
+        int& operator () (int value)
         {
-            return value.mKey;
+            return value;
         }
     };
 
     class Compare
     {
     public:
-        bool operator () (const Element& lhs, const Element& rhs) const
+        bool operator () (const int& lhs, const int& rhs) const
         {
-            return lhs.mValue < rhs.mValue;
+            return lhs > rhs;
         }
     };
 
-    using Tree = RBTree<int, Element, KeyOfValue, Compare>;
+    using Tree = RBTree<int, int, KeyOfValue, Compare>;
 
     XC_TEST_CASE(FSGEIWEG)
     {
         std::cout << std::endl;
         std::cout << "Begin RBTree test" << std::endl;
 
-
         Compare compare;
         Tree tree(compare);
         Tree::Iterator begin = tree.GetBegin();
+        tree.InsertEqual(3);
+        tree.InsertEqual(4);//)
+        tree.InsertEqual(5);
 
         std::cout << "end RBTree test" << std::endl;
     }
