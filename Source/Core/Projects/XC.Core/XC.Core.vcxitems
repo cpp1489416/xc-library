@@ -25,6 +25,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\PriorityQueue.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\Queue.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\RBTree.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\Set.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\Stack.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Delegates\Delegate.h" />

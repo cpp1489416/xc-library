@@ -193,7 +193,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
         using KeyType = TKey;
         using ValueType = TValue;
         using Pointer = TValue *;
-        using ConstanctPointer = const ValueType *;
+        using ConstantPointer = const ValueType *;
         using Reference = ValueType &;
         using ConstantReference = const ValueType &;
         using SizeType = xsize;
@@ -553,7 +553,6 @@ XC_BEGIN_NAMESPACE_1(XC_RBTREE_TEST)
     using namespace std;
     using namespace XC::Containers::Details;
     using namespace XC::Functors;
-
 
     class KeyOfValue
     {
