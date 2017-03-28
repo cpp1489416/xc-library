@@ -20,11 +20,48 @@ XC_BEGIN_NAMESPACE_2(XC, Containers)
 		using Reference = typename TreeType::Reference;
 		using SizeType = typename TreeType::SizeType;
 		using DifferenceType = typename TreeType::DifferenceType;
+		using Iterator = typename TreeType::Iterator;
 
 	public:
 		Set() : mTree(TCompare())
 		{
-			
+
+		}
+
+	public:
+		Iterator begin() { return GetBegin(); }
+		Iterator end() { return GetEnd(); }
+
+	public:
+		Iterator GetBegin()
+		{
+			return mTree.GetBegin();
+		}
+
+		Iterator GetEnd()
+		{
+			return mTree.GetEnd();
+		}
+
+		SizeType GetSize() const
+		{
+			return mTree.GetSize();
+		}
+
+		bool IsEmpty() const
+		{
+			return mTree.IsEmpty();
+		}
+
+		void Clear()
+		{
+			mTree.Clear();
+		}
+
+		Iterator Insert(const TKey& value)
+		{
+			Pair<Iterator, bool> ans = mTree.InsertUnique(value);
+			return ans.mFirst;
 		}
 
 	public:
@@ -33,8 +70,27 @@ XC_BEGIN_NAMESPACE_2(XC, Containers)
 
 } XC_END_NAMESPACE_2;
 
-XC_TEST_CASE(afhofefjoeapjepajpae)
+#include <cstdlib>
+#include <ctime>
+#include <iostream>
+
+XC_TEST_CASE(afhofefjoeapjephajpae)
 {
+	using namespace std;
 	using namespace XC::Containers;
-	Set<int, XC::Functors::Greater<int> > set;
+
+	std::cout << "begin set test" << std::endl;
+	Set<int> set;
+	for (int i = 0; i < 35; ++i)
+	{
+		set.Insert(rand() % 100);
+	}
+
+	//for (Set<int>::Iterator itr = set.GetBegin(); itr != set.GetEnd(); ++itr)
+	for (auto itr = set.begin(); itr != set.end(); ++itr)//: set)
+	{
+		std::cout << *itr << " ";
+	} 
+
+	std::cout << "end set teset" << std::endl;
 }
