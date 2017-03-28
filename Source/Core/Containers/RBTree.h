@@ -448,7 +448,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 			Node* x = GetRoot();
 			while (x != nullptr)
 			{
-				if (mKeyCompare(key, GetKey(x))
+				if (mKeyCompare(key, GetKey(x)))
 				{
 					y = x;
 					x = GetLeft(x);
@@ -469,7 +469,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 			Node* x = GetRoot();
 			while (x != nullptr)
 			{
-				if (mKeyCompare(key, GetKey(x))
+				if (mKeyCompare(key, GetKey(x)))
 				{
 					y = x;
 					x = GetLeft(x);
@@ -514,6 +514,11 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 			xsize n = 0;
 			n = Iterators::GetDistance(p.mFirst, p.mSecond);
 			return n;
+		}
+
+		bool Contains(const TKey& key)
+		{
+			return Find(key) != GetEnd();
 		}
 
 	protected:

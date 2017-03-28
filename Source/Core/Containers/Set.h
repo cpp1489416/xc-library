@@ -62,7 +62,7 @@ XC_BEGIN_NAMESPACE_2(XC, Containers)
 		{
 			Pair<Iterator, bool> ans = mTree.InsertUnique(value);
 			return ans.mFirst;
-		}
+		}		
 
 	public:
 		TreeType mTree;
