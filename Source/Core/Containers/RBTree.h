@@ -202,6 +202,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 		using VoidPointer = void *;
 		using Node = RBTreeNode<ValueType>;
 		using LinkType = Node *;
+		using ConstantIterator = RBTreeIterator<ValueType, ConstantReference, ConstantPointer>;
 		using Iterator = RBTreeIterator<ValueType, Reference, Pointer>;
 		using Self = RBTree<TKey, TValue, TKeyOfValue, TCompare, TAllocator>;
 
@@ -229,13 +230,40 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 		}
 
 	public:
-		Iterator begin() { return GetBegin(); }
-		Iterator end() { return GetEnd(); }
+		ConstantIterator begin() const
+		{
+			return GetBegin();
+		}
+
+		Iterator begin()
+		{
+			return GetBegin();
+		}
+
+		ConstantIterator end() const
+		{
+			return GetEnd();
+		}
+
+		Iterator end()
+		{
+			return GetEnd();
+		}
 
 	public:
+		ConstantIterator GetBegin() const
+		{
+			return GetMostLeft();
+		}
+
 		Iterator GetBegin()
 		{
 			return GetMostLeft();
+		}
+
+		ConstantIterator GetEnd() const
+		{
+			return mHeader;
 		}
 
 		Iterator GetEnd()
@@ -302,7 +330,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 			return node->mRight;
 		}
 
-		const TKey& GetKey(Node* node)
+		const TKey& GetKey(Node* node) const
 		{
 			return TKeyOfValue()(GetValue(node));
 		}
@@ -406,6 +434,11 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 			}
 		}
 
+		void Erase(Iterator position)
+		{
+
+		}
+
 		Iterator Insert(Node* x, Node* y, const TValue& value)
 		{
 			Node* z = nullptr;
@@ -442,13 +475,34 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 			return Iterator(z);
 		}
 
+		ConstantIterator Find(const TKey& key) const
+		{
+			Node* y = mHeader; // y is greaterequal than key
+			Node* x = GetRoot();
+			while (x != nullptr)
+			{
+				if (!mKeyCompare(GetKey(x), key))
+				{
+					y = x;
+					x = GetLeft(x);
+				}
+				else
+				{
+					x = GetRight(x);
+				}
+			}
+
+			ConstantIterator j = ConstantIterator(y);
+			return j == GetEnd() || mKeyCompare(key, GetKey(j.mNode)) ? GetEnd() : j; // key cannot greater than node's key
+		}
+
 		Iterator Find(const TKey& key)
 		{
 			Node* y = mHeader; // y is greaterequal than key
 			Node* x = GetRoot();
 			while (x != nullptr)
 			{
-				if (mKeyCompare(key, GetKey(x)))
+				if (!mKeyCompare(GetKey(x), key))
 				{
 					y = x;
 					x = GetLeft(x);
@@ -463,13 +517,33 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 			return j == GetEnd() || mKeyCompare(key, GetKey(j.mNode)) ? GetEnd() : j; // key cannot greater than node's key
 		}
 
+		ConstantIterator GetLowerBoound(const TKey& key) const
+		{
+			Node* y = mHeader; // y is greaterequal than key
+			Node* x = GetRoot();
+			while (x != nullptr)
+			{
+				if (!mKeyCompare(GetKey(x), key))
+				{
+					y = x;
+					x = GetLeft(x);
+				}
+				else
+				{
+					x = GetRight(x);
+				}
+			}
+
+			return ConstantIterator(x);
+		}
+
 		Iterator GetLowerBound(const TKey& key)
 		{
 			Node* y = mHeader; // y is greaterequal than key
 			Node* x = GetRoot();
 			while (x != nullptr)
 			{
-				if (mKeyCompare(key, GetKey(x)))
+				if (!mKeyCompare(GetKey(x), key))
 				{
 					y = x;
 					x = GetLeft(x);
@@ -483,13 +557,33 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 			return Iterator(x);
 		}
 
+		ConstantIterator GetUpperBound(const TKey& key) const
+		{
+			Node* y = mHeader; // y is less than key
+			Node* x = GetRoot();
+			while (x != nullptr)
+			{
+				if (!mKeyCompare(GetKey(x), key))
+				{
+					x = GetLeft(x);
+				}
+				else
+				{
+					y = x;
+					x = GetRight();
+				}
+			}
+
+			return ConstantIterator(x);
+		}
+
 		Iterator GetUpperBound(const TKey& key)
 		{
 			Node* y = mHeader; // y is less than key
 			Node* x = GetRoot();
 			while (x != nullptr)
 			{
-				if (mKeyCompare(key, GetRoot()))
+				if (!mKeyCompare(GetKey(x), key))
 				{
 					x = GetLeft(x);
 				}
@@ -503,20 +597,25 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 			return Iterator(x);
 		}
 
-		Pair<Iterator, Iterator> GetEqualRange(const TKey& key)
+		Pair<ConstantIterator, ConstantIterator> GetEqualRange(const TKey& key) const
 		{
-			return Pair<Iterator, Iterator>(GetLowerBound(key), GetUpperBound(kkey));
+			return Pair<ConstantIterator, ConstantIterator>(GetLowerBound(key), GetUpperBound(key));
 		}
 
-		xsize GetCount(const TKey& key)
+		Pair<Iterator, Iterator> GetEqualRange(const TKey& key)
 		{
-			Pair<Iterator, Iterator> p = GetEqualRange(key);
+			return Pair<Iterator, Iterator>(GetLowerBound(key), GetUpperBound(key));
+		}
+
+		xsize GetCount(const TKey& key) const
+		{
+			Pair<ConstantIterator, ConstantIterator> p = GetEqualRange(key);
 			xsize n = 0;
 			n = Iterators::GetDistance(p.mFirst, p.mSecond);
 			return n;
 		}
 
-		bool Contains(const TKey& key)
+		bool Contains(const TKey& key) const
 		{
 			return Find(key) != GetEnd();
 		}
@@ -573,6 +672,217 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 				}
 			}
 			root->mColor = RBTreeColorType::Black;
+		}
+
+		Node* EraseRebalance(Node* node, Node* root, Node* & root, Node* & mostLeft, Node* & mostRight)
+		{
+			Node* z = node;
+			Node* y = z;
+			Node* x = nullptr;
+			Node* xParent = nullptr;
+			if (y->mLeft == nullptr)
+			{
+				x = y->mRight;
+			}
+			else
+			{
+				if (y->mRight == nullptr)
+				{
+					x = y->mLeft;
+				}
+				else
+				{
+					y = y->mRight;
+					while (y->mLeft != nullptr)
+					{
+						y = y->mLeft;
+					}
+					x = y->mRight;
+				}
+			}
+
+			if (y != z)
+			{
+				z->mLeft->mParent = y;
+				y->mLeft = z->mLeft;
+				if (y != z->mRight)
+				{
+					xParent = y->mParent;
+					if (x != nullptr)
+					{
+						x->mParent = y->mParent;
+					}
+					y->mParent->mLeft = x;
+					y->mRight = z->mRight;
+					z->mRight->mParent = y;
+				}
+				else
+				{
+					xParent = y;
+				}
+
+				if (root == z)
+				{
+					root = y;
+				}
+				else if (z->mParent->mLeft == z)
+				{
+					z->mParent->mLeft = y;
+				}
+				else
+				{
+					z->mParent->mRight = y;
+				}
+
+				y->mParent = z->mParent;
+				Algorithms::Swap(y->mColor, z->mColor);
+				y = z;
+			}
+			else
+			{
+				xParent = y->mParent;
+				if (x != nullptr)
+				{
+					x->mParent = y->mParent;
+				}
+
+				if (root == z)
+				{
+					root = x;
+				}
+				else
+				{
+					if (z->mParent->mLeft == z)
+					{
+						z->mParent->mLeft = x;
+					}
+					else
+					{
+						z->mParent->mRight = x;
+					}
+				}
+
+				if (mostLeft == z)
+				{
+					if (z->mRight == nullptr)
+					{
+						mostLeft = z->mParent;
+					}
+					else
+					{
+						mostLeft = x->GetMinimum();
+					}
+				}
+
+				if (mostRight == z)
+				{
+					if (z->mLeft == nullptr)
+					{
+						mostRight = z->mParent;
+					}
+					else
+					{
+						mostRight = x->GetMaximum();
+					}
+				}
+			}
+
+			if (y->mColor != RBTreeColorType::Red)
+			{
+				while (x != root && (x == nullptr || x->mColor == RBTreeColorType::Black))
+				{
+					if (x == xParent->mLeft)
+					{
+						Node* w = xParent->mRight;
+						if (w->mColor == RBTreeColorType::Red)
+						{
+							w->mColor = RBTreeColorType::Black;
+							xParent->mColor = RBTreeColorType::Red;
+							LeftRotate(xParent, root);
+							w = xParent->mRight;
+						}
+
+						if ((w->mLeft == nullptr || w->mLeft->mColor == RBTreeColorType::Black)
+							&& (w->mRight == 0 || w->mRight->mColor == RBTreeColorType::Black)
+							)
+						{
+							w->mColor = RBTreeColorType::Red;
+							x = xParent;
+							xParent = xParent->mParent;
+						}
+						else
+						{
+							if (w->mRight == nullptr || w->mRight->mColor == RBTreeColorType::Black)
+							{
+								if (w->mLeft != nullptr)
+								{
+									w->mLeft->mColor = RBTreeColorType::Black;
+								}
+								w->mColor = RBTreeColorType::Red;
+								RightRotate(w, root);
+								w = xParent->mRight;
+							}
+							w->mColor = xParent->mColor;
+							xParent->mColor = RBTreeColorType::Black;
+							if (w->mRight != nullptr)
+							{
+								w->mRight->mColor = RBTreeColorType::Black;
+							}
+							LeftRotate(xParent, root);
+							break;
+						}
+					}
+					else
+					{
+						Node* w = xParent->mLeft;
+						if (w->mColor == RBTreeColorType::Red)
+						{
+							w->mColor = RBTreeColorType::Black;
+							xParent->mColor = RBTreeColorType::Red;
+							RightRotate(xParent, root);
+							w = xParent->mLeft;
+						}
+
+						if ((w->mRight == nullptr || w->mRight->mColor == RBTreeColorType::Black) &&
+							(w->mLeft == nullptr || w->mLeft->mColor == RBTreeColorType::Black)
+							)
+						{
+							w->mColor = RBTreeColorType::Red;
+							x = xParent;
+							xParent = xParent->mParent;
+						}
+						else
+						{
+							if (w->mLeft == nullptr
+								|| w->mLeft->mColor = RBTreeColorType::Black
+								)
+							{
+								if (w->mRight != nullptr)
+								{
+									w->mRight->mColor = RBTreeColorType::Black;
+								}
+								w->mColor = RBTreeColorType::Red;
+								LeftRotate(w, root);
+								w = xParent->mLeft;
+							}
+							w->mColor = xParent->mColor;
+							xParent->mColor = RBTreeColorType::Black;
+							if (w->mLeft != nullptr)
+							{
+								w->mLeft->mColor = RBTreeColorType::Black;
+							}
+							RightRotate(xParent, root);
+							break;
+						}
+					}
+				}
+
+				if (x != nullptr)
+				{
+					x->mColor = RBTreeColorType::Black;
+				}
+			}
+			return y;
 		}
 
 		void LeftRotate(Node* x, Node* & root)

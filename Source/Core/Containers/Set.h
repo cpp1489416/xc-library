@@ -64,6 +64,11 @@ XC_BEGIN_NAMESPACE_2(XC, Containers)
 			return ans.mFirst;
 		}		
 
+		bool Contains(const TKey& key) const
+		{
+			return mTree.Contains(key);
+		}
+
 	public:
 		TreeType mTree;
 	};
@@ -91,6 +96,15 @@ XC_TEST_CASE(afhofefjoeapjephajpae)
 	{
 		std::cout << *itr << " ";
 	} 
+
+	set.Insert(0);
+	std::cout << "containss 0: "<<set.Contains(0) << std::endl;
+
+	for (int i = 0; i < 100; ++i)
+	{
+		std::cout << set.Contains(i);
+	}
+	std::cout << std::endl;
 
 	std::cout << "end set teset" << std::endl;
 }
