@@ -731,10 +731,12 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 				else
 				{
 					z->mParent->mRight = y;
-					y->mParent = z->mParent;
-					Algorithms::Swap(y->mColor, z->mColor);
-					y = z;
-				}// y now points to node to be actually deleted
+				}
+				
+				y->mParent = z->mParent;
+				Algorithms::Swap(y->mColor, z->mColor);
+				y = z;
+				// y now points to node to be actually deleted
 			}
 			else
 			{                        // y == z
@@ -818,7 +820,10 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 								w->mRight->mColor == RBTreeColorType::Black
 								)
 							{
-								if (w->mLeft) w->mLeft->mColor = RBTreeColorType::Black;
+								if (w->mLeft)
+								{
+									w->mLeft->mColor = RBTreeColorType::Black;
+								}
 								w->mColor = RBTreeColorType::Red;
 								rightRotate(w, root);
 								w = xParent->mRight;
@@ -860,7 +865,10 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 								w->mLeft->mColor == RBTreeColorType::Black
 								)
 							{
-								if (w->mRight) w->mRight->mColor = RBTreeColorType::Black;
+								if (w->mRight)
+								{
+									w->mRight->mColor = RBTreeColorType::Black;
+								}
 								w->mColor = RBTreeColorType::Red;
 								leftRotate(w, root);
 								w = xParent->mLeft;
