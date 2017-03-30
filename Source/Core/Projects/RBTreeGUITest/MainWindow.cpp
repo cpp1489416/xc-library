@@ -50,7 +50,8 @@ void MainWindow::EraseRandomClicked()
     auto itr = mMainWidget->mTree.GetBegin();
     ++itr;
     int val = itr.mNode->mValue;
-    QMessageBox::information(this, QString::number(val), "ge4gg4e");
+
+ //   QMessageBox::information(nullptr, QString::number(val), "ge4gg4e");
     mMainWidget->mTree.Erase(itr);
     mMainWidget->update();
     mMainWidget->TestNodesRelationship();

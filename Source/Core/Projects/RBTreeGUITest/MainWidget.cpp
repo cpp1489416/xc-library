@@ -20,6 +20,7 @@ MainWidget::MainWidget(QWidget *parent)
     }
     mCircleRadius = 10;
     TestNodesRelationship();
+    mTree.ChangedEvent.Add(this, &MainWidget::TreeChanged);
 }
 
 MainWidget::~MainWidget()
@@ -45,9 +46,14 @@ bool MainWidget::TestNodesRelationship(Node * node)
     }
     else
     {
-        QMessageBox::information(this, QString::number(node->mValue), "ge");
+        QMessageBox::information(nullptr, QString::number(node->mValue), "ge");
         return false;
     }
+}
+
+void MainWidget::TreeChanged()
+{
+    update();
 }
 
 void MainWidget::paintEvent(QPaintEvent * event)

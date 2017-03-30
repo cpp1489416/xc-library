@@ -24,7 +24,7 @@ XC_BEGIN_NAMESPACE_2(XC, Algorithms)
     {
         T1 tmp = a;
         a = b;
-        b = a;
+        b = tmp;
     }
 
     template <typename InputIterator, typename T>

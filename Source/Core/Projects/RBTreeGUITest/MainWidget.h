@@ -3,7 +3,7 @@
 #include <qwidget.h>
 #include <Core/Core.h>
 
-class MainWidget : public QWidget
+class MainWidget : public QWidget, virtual public XC::CallableObject
 {
     Q_OBJECT
 
@@ -19,6 +19,7 @@ public:
 public:
     bool TestNodesRelationship();
     bool TestNodesRelationship(Node* node);
+    void TreeChanged();
 
 protected:
     void paintEvent(QPaintEvent* event) override;

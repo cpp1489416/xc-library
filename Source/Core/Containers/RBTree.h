@@ -5,6 +5,7 @@
 #include "../Memories/Allocators.h"
 #include "Pair.h"
 #include "../Iterators/Iterators.h"
+#include "../Delegates/Delegates.h"
 
 XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 {
@@ -794,15 +795,13 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
                 }
             }
 
+            ChangedEvent.Invoke();
             if (y->mColor != RBTreeColorType::Red)
             {
+                ChangedEvent.Invoke();
                 while (x != root && (x == 0 || x->mColor == RBTreeColorType::Black))
                 {
-                    if (x != xParent->mLeft && x != xParent->mRight)
-                    {
-                        return nullptr;//int i;	//assert(false);
-                    }
-
+                    ChangedEvent.Invoke();
                     if (x == xParent->mLeft)
                     {
                         Node* w = xParent->mRight;
@@ -811,15 +810,16 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
                             w->mColor = RBTreeColorType::Black;
                             xParent->mColor = RBTreeColorType::Red;
                             LeftRotate(xParent, root);
+                            ChangedEvent.Invoke();
                             w = xParent->mRight;
                         }
+                        ChangedEvent.Invoke();
 
-                        if ((w->mLeft == 0 ||
-                            w->mLeft->mColor == RBTreeColorType::Black) &&
-                            (w->mRight == 0 ||
-                                w->mRight->mColor == RBTreeColorType::Black)
+                        if ((w->mLeft == 0 || w->mLeft->mColor == RBTreeColorType::Black) &&
+                            (w->mRight == 0 || w->mRight->mColor == RBTreeColorType::Black)
                             )
                         {
+                            ChangedEvent.Invoke();
                             w->mColor = RBTreeColorType::Red;
                             x = xParent;
                             xParent = xParent->mParent;
@@ -955,6 +955,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
         }
 
     private: public:
+        Delegate<void> ChangedEvent;
         xsize mCountNodes;
         Node* mHeader;
         TCompare mKeyCompare;
