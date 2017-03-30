@@ -6,15 +6,14 @@
 
 XC_BEGIN_NAMESPACE_2(XC, Algorithms)
 {
-
     template <typename T>
-    inline T GetMin(T a, T b)
+    inline T GetMin(const T& a, const T& b)
     {
         return a > b ? b : a;
     }
 
     template <typename T>
-    inline T GetMax(T a, T b)
+    inline T GetMax(const T& a, const T& b)
     {
         return a > b ? a : b;
     }
