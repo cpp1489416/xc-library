@@ -677,7 +677,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 		Node* EraseRebalance(Node* node, Node* & root, Node* & mostLeft, Node* & mostRight)
 		{
 			Node* z = node;
-			Node* y = z;
+			 Node* y = z;
 			Node* x = 0;
 			Node* xParent = 0;
 			if (y->mLeft == 0)     // z has at most one non-null child. y == z.
