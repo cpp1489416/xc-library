@@ -678,41 +678,40 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 		{
 			Node* z = node;
 			Node* y = z;
-			Node* x = nullptr;
-			Node* xParent = nullptr;
-			if (y->mLeft == nullptr)
+			Node* x = 0;
+			Node* xParent = 0;
+			if (y->mLeft == 0)     // z has at most one non-null child. y == z.
 			{
-				x = y->mRight;
+				x = y->mRight;     // x might be null.
 			}
 			else
 			{
-				if (y->mRight == nullptr)
+				if (y->mRight == 0)  // z has exactly one non-null child. y == z.
 				{
-					x = y->mLeft;
+					x = y->mLeft;    // x is not null.
 				}
 				else
-				{
-					y = y->mRight;
-					while (y->mLeft != nullptr)
+				{                   // z has two non-null children.  Set y to
+					y = y->mRight;   //   z's successor.  x might be null.
+					while (y->mLeft != 0)
 					{
 						y = y->mLeft;
 					}
 					x = y->mRight;
 				}
 			}
-
 			if (y != z)
-			{
+			{          // relink y in place of z.  y is z's successor
 				z->mLeft->mParent = y;
 				y->mLeft = z->mLeft;
 				if (y != z->mRight)
 				{
 					xParent = y->mParent;
-					if (x != nullptr)
+					if (x)
 					{
 						x->mParent = y->mParent;
 					}
-					y->mParent->mLeft = x;
+					y->mParent->mLeft = x;      // y must be a child of mLeft
 					y->mRight = z->mRight;
 					z->mRight->mParent = y;
 				}
@@ -732,16 +731,15 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 				else
 				{
 					z->mParent->mRight = y;
-				}
-
-				y->mParent = z->mParent;
-				Algorithms::Swap(y->mColor, z->mColor);
-				y = z;
+					y->mParent = z->mParent;
+					Algorithms::Swap(y->mColor, z->mColor);
+					y = z;
+				}// y now points to node to be actually deleted
 			}
 			else
-			{
+			{                        // y == z
 				xParent = y->mParent;
-				if (x != nullptr)
+				if (x)
 				{
 					x->mParent = y->mParent;
 				}
@@ -764,32 +762,34 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 
 				if (mostLeft == z)
 				{
-					if (z->mRight == nullptr)
+					if (z->mRight == 0)        // z->mLeft must be null also
 					{
 						mostLeft = z->mParent;
+						// makes mostLeft == _M_header if z == root
 					}
 					else
 					{
-						mostLeft = x->GetMinimum();
+						mostLeft = Node::_S_minimum(x);
 					}
 				}
 
 				if (mostRight == z)
 				{
-					if (z->mLeft == nullptr)
+					if (z->mLeft == 0)         // z->mRight must be null also
 					{
 						mostRight = z->mParent;
+						// makes mostRight == _M_header if z == root
 					}
-					else
+					else                      // x == z->mLeft
 					{
-						mostRight = x->GetMaximum();
+						mostRight = Node::_S_maximum(x);
 					}
 				}
 			}
 
 			if (y->mColor != RBTreeColorType::Red)
 			{
-				while (x != root && (x == nullptr || x->mColor == RBTreeColorType::Black))
+				while (x != root && (x == 0 || x->mColor == RBTreeColorType::Black))
 				{
 					if (x == xParent->mLeft)
 					{
@@ -798,12 +798,14 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 						{
 							w->mColor = RBTreeColorType::Black;
 							xParent->mColor = RBTreeColorType::Red;
-							LeftRotate(xParent, root);
+							leftRotate(xParent, root);
 							w = xParent->mRight;
 						}
 
-						if ((w->mLeft == nullptr || w->mLeft->mColor == RBTreeColorType::Black)
-							&& (w->mRight == 0 || w->mRight->mColor == RBTreeColorType::Black)
+						if ((w->mLeft == 0 ||
+							w->mLeft->mColor == RBTreeColorType::Black) &&
+							(w->mRight == 0 ||
+								w->mRight->mColor == RBTreeColorType::Black)
 							)
 						{
 							w->mColor = RBTreeColorType::Red;
@@ -812,19 +814,18 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 						}
 						else
 						{
-							if (w->mRight == nullptr || w->mRight->mColor == RBTreeColorType::Black)
+							if (w->mRight == 0 ||
+								w->mRight->mColor == RBTreeColorType::Black
+								)
 							{
-								if (w->mLeft != nullptr)
-								{
-									w->mLeft->mColor = RBTreeColorType::Black;
-								}
+								if (w->mLeft) w->mLeft->mColor = RBTreeColorType::Black;
 								w->mColor = RBTreeColorType::Red;
-								RightRotate(w, root);
+								rightRotate(w, root);
 								w = xParent->mRight;
 							}
 							w->mColor = xParent->mColor;
 							xParent->mColor = RBTreeColorType::Black;
-							if (w->mRight != nullptr)
+							if (w->mRight)
 							{
 								w->mRight->mColor = RBTreeColorType::Black;
 							}
@@ -833,18 +834,20 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 						}
 					}
 					else
-					{
+					{                  // same as above, with mRight <-> mLeft.
 						Node* w = xParent->mLeft;
 						if (w->mColor == RBTreeColorType::Red)
 						{
 							w->mColor = RBTreeColorType::Black;
 							xParent->mColor = RBTreeColorType::Red;
-							RightRotate(xParent, root);
+							rightRotate(xParent, root);
 							w = xParent->mLeft;
 						}
 
-						if ((w->mRight == nullptr || w->mRight->mColor == RBTreeColorType::Black) &&
-							(w->mLeft == nullptr || w->mLeft->mColor == RBTreeColorType::Black)
+						if ((w->mRight == 0 ||
+							w->mRight->mColor == RBTreeColorType::Black) &&
+							(w->mLeft == 0 ||
+								w->mLeft->mColor == RBTreeColorType::Black)
 							)
 						{
 							w->mColor = RBTreeColorType::Red;
@@ -853,21 +856,18 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 						}
 						else
 						{
-							if (w->mLeft == nullptr
-								|| w->mLeft->mColor = RBTreeColorType::Black
+							if (w->mLeft == 0 ||
+								w->mLeft->mColor == RBTreeColorType::Black
 								)
 							{
-								if (w->mRight != nullptr)
-								{
-									w->mRight->mColor = RBTreeColorType::Black;
-								}
+								if (w->mRight) w->mRight->mColor = RBTreeColorType::Black;
 								w->mColor = RBTreeColorType::Red;
-								LeftRotate(w, root);
+								leftRotate(w, root);
 								w = xParent->mLeft;
 							}
 							w->mColor = xParent->mColor;
 							xParent->mColor = RBTreeColorType::Black;
-							if (w->mLeft != nullptr)
+							if (w->mLeft)
 							{
 								w->mLeft->mColor = RBTreeColorType::Black;
 							}
@@ -877,7 +877,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 					}
 				}
 
-				if (x != nullptr)
+				if (x)
 				{
 					x->mColor = RBTreeColorType::Black;
 				}
