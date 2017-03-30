@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef XC_CORE_TYPES_TYPES_H
+#define XC_CORE_TYPES_TYPES_H
+
 #include "../SyntaxSugars/SyntaxSugars.h"
 #include "Basic.h"
 #include "TypeTraits.h"
@@ -8,12 +11,12 @@ XC_BEGIN_NAMESPACE_2(XC, Types)
 {
     XC_BEGIN_NAMESPACE_1(Details)
     {
-        bool IsPlainOldData(TrueTraitType)
+        inline bool IsPlainOldData(TrueTraitType)
         {
             return true;
         }
 
-        bool IsPlainOldData(FalseTraitType)
+        inline bool IsPlainOldData(FalseTraitType)
         {
             return false;
         }
@@ -53,3 +56,6 @@ XC_TEST_CASE(PLAINOLDATETEST)
     std::cout << XC::Types::IsPlainOldData(423) << " int plain old data\n";
 }
 */
+
+
+#endif // XC_CORE_TYPES_TYPES_H 

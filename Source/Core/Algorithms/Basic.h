@@ -20,7 +20,7 @@ XC_BEGIN_NAMESPACE_2(XC, Algorithms)
     }
 
     template <typename T1, typename T2>
-    void Swap(T1 a, T2 b)
+    void Swap(T1& a, T2& b)
     {
         T1 tmp = a;
         a = b;

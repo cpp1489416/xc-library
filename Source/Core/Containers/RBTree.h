@@ -361,16 +361,17 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 			return mHeader->mRight;
 		}
 
-		Node* GetMaximum(Node* node) const
+		/*
+		Node* & GetMaximum(Node* node) const
 		{
 			return node->GetMaximum();
 		}
 
-		Node* GetMinimum(Node* node) const
+		Node* & GetMinimum(Node* node) const
 		{
 			return node->GetMinimum();
 		}
-
+		*/
 	private: public:
 		void Initialize()
 		{
@@ -424,6 +425,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 					--j;
 				}
 			}
+
 			if (mKeyCompare(GetKey(j.mNode), TKeyOfValue()(value)))
 			{
 				return Pair<Iterator, bool>(Insert(x, y, value), true);
@@ -432,11 +434,6 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 			{
 				return Pair<Iterator, bool>(j, false);
 			}
-		}
-
-		void Erase(Iterator position)
-		{
-
 		}
 
 		Iterator Insert(Node* x, Node* y, const TValue& value)
@@ -620,6 +617,13 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 			return Find(key) != GetEnd();
 		}
 
+		void Erase(Iterator position)
+		{
+			Node* y = EraseRebalance(position.mNode, mHeader->mParent, mHeader->mLeft, mHeader->mRight);
+			DestroyNode(y);
+			--mCountNodes;
+		}
+
 	protected:
 		void Rebalance(Node* x, Node* & root)
 		{
@@ -677,7 +681,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 		Node* EraseRebalance(Node* node, Node* & root, Node* & mostLeft, Node* & mostRight)
 		{
 			Node* z = node;
-			 Node* y = z;
+			Node* y = z;
 			Node* x = 0;
 			Node* xParent = 0;
 			if (y->mLeft == 0)     // z has at most one non-null child. y == z.
@@ -686,7 +690,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 			}
 			else
 			{
-				if (y->mRight == 0)  // z has exactly one non-null child. y == z.
+				if (y->mRight == 0)  // z has exactly one non-nul	l child. y == z.
 				{
 					x = y->mLeft;    // x is not null.
 				}
@@ -694,12 +698,13 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 				{                   // z has two non-null children.  Set y to
 					y = y->mRight;   //   z's successor.  x might be null.
 					while (y->mLeft != 0)
-					{
+					{														
 						y = y->mLeft;
 					}
 					x = y->mRight;
 				}
 			}
+
 			if (y != z)
 			{          // relink y in place of z.  y is z's successor
 				z->mLeft->mParent = y;
@@ -732,7 +737,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 				{
 					z->mParent->mRight = y;
 				}
-				
+
 				y->mParent = z->mParent;
 				Algorithms::Swap(y->mColor, z->mColor);
 				y = z;
@@ -771,7 +776,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 					}
 					else
 					{
-						mostLeft = Node::_S_minimum(x);
+						mostLeft = x->GetMinimum();
 					}
 				}
 
@@ -784,15 +789,20 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 					}
 					else                      // x == z->mLeft
 					{
-						mostRight = Node::_S_maximum(x);
+						mostRight = x->GetMaximum();
 					}
-				}
+				}	
 			}
 
 			if (y->mColor != RBTreeColorType::Red)
 			{
 				while (x != root && (x == 0 || x->mColor == RBTreeColorType::Black))
 				{
+					if (x != xParent->mLeft && x != xParent->mRight)
+					{
+						return nullptr;//int i;	//assert(false);
+					}
+
 					if (x == xParent->mLeft)
 					{
 						Node* w = xParent->mRight;
@@ -800,7 +810,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 						{
 							w->mColor = RBTreeColorType::Black;
 							xParent->mColor = RBTreeColorType::Red;
-							leftRotate(xParent, root);
+							LeftRotate(xParent, root);
 							w = xParent->mRight;
 						}
 
@@ -825,7 +835,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 									w->mLeft->mColor = RBTreeColorType::Black;
 								}
 								w->mColor = RBTreeColorType::Red;
-								rightRotate(w, root);
+								RightRotate(w, root);
 								w = xParent->mRight;
 							}
 							w->mColor = xParent->mColor;
@@ -845,7 +855,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 						{
 							w->mColor = RBTreeColorType::Black;
 							xParent->mColor = RBTreeColorType::Red;
-							rightRotate(xParent, root);
+							RightRotate(xParent, root);
 							w = xParent->mLeft;
 						}
 
@@ -870,7 +880,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 									w->mRight->mColor = RBTreeColorType::Black;
 								}
 								w->mColor = RBTreeColorType::Red;
-								leftRotate(w, root);
+								LeftRotate(w, root);
 								w = xParent->mLeft;
 							}
 							w->mColor = xParent->mColor;
@@ -926,6 +936,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 			{
 				y->mRight->mParent = x;
 			}
+
 			y->mParent = x->mParent;
 			if (x == root)
 			{
@@ -995,19 +1006,30 @@ XC_BEGIN_NAMESPACE_1(XC_RBTREE_TEST)
 
 	XC_TEST_CASE(FSGEIWEG)
 	{
-		srand(time(nullptr));
-		std::cout << std::endl;
-		std::cout << "Begin RBTree test" << std::endl;
-
-		// Less compare;
-		Tree tree;
-		Tree::Iterator begin = tree.GetBegin();
-		for (int i = 0; i < 100; ++i)
+		return;
+		while (true)
 		{
-			tree.InsertUnique(rand() % 100);
+			srand(time(nullptr));
+			std::cout << std::endl;
+			std::cout << "Begin RBTree test" << std::endl;
+
+			// Less compare;
+			Tree tree;
+			Tree::Iterator begin = tree.GetBegin();
+			for (int i = 0; i < 100; ++i)
+			{
+				tree.InsertUnique(rand() % 100);
+			}
+			Print(tree);
+			std::cout << std::endl;
+			Tree::Iterator itr = ++tree.GetBegin();
+			++itr;
+			++itr;
+			++itr;
+			tree.Erase(itr);
+			Print(tree);
+			std::cout << "end RBTree test" << std::endl;
 		}
-		Print(tree);
-		std::cout << "end RBTree test" << std::endl;
 	}
 
 } XC_END_NAMESPACE_1;
