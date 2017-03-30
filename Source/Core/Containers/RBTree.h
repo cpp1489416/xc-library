@@ -674,7 +674,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
 			root->mColor = RBTreeColorType::Black;
 		}
 
-		Node* EraseRebalance(Node* node, Node* root, Node* & root, Node* & mostLeft, Node* & mostRight)
+		Node* EraseRebalance(Node* node, Node* & root, Node* & mostLeft, Node* & mostRight)
 		{
 			Node* z = node;
 			Node* y = z;
