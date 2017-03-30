@@ -11,12 +11,12 @@ XC_BEGIN_NAMESPACE_2(XC, Types)
 {
     XC_BEGIN_NAMESPACE_1(Details)
     {
-        inline bool IsPlainOldData(TrueTraitType)
+        static inline bool IsPlainOldData(TrueTraitType)
         {
             return true;
         }
 
-        inline bool IsPlainOldData(FalseTraitType)
+        static inline bool IsPlainOldData(FalseTraitType)
         {
             return false;
         }
