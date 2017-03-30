@@ -40,7 +40,8 @@ bool MainWidget::TestNodesRelationship(Node * node)
     }
 
     if ((node->mLeft == nullptr || node->mLeft->mParent == node) &&
-        (node->mRight == nullptr || node->mRight->mParent == node))
+        (node->mRight == nullptr || node->mRight->mParent == node)
+        )
     {
         return TestNodesRelationship(node->mLeft) && TestNodesRelationship(node->mRight);
     }

@@ -1,5 +1,3 @@
-#include "stdafx.h"
-
 #include <cstdlib>
 #include <iostream>
 #include <Core.h>
@@ -76,30 +74,21 @@ XC_TEST_CASE(DELEGATE_TESET)
 
 int main()
 {
-    Array<int *> array(21);
-    for (int i = 0; i < 21; ++i)
-    {
-        array[i] = new int(i);
-    }
-
-    for (int i = 0; i < 21; ++i)
-    {
-        std::cout << *array[i] << " ";
-    }
-    std::cout << std::endl;
-
-    auto itr = array.GetIteratorAt(2);
-    delete *itr;
-    array.Erase(array.GetIteratorAt(2));
-
-    for (xsize i = 0; i < array.GetSize(); ++i)
-    {
-        std::cout << *array[i] << " ";
-    }
-    std::cout << std::endl;
-
-    std::cout << std::endl;
-    std::cout << std::endl;
-    
     system("pause");
+    return 0;
+}
+
+XC_TEST_CASE(gegwgwe)
+{
+    std::cout << "main test" << std::endl;
+}
+
+XC_TEST_CASE(2)
+{
+    std::cout << "main test 2" << std::endl;
+}
+
+XC_TEST_CASE(2434)
+{
+    std::cout << "main test 3" << std::endl;
 }
