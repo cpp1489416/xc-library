@@ -69,6 +69,8 @@ XC_BEGIN_NAMESPACE_2(XC, Containers)
 			return mTree.Contains(key);
 		}
 
+
+
 	public:
 		TreeType mTree;
 	};
@@ -79,7 +81,7 @@ XC_BEGIN_NAMESPACE_2(XC, Containers)
 #include <ctime>
 #include <iostream>
 
-XC_TEST_CASE(afhofefjoeapjephajpae)
+XC_TEST_CASE(XC_SET_TEST)
 {
 	using namespace std;
 	using namespace XC::Containers;

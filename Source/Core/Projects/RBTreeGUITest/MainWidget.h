@@ -24,6 +24,9 @@ public:
 protected:
     void paintEvent(QPaintEvent* event) override;
 
+    private slots:
+    void Timeout();
+
 private: public:
     void Paint(Node* node, QRect boundary, QPainter& painter);
     

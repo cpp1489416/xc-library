@@ -5,6 +5,9 @@ using namespace XC;
 
 XC_TEST_CASE(ARRAY_TEST)
 {
+    std::cout << "begin array test" << std::endl;
+
+    std::cout << "end array test" << std::endl;
 }
 
 class A : public CallableObject

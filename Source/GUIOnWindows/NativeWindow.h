@@ -13,6 +13,11 @@ XC_BEGIN_NAMESPACE_3(XC, GUI, Windows)
 
     public:
         void Show() override;
+
+    protected:
+        virtual void OnPaint(const PaintEvent& paintEvent);
+
+        virtual void OnMouseDown(const MouseEvent& mouseEvent);
     
     private:
         class IMPL;

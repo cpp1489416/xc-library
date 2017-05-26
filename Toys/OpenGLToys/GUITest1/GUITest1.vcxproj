@@ -32,13 +32,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IncludePath>D:\SeasonFox\XC-Library\Toys\OpenGLToys\Include;D:\SeasonFox\XC-Library\Source;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\SeasonFox\XC-Library\Toys\OpenGLToys\Library;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Fox\Documents\Projects\XC-Library\Toys\OpenGLToys\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Fox\Documents\Projects\XC-Library\Toys\OpenGLToys\Library;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IncludePath>D:\SeasonFox\XC-Library\Toys\OpenGLToys\Include;D:\SeasonFox\XC-Library\Source;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\SeasonFox\XC-Library\Toys\OpenGLToys\Library;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Fox\Documents\Projects\XC-Library\Toys\OpenGLToys\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Fox\Documents\Projects\XC-Library\Toys\OpenGLToys\Library;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

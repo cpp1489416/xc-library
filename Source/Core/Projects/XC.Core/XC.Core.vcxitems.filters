@@ -124,13 +124,13 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\DEQueue.h">
       <Filter>Containers</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\RBTree.h">
-      <Filter>Containers</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\Pair.h">
       <Filter>Containers</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\Set.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Containers\RBTree.h">
       <Filter>Containers</Filter>
     </ClInclude>
   </ItemGroup>

@@ -8,7 +8,5 @@ XC_BEGIN_NAMESPACE_2(XC, GUI)
     {
     public:
     };
-
-    using EventHandler = Delegate<void, Object, EventArguments>;
     
 } XC_END_NAMESPACE_2

@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
       <Extensions>qrc;*</Extensions>
@@ -34,32 +30,11 @@
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
-    <Filter Include="Source Files\QTGUI">
-      <UniqueIdentifier>{0b698cfd-8409-4d80-a827-14fe5f916bc7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\CXCGL">
-      <UniqueIdentifier>{035d681f-268d-4ad7-85d8-0377614eff5e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Shader Files">
       <UniqueIdentifier>{d2ef1cb5-2e7f-4076-b0b9-72e59f7d72f2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Things">
-      <UniqueIdentifier>{92f1db1e-1bb7-49f3-a2c2-106c16b04f43}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Meshes">
-      <UniqueIdentifier>{ed198b35-7ca6-40fc-be0c-4e0dba0ce249}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Texture Files">
       <UniqueIdentifier>{448dee13-5245-4002-889f-26d8daf7fe1b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\FileLoaders">
-      <UniqueIdentifier>{8f1b0d85-128e-46df-b4bc-26fb8d8b5139}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Math">
-      <UniqueIdentifier>{2962870f-8039-45a1-9c1f-5655a5d2090f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Techniques">
-      <UniqueIdentifier>{43529e9f-d70d-4080-bc8d-75e0f04117e4}</UniqueIdentifier>
     </Filter>
     <Filter Include="UnitTest Files">
       <UniqueIdentifier>{82f74871-d4a3-49eb-ade1-f7585bde3956}</UniqueIdentifier>
@@ -78,6 +53,31 @@
     </Filter>
     <Filter Include="Include Files\XC\Core">
       <UniqueIdentifier>{d6f8391c-0ae3-49b4-bfeb-8228576db775}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\QTGUI">
+      <UniqueIdentifier>{0b698cfd-8409-4d80-a827-14fe5f916bc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\CXCGL">
+      <UniqueIdentifier>{035d681f-268d-4ad7-85d8-0377614eff5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Things">
+      <UniqueIdentifier>{92f1db1e-1bb7-49f3-a2c2-106c16b04f43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Meshes">
+      <UniqueIdentifier>{ed198b35-7ca6-40fc-be0c-4e0dba0ce249}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FileLoaders">
+      <UniqueIdentifier>{8f1b0d85-128e-46df-b4bc-26fb8d8b5139}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Math">
+      <UniqueIdentifier>{2962870f-8039-45a1-9c1f-5655a5d2090f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Techniques">
+      <UniqueIdentifier>{43529e9f-d70d-4080-bc8d-75e0f04117e4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

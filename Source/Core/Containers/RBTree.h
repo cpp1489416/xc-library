@@ -1,3 +1,5 @@
+// RBTree is base class for set and map
+
 #pragma once
 
 #include "../SyntaxSugars/SyntaxSugars.h"
@@ -23,7 +25,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
         using BasePointer = RBTreeNode *;
 
     public:
-        RBTreeNode * GetMinimum()
+        RBTreeNode* GetMinimum()
         {
             RBTreeNode * node = this;
             while (node->mLeft != nullptr)
@@ -34,7 +36,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
             return node;
         }
 
-        RBTreeNode * GetMaximum()
+        RBTreeNode* GetMaximum()
         {
             RBTreeNode * node = this;
             while (node->mRight != nullptr)
@@ -81,7 +83,11 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
             mNode = iterator.mNode;
         }
 
-        Self& operator = (const Self&) = default;
+        Self& operator = (const Self& rhs)
+        {
+            mNode = rhs.mNode;
+            return *this;
+        }
 
     public:
         void Increment()
@@ -96,16 +102,16 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
             }
             else
             {
-                Node * parent = mNode->mParent;
-                while (mNode == parent->mRight)
+                Node* y = mNode->mParent;
+                while (mNode == y->mRight)
                 {
-                    mNode = parent;
-                    parent = parent->mParent;
+                    mNode = y;
+                    y = y->mParent;
                 }
 
-                if (mNode->mRight != parent) // header
+                if (mNode->mRight != y) // header
                 {
-                    mNode = parent;
+                    mNode = y;
                 }
             }
         }
@@ -118,7 +124,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
             }
             else if (mNode->mLeft != nullptr)
             {
-                Node * y = mNode->mLeft;
+                Node* y = mNode->mLeft;
                 while (y->mRight != nullptr)
                 {
                     y = y->mRight;
@@ -127,7 +133,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
             }
             else
             {
-                Node * y = mNode->mParent;
+                Node* y = mNode->mParent;
                 while (mNode == y->mLeft)
                 {
                     mNode = y;
@@ -154,7 +160,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
             return *this;
         }
 
-        Self & operator ++ (int)
+        Self operator ++ (int)
         {
             Self ans = *this;
             ++(*this);
@@ -167,7 +173,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
             return *this;
         }
 
-        Self & operator -- (int)
+        Self operator -- (int)
         {
             Self ans = *this;
             --(*this);
@@ -214,7 +220,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
         RBTree(const TCompare & compare = TCompare()) :
             mCountNodes(0), mKeyCompare(compare)
         {
-            Initialize();
+            EmptyInitialize();
         }
 
         RBTree(const typename Self&) = delete;
@@ -282,7 +288,230 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
             return GetSize() == 0;
         }
 
-    protected:
+        void Clear()
+        {
+
+        }
+
+        // insert functions
+        Iterator InsertEqual(const TValue& value)
+        {
+            Node* y = mHeader;
+            Node* x = GetRoot();
+            while (x != nullptr)
+            {
+                y = x;
+                x = mKeyCompare(TKeyOfValue()(value), GetKey(x)) ? GetLeft(x) : GetRight(x);
+            }
+            return Insert(x, y, value);
+        }
+
+        // bool claims if it is inserted success
+        Pair<Iterator, bool> InsertUnique(const TValue& value)
+        {
+            Node* y = mHeader;
+            Node* x = GetRoot();
+            bool comp = true;
+            while (x != nullptr)
+            {
+                y = x;
+                comp = mKeyCompare(TKeyOfValue()(value), GetKey(x));
+                x = comp ? GetLeft(x) : GetRight(x);
+            }
+
+            Iterator j = Iterator(y);
+            if (comp)
+            {
+                if (j == GetBegin())
+                {
+                    return Pair<Iterator, bool>(Insert(x, y, value), true);
+                }
+                else
+                {
+                    --j;
+                }
+            }
+
+            if (mKeyCompare(GetKey(j.mNode), TKeyOfValue()(value)))
+            {
+                return Pair<Iterator, bool>(Insert(x, y, value), true);
+            }
+            else
+            {
+                return Pair<Iterator, bool>(j, false);
+            }
+        }
+
+        ConstantIterator Find(const TKey& key) const
+        {
+            Node* y = mHeader; // y is greaterequal than key
+            Node* x = GetRoot();
+            while (x != nullptr)
+            {
+                if (!mKeyCompare(GetKey(x), key))
+                {
+                    y = x;
+                    x = GetLeft(x);
+                }
+                else
+                {
+                    x = GetRight(x);
+                }
+            }
+
+            ConstantIterator j = ConstantIterator(y);
+            return j == GetEnd() || mKeyCompare(key, GetKey(j.mNode)) ? GetEnd() : j; // key cannot greater than node's key
+        }
+
+        Iterator Find(const TKey& key)
+        {
+            Node* y = mHeader; // y is greaterequal than key
+            Node* x = GetRoot();
+            while (x != nullptr)
+            {
+                if (!mKeyCompare(GetKey(x), key))
+                {
+                    y = x;
+                    x = GetLeft(x);
+                }
+                else
+                {
+                    x = GetRight(x);
+                }
+            }
+
+            Iterator j = Iterator(y);
+            return j == GetEnd() || mKeyCompare(key, GetKey(j.mNode)) ? GetEnd() : j; // key cannot greater than node's key
+        }
+
+        ConstantIterator GetLowerBoound(const TKey& key) const
+        {
+            Node* y = mHeader; // y is greaterequal than key
+            Node* x = GetRoot();
+            while (x != nullptr)
+            {
+                if (!mKeyCompare(GetKey(x), key))
+                {
+                    y = x;
+                    x = GetLeft(x);
+                }
+                else
+                {
+                    x = GetRight(x);
+                }
+            }
+
+            return ConstantIterator(y);
+        }
+
+        Iterator GetLowerBound(const TKey& key)
+        {
+            Node* y = mHeader; // y is greaterequal than key
+            Node* x = GetRoot();
+            while (x != nullptr)
+            {
+                if (!mKeyCompare(GetKey(x), key))
+                {
+                    y = x;
+                    x = GetLeft(x);
+                }
+                else
+                {
+                    x = GetRight(x);
+                }
+            }
+
+            return Iterator(y);
+        }
+
+        ConstantIterator GetUpperBound(const TKey& key) const
+        {
+            Node* y = mHeader; // y is less than key
+            Node* x = GetRoot();
+            while (x != nullptr)
+            {
+                if (mKeyCompare(key, GetKey(x)))
+                {
+                    y = x;
+                    x = GetLeft(x);
+                }
+                else
+                {
+                    x = GetRight();
+                }
+            }
+
+            return ConstantIterator(y);
+        }
+
+        Iterator GetUpperBound(const TKey& key)
+        {
+            Node* y = mHeader; // y is less than key
+            Node* x = GetRoot();
+            while (x != nullptr)
+            {
+                if (mKeyCompare(key, GetKey(x)))
+                {
+                    y = x;
+                    x = GetLeft(x);
+                }
+                else
+                {
+                    x = GetRight(x);
+                }
+            }
+
+            return Iterator(y);
+        }
+
+        Pair<ConstantIterator, ConstantIterator> GetEqualRange(const TKey& key) const
+        {
+            return Pair<ConstantIterator, ConstantIterator>(GetLowerBound(key), GetUpperBound(key));
+        }
+
+        Pair<Iterator, Iterator> GetEqualRange(const TKey& key)
+        {
+            return Pair<Iterator, Iterator>(GetLowerBound(key), GetUpperBound(key));
+        }
+
+        xsize GetCount(const TKey& key) const
+        {
+            Pair<ConstantIterator, ConstantIterator> p = GetEqualRange(key);
+            xsize n = 0;
+            n = Iterators::GetDistance(p.mFirst, p.mSecond);
+            return n;
+        }
+
+        bool Contains(const TKey& key) const
+        {
+            return Find(key) != GetEnd();
+        }
+
+        void Erase(Iterator position)
+        {
+            Node* y = EraseRebalance(position.mNode, mHeader->mParent, mHeader->mLeft, mHeader->mRight);
+            DestroyNode(y);
+            --mCountNodes;
+        }
+
+        void Erase(Iterator first, Iterator last)
+        {
+            while (first != last)
+            {
+                Erase(first++);
+            }
+        }
+
+        SizeType Erase(const TKey& key)
+        {
+            Pair<Iterator, Iterator>  p = GetEqualRange(key);
+            SizeType n = 0;
+            n = Iterators::GetDistance(p.mFirst, p.mSecond);
+            Erase(p.mFirst, p.mSecond);
+            return n;
+        }
+
+    protected: public:
         Node* GetNode()
         {
             return RBTreeNodeAllocator::Allocate();
@@ -346,7 +575,6 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
             return node->mColor;
         }
 
-        // global functions
         Node* & GetRoot() const
         {
             return mHeader->mParent;
@@ -362,7 +590,6 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
             return mHeader->mRight;
         }
 
-        /*
         Node* & GetMaximum(Node* node) const
         {
             return node->GetMaximum();
@@ -372,69 +599,14 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
         {
             return node->GetMinimum();
         }
-        */
-    private: public:
-        void Initialize()
+
+        void EmptyInitialize()
         {
             mHeader = GetNode();
             mHeader->mColor = RBTreeColorType::Red;
             GetRoot() = nullptr;
             GetMostLeft() = mHeader;
             GetMostRight() = mHeader;
-        }
-
-        void Clear()
-        {
-
-        }
-
-        // insert functions
-        Iterator InsertEqual(const TValue& value)
-        {
-            Node* y = mHeader;
-            Node* x = GetRoot();
-            while (x != nullptr)
-            {
-                y = x;
-                x = mKeyCompare(TKeyOfValue()(value), GetKey(x)) ? GetLeft(x) : GetRight(x);
-            }
-            return Insert(x, y, value);
-        }
-
-        // bool claims if it is inserted success
-        Pair<Iterator, bool> InsertUnique(const TValue& value)
-        {
-            Node* y = mHeader;
-            Node* x = GetRoot();
-            bool comp = true;
-            while (x != nullptr)
-            {
-                y = x;
-                comp = mKeyCompare(TKeyOfValue()(value), GetKey(x));
-                x = comp ? GetLeft(x) : GetRight(x);
-            }
-
-            Iterator j = Iterator(y);
-            if (comp)
-            {
-                if (j == GetBegin())
-                {
-                    return Pair<Iterator, bool>(Insert(x, y, value), true);
-                }
-                else
-                {
-                    --j;
-                }
-            }
-
-            if (mKeyCompare(GetKey(j.mNode), TKeyOfValue()(value)))
-            {
-                return Pair<Iterator, bool>(Insert(x, y, value), true);
-            }
-            else
-            {
-                return Pair<Iterator, bool>(j, false);
-            }
         }
 
         Iterator Insert(Node* x, Node* y, const TValue& value)
@@ -473,159 +645,6 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
             return Iterator(z);
         }
 
-        ConstantIterator Find(const TKey& key) const
-        {
-            Node* y = mHeader; // y is greaterequal than key
-            Node* x = GetRoot();
-            while (x != nullptr)
-            {
-                if (!mKeyCompare(GetKey(x), key))
-                {
-                    y = x;
-                    x = GetLeft(x);
-                }
-                else
-                {
-                    x = GetRight(x);
-                }
-            }
-
-            ConstantIterator j = ConstantIterator(y);
-            return j == GetEnd() || mKeyCompare(key, GetKey(j.mNode)) ? GetEnd() : j; // key cannot greater than node's key
-        }
-
-        Iterator Find(const TKey& key)
-        {
-            Node* y = mHeader; // y is greaterequal than key
-            Node* x = GetRoot();
-            while (x != nullptr)
-            {
-                if (!mKeyCompare(GetKey(x), key))
-                {
-                    y = x;
-                    x = GetLeft(x);
-                }
-                else
-                {
-                    x = GetRight(x);
-                }
-            }
-
-            Iterator j = Iterator(y);
-            return j == GetEnd() || mKeyCompare(key, GetKey(j.mNode)) ? GetEnd() : j; // key cannot greater than node's key
-        }
-
-        ConstantIterator GetLowerBoound(const TKey& key) const
-        {
-            Node* y = mHeader; // y is greaterequal than key
-            Node* x = GetRoot();
-            while (x != nullptr)
-            {
-                if (!mKeyCompare(GetKey(x), key))
-                {
-                    y = x;
-                    x = GetLeft(x);
-                }
-                else
-                {
-                    x = GetRight(x);
-                }
-            }
-
-            return ConstantIterator(x);
-        }
-
-        Iterator GetLowerBound(const TKey& key)
-        {
-            Node* y = mHeader; // y is greaterequal than key
-            Node* x = GetRoot();
-            while (x != nullptr)
-            {
-                if (!mKeyCompare(GetKey(x), key))
-                {
-                    y = x;
-                    x = GetLeft(x);
-                }
-                else
-                {
-                    x = GetRight(x);
-                }
-            }
-
-            return Iterator(x);
-        }
-
-        ConstantIterator GetUpperBound(const TKey& key) const
-        {
-            Node* y = mHeader; // y is less than key
-            Node* x = GetRoot();
-            while (x != nullptr)
-            {
-                if (!mKeyCompare(GetKey(x), key))
-                {
-                    x = GetLeft(x);
-                }
-                else
-                {
-                    y = x;
-                    x = GetRight();
-                }
-            }
-
-            return ConstantIterator(x);
-        }
-
-        Iterator GetUpperBound(const TKey& key)
-        {
-            Node* y = mHeader; // y is less than key
-            Node* x = GetRoot();
-            while (x != nullptr)
-            {
-                if (!mKeyCompare(GetKey(x), key))
-                {
-                    x = GetLeft(x);
-                }
-                else
-                {
-                    y = x;
-                    x = GetRight();
-                }
-            }
-
-            return Iterator(x);
-        }
-
-        Pair<ConstantIterator, ConstantIterator> GetEqualRange(const TKey& key) const
-        {
-            return Pair<ConstantIterator, ConstantIterator>(GetLowerBound(key), GetUpperBound(key));
-        }
-
-        Pair<Iterator, Iterator> GetEqualRange(const TKey& key)
-        {
-            return Pair<Iterator, Iterator>(GetLowerBound(key), GetUpperBound(key));
-        }
-
-        xsize GetCount(const TKey& key) const
-        {
-            Pair<ConstantIterator, ConstantIterator> p = GetEqualRange(key);
-            xsize n = 0;
-            n = Iterators::GetDistance(p.mFirst, p.mSecond);
-            return n;
-        }
-
-        bool Contains(const TKey& key) const
-        {
-            return Find(key) != GetEnd();
-        }
-
-        void Erase(Iterator position)
-        {
-            Node* y = EraseRebalance(position.mNode, mHeader->mParent, mHeader->mLeft, mHeader->mRight);
-            DestroyNode(y);
-            --mCountNodes;
-        }
-
-    protected:
         void Rebalance(Node* x, Node* & root)
         {
             x->mColor = RBTreeColorType::Red;
@@ -795,13 +814,10 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
                 }
             }
 
-            ChangedEvent.Invoke();
             if (y->mColor != RBTreeColorType::Red)
             {
-                ChangedEvent.Invoke();
                 while (x != root && (x == 0 || x->mColor == RBTreeColorType::Black))
                 {
-                    ChangedEvent.Invoke();
                     if (x == xParent->mLeft)
                     {
                         Node* w = xParent->mRight;
@@ -813,22 +829,18 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
                             ChangedEvent.Invoke();
                             w = xParent->mRight;
                         }
-                        ChangedEvent.Invoke();
 
                         if ((w->mLeft == 0 || w->mLeft->mColor == RBTreeColorType::Black) &&
                             (w->mRight == 0 || w->mRight->mColor == RBTreeColorType::Black)
                             )
                         {
-                            ChangedEvent.Invoke();
                             w->mColor = RBTreeColorType::Red;
                             x = xParent;
                             xParent = xParent->mParent;
                         }
                         else
                         {
-                            if (w->mRight == 0 ||
-                                w->mRight->mColor == RBTreeColorType::Black
-                                )
+                            if (w->mRight == 0 || w->mRight->mColor == RBTreeColorType::Black)
                             {
                                 if (w->mLeft)
                                 {
@@ -859,10 +871,8 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
                             w = xParent->mLeft;
                         }
 
-                        if ((w->mRight == 0 ||
-                            w->mRight->mColor == RBTreeColorType::Black) &&
-                            (w->mLeft == 0 ||
-                                w->mLeft->mColor == RBTreeColorType::Black)
+                        if ((w->mRight == 0 || w->mRight->mColor == RBTreeColorType::Black) &&
+                            (w->mLeft == 0 || w->mLeft->mColor == RBTreeColorType::Black)
                             )
                         {
                             w->mColor = RBTreeColorType::Red;
@@ -871,9 +881,7 @@ XC_BEGIN_NAMESPACE_3(XC, Containers, Details)
                         }
                         else
                         {
-                            if (w->mLeft == 0 ||
-                                w->mLeft->mColor == RBTreeColorType::Black
-                                )
+                            if (w->mLeft == 0 || w->mLeft->mColor == RBTreeColorType::Black)
                             {
                                 if (w->mRight)
                                 {
@@ -1005,10 +1013,19 @@ XC_BEGIN_NAMESPACE_1(XC_RBTREE_TEST)
         std::cout << std::endl;
     }
 
+    static int arr[100] =
+    { 
+        59,58,9,37,96,56,68,28,92,66,26,31,90,8,69,38,47,33,51,4,49,51,27,19,86,94,91,24,
+        66,62,74,36,20,22,82,96,13,94,36,58,85,75,74,72,10,65,48,24,42,26,55,
+        97,80,74,63,65,82,41,28,32,38,48,10,16,74,54,47,97,69,82,45,26,70,43,5,21,83,
+        15,27,72,7,96,83,36,47,22,24,22,35,80,27,95,31,18,50,76,51,67,1,15,
+    };
+
     XC_TEST_CASE(FSGEIWEG)
     {
         return;
-        while (true)
+        int times = 1000;
+        while (times--)
         {
             srand(time(nullptr));
             std::cout << std::endl;
@@ -1017,9 +1034,15 @@ XC_BEGIN_NAMESPACE_1(XC_RBTREE_TEST)
             // Less compare;
             Tree tree;
             Tree::Iterator begin = tree.GetBegin();
-            for (int i = 0; i < 100; ++i)
+            /*    for (int i = 0; i < 100; ++i)
+                {
+                    arr[i] = rand() % 100;
+                    tree.InsertUnique(arr[i]);
+                }
+                */
+            for (auto i : arr)
             {
-                tree.InsertUnique(rand() % 100);
+                tree.InsertUnique(i);
             }
             Print(tree);
             std::cout << std::endl;
@@ -1029,8 +1052,15 @@ XC_BEGIN_NAMESPACE_1(XC_RBTREE_TEST)
             ++itr;
             tree.Erase(itr);
             Print(tree);
+            std::cout << std::endl;
+            for (int i = 0; i < 50; ++i)
+            {
+                tree.Erase(i);
+            }
+            Print(tree);
             std::cout << "end RBTree test" << std::endl;
         }
+
     }
 
 } XC_END_NAMESPACE_1;

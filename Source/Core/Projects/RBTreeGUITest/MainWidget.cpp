@@ -3,6 +3,7 @@
 #include <qevent.h>
 #include <qmessagebox.h>
 #include <qpen.h>
+#include <qtimer.h>
 #include <cstdlib>
 #include <ctime>
 
@@ -14,13 +15,22 @@ MainWidget::MainWidget(QWidget *parent)
     : QWidget(parent)
 {
     srand(time(nullptr));
-    for (int i = 0; i < 10000; ++i)
+    for (auto i : XC_RBTREE_TEST::arr)
     {
-        mTree.InsertUnique(rand() % 100);
+        mTree.InsertUnique(i);
     }
+    auto itr = mTree.GetBegin();
+    ++itr;
+    ++itr;
+    ++itr;
+    ++itr;
+    mTree.Erase(itr);
     mCircleRadius = 10;
     TestNodesRelationship();
     mTree.ChangedEvent.Add(this, &MainWidget::TreeChanged);
+    QTimer* timer = new QTimer();
+    connect(timer, &QTimer::timeout, this, &MainWidget::Timeout);
+    // timer->start(30);
 }
 
 MainWidget::~MainWidget()
@@ -68,6 +78,7 @@ void MainWidget::paintEvent(QPaintEvent * event)
 
 void MainWidget::Paint(Node * node, QRect boundary, QPainter& painter)
 {
+    TestNodesRelationship();
     if (node == nullptr)
     {
         return;
@@ -98,4 +109,20 @@ void MainWidget::Paint(Node * node, QRect boundary, QPainter& painter)
 
     Paint(node->mLeft, leftBoundary, painter);
     Paint(node->mRight, rightBoundary, painter);
+}
+
+void MainWidget::Timeout()
+{
+    mTree = Tree();
+    for (int i = 0; i < 100; ++i)
+    {
+        mTree.InsertUnique(rand() % 100);
+    }
+    Tree::Iterator itr = mTree.GetBegin();
+    ++itr;
+    ++itr;
+    ++itr;
+    ++itr;
+    mTree.Erase(itr);
+    update();
 }

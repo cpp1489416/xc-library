@@ -18,10 +18,13 @@ XC_BEGIN_NAMESPACE_3(XC, GUI, Windows)
         void ShowWin32();
 
     public:
+        NativeWindow* mFather;
         Application * mApplication;
         WCHAR * mClassName = L"CXCNativeWindowClassName";
         HINSTANCE mHInstance;
         HWND mHWND;
+        PaintEvent mPaintEvent;
+        MouseEvent mMouseEvent;
     };
 
     LRESULT CALLBACK NativeWindow::IMPL::StaticWindowProcedureWin32(HWND hWND, UINT message, WPARAM wParam, LPARAM lParam)
@@ -40,7 +43,7 @@ XC_BEGIN_NAMESPACE_3(XC, GUI, Windows)
 
                 IMPL * currentIMPL = (IMPL *)cs->lpCreateParams;
                 currentIMPL->mHWND = hWND; // at this time, "CreateWindow" function is not returned
-                
+
                 SetWindowLongPtr(hWND, GWLP_USERDATA, (LONG_PTR)currentIMPL);
                 return currentIMPL->WindowProcedureWin32(hWND, message, wParam, lParam);
             }
@@ -57,6 +60,12 @@ XC_BEGIN_NAMESPACE_3(XC, GUI, Windows)
         {
         case WM_DESTROY:
             mApplication->Quit();
+            break;
+        case WM_PAINT:
+            mFather->OnPaint(mPaintEvent);
+            break;
+        case WM_LBUTTONDOWN:
+            mFather->OnMouseDown(mMouseEvent);
             break;
         default:
             break;
@@ -111,6 +120,7 @@ XC_BEGIN_NAMESPACE_3(XC, GUI, Windows)
     NativeWindow::NativeWindow(Application * application) :
         INativeWindow(application)
     {
+        mIMPL->mFather = this;
         mIMPL->mApplication = application;
         mIMPL->RegisterClassWin32();
         mIMPL->CreateWindowWin32();
@@ -119,6 +129,14 @@ XC_BEGIN_NAMESPACE_3(XC, GUI, Windows)
     NativeWindow::~NativeWindow()
     {
         XC_DELETE_IMPL(mIMPL);
+    }
+
+    void NativeWindow::OnPaint(const PaintEvent& paintEvent)
+    {
+    }
+
+    void NativeWindow::OnMouseDown(const MouseEvent& mouseEvent)
+    {
     }
 
     void NativeWindow::Show()
