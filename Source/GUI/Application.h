@@ -1,23 +1,22 @@
 #pragma once
 
 #include "../Core/Core.h"
-#include "../GUI/IApplication.h"
 
-XC_BEGIN_NAMESPACE_3(XC, GUI, Windows)
+XC_BEGIN_NAMESPACE_2(XC, GUI)
 {
-    class Application : public IApplication
+    class Application 
     {
     public:
         Application();
         ~Application();
     
     public:
-        void Execute() override;
-        void Quit() override;
+        void Execute();
+        void Quit();
 
     private:
         class IMPL;
         IMPLPointer<IMPL> mIMPL;
     };
 
-} XC_END_NAMESPACE_3
+} XC_END_NAMESPACE_2;

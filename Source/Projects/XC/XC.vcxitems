@@ -27,17 +27,19 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\Core.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\Drawing2D.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\GDI\GDI.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUIOnWindows\Application.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUIOnWindows\NativeWindow.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\Application.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\Defines.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\Events.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\GUI.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\IApplication.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\INativeWindow.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\Interfaces\IApplication.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\Interfaces\INativeWindow.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\NativeGUIObjects.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\Widget.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\GDI\GDI.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUIOnWindows\Application.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUIOnWindows\NativeWindow.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI\Application.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI\NativeGUIObjects.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI\Widget.cpp" />
   </ItemGroup>
 </Project>

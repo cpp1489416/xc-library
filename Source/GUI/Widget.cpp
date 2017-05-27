@@ -1,35 +1,38 @@
-#include "NativeWindow.h"
+#include "Widget.h"
 
-#include "Application.h"
 #include <Windows.h>
 #include <cassert>
+#include <Drawing2D/GDI/GDI.h>
+#include "Application.h"
 
-XC_BEGIN_NAMESPACE_3(XC, GUI, Windows)
+XC_BEGIN_NAMESPACE_2(XC, GUI)
 {
-    class NativeWindow::IMPL
+    const Drawing2D::Rectangle& Widget::GetBoundary()
     {
-    public:
-        static LRESULT CALLBACK StaticWindowProcedureWin32(HWND hWND, UINT message, WPARAM wParam, LPARAM lParam);
+        return mBoundary;
+    }
 
-    public:
-        LRESULT WindowProcedureWin32(HWND hWND, UINT message, WPARAM wParam, LPARAM lParam);
-        ATOM RegisterClassWin32();
-        void CreateWindowWin32();
-        void ShowWin32();
-
-    public:
-        NativeWindow* mFather;
-        Application * mApplication;
-        WCHAR * mClassName = L"CXCNativeWindowClassName";
-        HINSTANCE mHInstance;
-        HWND mHWND;
-        PaintEvent mPaintEvent;
-        MouseEvent mMouseEvent;
-    };
-
-    LRESULT CALLBACK NativeWindow::IMPL::StaticWindowProcedureWin32(HWND hWND, UINT message, WPARAM wParam, LPARAM lParam)
+    void Widget::SetBoundary(const Drawing2D::Rectangle& boundary)
     {
-        IMPL * currentIMPL = (IMPL *)GetWindowLongPtr(hWND, GWLP_USERDATA);
+        mBoundary = boundary;
+        if (mParent != nullptr) // not the top window
+        {
+            for (auto child : mChildWidgets)
+            {
+                child->SetBoundary(child->GetBoundary());
+            }
+
+            Repaint();
+        }
+        else
+        {
+            return;
+        }
+    }
+
+    LRESULT CALLBACK Widget::StaticWindowProcedureWin32(HWND hWND, UINT message, WPARAM wParam, LPARAM lParam)
+    {
+        Widget* currentIMPL = (Widget*)GetWindowLongPtr(hWND, GWLP_USERDATA);
 
         if (currentIMPL != nullptr)
         {
@@ -41,7 +44,7 @@ XC_BEGIN_NAMESPACE_3(XC, GUI, Windows)
             {
                 LPCREATESTRUCT cs = (LPCREATESTRUCT)lParam;
 
-                IMPL * currentIMPL = (IMPL *)cs->lpCreateParams;
+                Widget* currentIMPL = (Widget*)cs->lpCreateParams;
                 currentIMPL->mHWND = hWND; // at this time, "CreateWindow" function is not returned
 
                 SetWindowLongPtr(hWND, GWLP_USERDATA, (LONG_PTR)currentIMPL);
@@ -54,26 +57,38 @@ XC_BEGIN_NAMESPACE_3(XC, GUI, Windows)
         }
     }
 
-    LRESULT NativeWindow::IMPL::WindowProcedureWin32(HWND hWND, UINT message, WPARAM wParam, LPARAM lParam)
+    LRESULT Widget::WindowProcedureWin32(HWND hWND, UINT message, WPARAM wParam, LPARAM lParam)
     {
         switch (message)
         {
+        case WM_CREATE:
+            break;
         case WM_DESTROY:
+        {
             mApplication->Quit();
             break;
+        }
         case WM_PAINT:
-            mFather->OnPaint(mPaintEvent);
+        {
+            mCanvas.BeginPaint(*(this));
+            OnPaint(PaintEvent(mCanvas));
+            mCanvas.EndPaint();
             break;
+        }
         case WM_LBUTTONDOWN:
-            mFather->OnMouseDown(mMouseEvent);
+            OnMouseDown(MouseEvent());
+            break;
+        case WM_RBUTTONDOWN:
+
             break;
         default:
             break;
         }
+
         return DefWindowProc(hWND, message, wParam, lParam);
     }
 
-    ATOM NativeWindow::IMPL::RegisterClassWin32()
+    ATOM Widget::RegisterClassWin32()
     {
         mHInstance = GetModuleHandle(NULL);
 
@@ -90,13 +105,13 @@ XC_BEGIN_NAMESPACE_3(XC, GUI, Windows)
         wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
         wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
         wcex.lpszMenuName = NULL;
-        wcex.lpszClassName = mClassName; // L"CXCNativeWindowClassName";
+        wcex.lpszClassName = mClassName; // L"CXCWidgetClassName";
         wcex.hIconSm = NULL; // LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
         return RegisterClassEx(&wcex);
     }
 
-    void NativeWindow::IMPL::CreateWindowWin32()
+    void Widget::CreateWindowWin32()
     {
         mHWND = CreateWindow(
             mClassName,
@@ -110,39 +125,56 @@ XC_BEGIN_NAMESPACE_3(XC, GUI, Windows)
             nullptr,
             mHInstance,
             (LPVOID)this);
+        
+        PrivateSetHWND(mHWND);
     }
 
-    void NativeWindow::IMPL::ShowWin32()
+    void Widget::ShowWin32()
     {
+        RegisterClassWin32();
+        CreateWindowWin32();
         ShowWindow(mHWND, SW_MAXIMIZE);
     }
 
-    NativeWindow::NativeWindow(Application * application) :
-        INativeWindow(application)
+    Widget::Widget(Application * application)
     {
-        mIMPL->mFather = this;
-        mIMPL->mApplication = application;
-        mIMPL->RegisterClassWin32();
-        mIMPL->CreateWindowWin32();
+        mApplication = application;
     }
 
-    NativeWindow::~NativeWindow()
-    {
-        XC_DELETE_IMPL(mIMPL);
-    }
-
-    void NativeWindow::OnPaint(const PaintEvent& paintEvent)
+    Widget::~Widget()
     {
     }
 
-    void NativeWindow::OnMouseDown(const MouseEvent& mouseEvent)
+    void Widget::OnCreate(BasicEvent& event)
+    {
+
+    }
+
+    void Widget::OnResize(BasicEvent& event)
     {
     }
 
-    void NativeWindow::Show()
+    void Widget::OnPaint(PaintEvent& paintEvent)
     {
-        mIMPL->ShowWin32();
     }
 
-} XC_END_NAMESPACE_3
+    void Widget::OnMouseDown(MouseEvent& mouseEvent)
+    {
+    }
+
+    void Widget::Show()
+    {
+        ShowWin32();
+    }
+
+    void Widget::Repaint()
+    {
+        OnPaint(PaintEvent(mCanvas));
+        for (auto widget : mChildWidgets)
+        {
+            widget->Repaint();
+        }
+    }
+    
+} XC_END_NAMESPACE_2;
 

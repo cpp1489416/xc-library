@@ -8,7 +8,7 @@ XC_BEGIN_NAMESPACE_2(XC, GUI)
 
 } XC_END_NAMESPACE_2
 
-XC_BEGIN_NAMESPACE_3(XC, GUI, Windows)
+XC_BEGIN_NAMESPACE_2(XC, GUI)
 {
     class Application::IMPL
     {
@@ -62,7 +62,7 @@ XC_BEGIN_NAMESPACE_3(XC, GUI, Windows)
         mIMPL->QuitWin32();
     }
 
-} XC_END_NAMESPACE_3
+} XC_END_NAMESPACE_2;
 
 int APIENTRY WinMain(
     HINSTANCE hInstance, 

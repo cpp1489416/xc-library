@@ -39,7 +39,7 @@ XC_BEGIN_NAMESPACE_2(XC, Drawing2D)
     class Size : public Point
     {
     public:
-        Size(float width, float height) : Point(width, height)
+        Size(float width = 0.0f, float height = 0.0f) : Point(width, height)
         {
         }
 
@@ -67,7 +67,7 @@ XC_BEGIN_NAMESPACE_2(XC, Drawing2D)
     class Rectangle
     {
     public:
-        Rectangle(const Point& start, const Size& size) : mStart(start), mSize(size)
+        Rectangle(const Point& start = Point(), const Size& size = Size()) : mStart(start), mSize(size)
         { 
         }
 
@@ -216,14 +216,24 @@ XC_BEGIN_NAMESPACE_2(XC, Drawing2D)
         float mWidth;
     };
 
+    class IPaintEngine
+    {
+    public:
+    };
+
     // canvas can draw things
     class ICanvas
     {
     public:
+        virtual void BeginPaint(IPaintEngine& paintEngine) = 0;
+        virtual void EndPaint() = 0;
+        virtual void SetToIdentity() = 0;
+        virtual void Translate(const Point& translation) = 0;
         virtual void Clear(const Color& color) = 0;
         virtual void DrawRectangle(const Pen& pen, const Rectangle& rectangle) = 0;
         virtual void DrawCircle(const Pen& pen, const Rectangle& area) = 0;
         virtual void DrawLine(const Pen& pen, const Line& line) = 0;
     };
+
 
 } XC_END_NAMESPACE_2;

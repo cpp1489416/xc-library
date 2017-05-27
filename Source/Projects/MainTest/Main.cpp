@@ -1,14 +1,13 @@
-#include <GUIOnWindows/Application.h>
-#include <GUIOnWindows/NativeWindow.h>
+#include <GUI/Application.h>
+#include <GUI/Widget.h>
 
 XC_BEGIN_NAMESPACE_2(XC, GUI)
 {
-    using namespace Windows;
     
     void Main()
     {
         Application a;
-        NativeWindow window(&a);
+        Widget window(&a);
         window.Show();
         a.Execute();
     }
