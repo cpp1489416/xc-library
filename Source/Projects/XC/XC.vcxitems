@@ -33,13 +33,15 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\GUI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\Interfaces\IApplication.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\Interfaces\INativeWindow.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\NativeGUIObjects.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\Widget.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\NativeWindow.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\SystemNativeWindows.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\UserNativeWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\GDI\GDI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI\Application.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI\NativeGUIObjects.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI\Widget.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI\NativeWindow.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI\SystemNativeWindows.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI\UserNativeWindow.cpp" />
   </ItemGroup>
 </Project>

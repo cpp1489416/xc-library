@@ -1,6 +1,7 @@
 #pragma once
 
-#include "../Core/Core.h"
+#include <Windows.h>
+#include <Core/Core.h>
 
 XC_BEGIN_NAMESPACE_2(XC, GUI)
 {
@@ -8,15 +9,25 @@ XC_BEGIN_NAMESPACE_2(XC, GUI)
     {
     public:
         Application();
+        
         ~Application();
     
     public:
+        static HFONT Win32GetBasicHFont();
+       
         void Execute();
+        
         void Quit();
 
     private:
-        class IMPL;
-        IMPLPointer<IMPL> mIMPL;
+        void InitializeWin32();
+        
+        void MessageLoopWin32();
+        
+        void QuitWin32();
+
+    private:
+        HINSTANCE mHInstance;
     };
 
 } XC_END_NAMESPACE_2;

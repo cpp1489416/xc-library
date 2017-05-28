@@ -10,23 +10,13 @@ XC_BEGIN_NAMESPACE_2(XC, GUI)
 
 XC_BEGIN_NAMESPACE_2(XC, GUI)
 {
-    class Application::IMPL
-    {
-    public:
-        void InitializeWin32();
-        void MessageLoopWin32();
-        void QuitWin32();
 
-    public:
-        HINSTANCE mHInstance;
-    };
-
-    void Application::IMPL::InitializeWin32()
+    void Application::InitializeWin32()
     {
         mHInstance = GetModuleHandle(NULL);
     }
 
-    void Application::IMPL::MessageLoopWin32()
+    void Application::MessageLoopWin32()
     {
         MSG msg;
 
@@ -37,37 +27,52 @@ XC_BEGIN_NAMESPACE_2(XC, GUI)
         }
     }
 
-    void Application::IMPL::QuitWin32()
+    void Application::QuitWin32()
     {
         PostQuitMessage(0);
     }
 
     Application::Application()
     {
-        mIMPL->InitializeWin32();
+        InitializeWin32();
     }
 
     Application::~Application()
     {
-        XC_DELETE_IMPL(mIMPL)
     }
 
     void Application::Execute()
     {
-        mIMPL->MessageLoopWin32();
+        MessageLoopWin32();
     }
 
     void Application::Quit()
     {
-        mIMPL->QuitWin32();
+        QuitWin32();
+    }
+
+    HFONT Application::Win32GetBasicHFont()
+    {
+        static HFONT hFont;
+        bool isDone = false;
+        if (!isDone)
+        {
+            LOGFONT logFont;
+            SystemParametersInfo(SPI_GETICONTITLELOGFONT, sizeof(LOGFONT), &logFont, 0);
+            hFont = CreateFontIndirect(&logFont);
+            isDone = true;
+        }
+
+        return hFont;
+    
     }
 
 } XC_END_NAMESPACE_2;
 
 int APIENTRY WinMain(
-    HINSTANCE hInstance, 
-    HINSTANCE hPrevInstance, 
-    LPSTR lpCmdLine, 
+    HINSTANCE hInstance,
+    HINSTANCE hPrevInstance,
+    LPSTR lpCmdLine,
     int nCmdLine)
 {
     XC::GUI::Main();

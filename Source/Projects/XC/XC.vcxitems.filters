@@ -75,16 +75,19 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\Defines.h">
       <Filter>GUI</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\NativeGUIObjects.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\Interfaces\IApplication.h">
       <Filter>GUI\Inferfaces</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\Interfaces\INativeWindow.h">
       <Filter>GUI\Inferfaces</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\Widget.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\SystemNativeWindows.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\NativeWindow.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\UserNativeWindow.h">
       <Filter>GUI</Filter>
     </ClInclude>
   </ItemGroup>
@@ -95,10 +98,13 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI\Application.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI\NativeGUIObjects.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI\SystemNativeWindows.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI\Widget.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI\NativeWindow.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI\UserNativeWindow.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
   </ItemGroup>

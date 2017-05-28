@@ -10,10 +10,10 @@ XC_BEGIN_NAMESPACE_2(XC, GUI)
 {
     class IApplication;
 
-    class IWidget
+    class IUserNativeWindow
     {
     public:
-        IWidget(IApplication * = nullptr)
+        IUserNativeWindow(IApplication * = nullptr)
         {
         }
 
