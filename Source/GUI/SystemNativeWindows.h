@@ -1,5 +1,6 @@
 #pragma once
 
+#include <Core/Core.h>
 #include "NativeWindow.h"
 
 XC_BEGIN_NAMESPACE_2(XC, GUI)
@@ -12,16 +13,32 @@ XC_BEGIN_NAMESPACE_2(XC, GUI)
         void SetParent(NativeWindow& window) override;
 
     public:
+        void Win32OnCommand(WPARAM wParam, LPARAM lParam) override;
+
+    public:
         XC::Delegate<void> MClickedSignal;
+    };
 
-    protected:
+    class Label : public NativeWindow
+    {
+    public:
+        Label();
 
-    private:
-        LRESULT CALLBACK WindowProcedureWin32(HWND hWND, UINT message, WPARAM wParam, LPARAM lParam);
+        void SetParent(NativeWindow& window) override;
+    };
 
-        static LRESULT CALLBACK StaticWindowProcedureWin32(HWND hWND, UINT message, WPARAM wParam, LPARAM lParam);
+    class TextBox : public NativeWindow
+    {
+    public:
+        TextBox();
 
-        static WNDPROC sOriginalWindowProcedureWin32;
+        void SetParent(NativeWindow& window) override;
+
+    public:
+        void Win32OnCommand(WPARAM wParam, LPARAM lParam) override;
+
+    public:
+        Delegate<void> MTextChangedSignal;
     };
 
 } XC_END_NAMESPACE_2;

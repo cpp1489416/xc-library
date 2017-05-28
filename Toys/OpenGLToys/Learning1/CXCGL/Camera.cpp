@@ -205,7 +205,7 @@ void Camera::UpdateProjectionMatrix()
         mProjectionMatrix[2][2] = f / (f - n);
         mProjectionMatrix[3][2] = -2.0f * f * n / (float)(f - n);
         mProjectionMatrix[2][3] = 1.0f;
-
+        
  //       glm::transpose(mProjectionMatrix);
     }
 }

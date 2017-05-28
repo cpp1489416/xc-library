@@ -90,6 +90,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\UserNativeWindow.h">
       <Filter>GUI</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\MessageWindow.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\Layout.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\GDI\GDI.cpp">
@@ -105,6 +111,12 @@
       <Filter>GUI</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI\UserNativeWindow.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI\MessageWindow.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI\Layout.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
   </ItemGroup>

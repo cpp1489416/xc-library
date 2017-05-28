@@ -33,6 +33,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\GUI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\Interfaces\IApplication.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\Interfaces\INativeWindow.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\Layout.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\MessageWindow.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\NativeWindow.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\SystemNativeWindows.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\UserNativeWindow.h" />
@@ -40,6 +42,8 @@
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\GDI\GDI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI\Application.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI\Layout.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI\MessageWindow.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI\NativeWindow.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI\SystemNativeWindows.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI\UserNativeWindow.cpp" />

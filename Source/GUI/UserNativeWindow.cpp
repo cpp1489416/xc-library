@@ -4,6 +4,7 @@
 #include <cassert>
 #include <Drawing2D/GDI/GDI.h>
 #include "Application.h"
+#include "Layout.h"
 
 XC_BEGIN_NAMESPACE_2(XC, GUI)
 {
@@ -53,25 +54,39 @@ XC_BEGIN_NAMESPACE_2(XC, GUI)
         }
         case WM_LBUTTONDOWN:
         {
-            HWND hButton = CreateWindow(
-                L"Button",
-                L"恭维恭维",
-                WS_VISIBLE | WS_CHILD | BS_PUSHBUTTON,
-                132,
-                12,
-                300,
-                300,
-                GetWindowID(),
-                NULL,
-                GetModuleHandle(NULL),
-                NULL);
-
-            ::SetWindowLong(hButton, GWL_HWNDPARENT, (LONG)GetWindowID());
-            ::SetParent(hButton, GetWindowID());
             break;
         }
         case WM_SIZE:
         {
+            RECT rect;
+            GetClientRect(mHWND, &rect);
+        
+            mBoundary = Drawing2D::Rectangle(
+                Drawing2D::Point(rect.left, rect.top),
+                Drawing2D::Size(rect.right - rect.left, rect.bottom - rect.top)
+            );
+
+            if (mLayout != nullptr)
+            {
+                mLayout->Resize(Drawing2D::Rectangle(Drawing2D::Point(0, 0), GetBoundary().RSize()));
+            }
+
+            break;
+        }
+        case WM_COMMAND:
+        {
+            HWND hWnd = (HWND)lParam;
+            SetText(L"gegw");
+            if (hWnd == NULL)
+            {
+                break;
+            }
+
+            NativeWindow* window = (NativeWindow*)::GetWindowLongPtr(hWnd, GWLP_USERDATA);
+            if (window != nullptr)
+            {
+                window->Win32OnCommand(wParam, lParam);
+            }
             break;
         }
         default:
@@ -117,7 +132,6 @@ XC_BEGIN_NAMESPACE_2(XC, GUI)
             nullptr,
             mHInstance,
             (LPVOID)this);
-
     }
 
     void UserNativeWindow::ShowWin32()
@@ -148,12 +162,25 @@ XC_BEGIN_NAMESPACE_2(XC, GUI)
 
     void UserNativeWindow::AddUserNativeWindow(NativeWindow& widget)
     {
-//        mChildUserNativeWindows.PushBack(&widget);
+        //        mChildUserNativeWindows.PushBack(&widget);
 
         ::SetParent(widget.GetWindowID(), GetWindowID());
         ::SetWindowLong(widget.GetWindowID(), GWL_HWNDPARENT, (LONG)GetWindowID());
         widget.SetBoundary(widget.GetBoundary());
         widget.SetParent(*this);
+    }
+
+    void UserNativeWindow::SetLayout(Layout* layout)
+    {
+        mLayout = layout;
+        if (mLayout != nullptr)
+        {
+            layout->SetParent(*this);
+            for (NativeWindow* window : mLayout->GetWindows())
+            {
+                window->SetParent(*this);
+            }
+        }
     }
 
 

@@ -32,9 +32,21 @@ XC_BEGIN_NAMESPACE_2(XC, GUI)
         ::SetParent(mHWND, window.mHWND);
     }
 
+    const String& NativeWindow::GetText()
+    {
+        wchar_t str[256];
+        ::GetWindowText(mHWND, str, 256);
+        return str;
+    }
+
     void NativeWindow::SetText(const String& text)
     {
         ::SendMessage(mHWND, WM_SETTEXT, text.size(), (LPARAM)text.c_str());
+    }
+
+    void NativeWindow::Win32OnCommand(WPARAM wParam, LPARAM lParam)
+    {
+
     }
 
 

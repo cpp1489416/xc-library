@@ -4,6 +4,8 @@
 
 XC_BEGIN_NAMESPACE_2(XC, GUI)
 {
+    class Layout;
+
     class UserNativeWindow : public NativeWindow
     {
     public:
@@ -19,6 +21,8 @@ XC_BEGIN_NAMESPACE_2(XC, GUI)
         UserNativeWindow* GetParent();
 
         void AddUserNativeWindow(NativeWindow& widget);
+
+        void SetLayout(Layout* layout);
 
     public:
         virtual void Show();
@@ -37,15 +41,18 @@ XC_BEGIN_NAMESPACE_2(XC, GUI)
 
         void ShowWin32();
 
-    private:
         /* static */ WCHAR * mClassName = L"CXCUserNativeWindowClassName";
 
     private:
         UserNativeWindow* mMainUserNativeWindow = nullptr;
+
         Application * mApplication;
+        
         HINSTANCE mHInstance;
-        Drawing2D::Rectangle mBoundary;
+        
         UserNativeWindow* mParent = nullptr;
+        
+        Layout* mLayout = nullptr;
 //        XC::Array<NativeWindow*> mChildUserNativeWindows;
     };
 

@@ -20,13 +20,21 @@ XC_BEGIN_NAMESPACE_2(XC, GUI)
 
         virtual void SetParent(NativeWindow& window);
 
+        const String& GetText();
+
         void SetText(const String& text);
+
+        const Drawing2D::Size& GetMinimumSize();
+
+        void SetMinimunSize(const Drawing2D::Size& size);
+
+    public:
+        virtual void Win32OnCommand(WPARAM wParam, LPARAM lParam);
 
     protected:
         HWND mHWND = NULL;
 
-    private:
         Drawing2D::Rectangle mBoundary;
-    }; 
+    };
 
-} XC_END_NAMESPACE_2
+} XC_END_NAMESPACE_2;
