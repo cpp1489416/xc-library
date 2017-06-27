@@ -8,7 +8,7 @@ XC_BEGIN_NAMESPACE_2(XC, GUI)
         mWindows.PushBack(&window);
     }
 
-    Array<NativeWindow*>& Layout::GetWindows()
+     Array<NativeWindow*>& Layout::GetWindows()
     {
         return mWindows;
     }

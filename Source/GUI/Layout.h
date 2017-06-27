@@ -6,7 +6,7 @@
 XC_BEGIN_NAMESPACE_2(XC, GUI)
 {
     class NativeWindow;
-
+                                                                         
     class Layout
     {
     public:

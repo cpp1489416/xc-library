@@ -20,6 +20,7 @@ XC_BEGIN_NAMESPACE_2(XC, GUI)
 
     private:
         void OnClicked();
+
     private:
         Button* mButton;
         TextBox *mTextBox;
@@ -43,7 +44,7 @@ XC_BEGIN_NAMESPACE_2(XC, GUI)
         mTextBox = new TextBox();
         mTextBox->SetBoundary(Drawing2D::Rectangle(Drawing2D::Point(400, 200), Drawing2D::Size(200, 200)));
         layout->AddWindow(*mTextBox);
-
+        
         SetLayout(layout);
     }
 

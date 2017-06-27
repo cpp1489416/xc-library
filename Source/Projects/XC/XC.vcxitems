@@ -15,7 +15,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Core.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Delegate.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Delegates\CallableObject.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Delegates\Delegate.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Pointers\IMPLPointer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Pointers\Pointers.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Pointers\UniquePointer.h" />

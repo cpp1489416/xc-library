@@ -11,13 +11,12 @@ public:
     typedef SnakeMap::Location Location;
     typedef SnakeMap::Direction Direction;
 
-
 public:
     AutoSnake(int countRows = 10, int countColumns = 10);
     ~AutoSnake();
     const SnakeMap &GetMap() const { return mMap; }
     void ChangeCountRowsAndColumns(int countRows, int countColumns);
-    void Timeout() { timeout(); } // a mistake, I do not want to fix
+    void Timeout() { timeout(); } 
     void timeout();
     const Location &GetFoodLocation() const { return mMap.GetFoodLocation(); }
     const Location &GetHeadLocation() const { return mMap.GetSnakeQueue().front(); }

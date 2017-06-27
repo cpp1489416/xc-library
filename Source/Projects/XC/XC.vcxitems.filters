@@ -22,12 +22,12 @@
     <Filter Include="Drawing2D\GDI">
       <UniqueIdentifier>{0fbb3bdf-0e7d-44fe-92d7-1c6aae829c45}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Delegates">
+      <UniqueIdentifier>{bc8d24b2-f193-4d66-8052-29d11b154967}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Property.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Delegate.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Pointers\UniquePointer.h">
@@ -95,6 +95,12 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\Layout.h">
       <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Delegates\Delegate.h">
+      <Filter>Core\Delegates</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Delegates\CallableObject.h">
+      <Filter>Core\Delegates</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

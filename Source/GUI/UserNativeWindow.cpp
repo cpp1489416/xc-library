@@ -76,7 +76,6 @@ XC_BEGIN_NAMESPACE_2(XC, GUI)
         case WM_COMMAND:
         {
             HWND hWnd = (HWND)lParam;
-            SetText(L"gegw");
             if (hWnd == NULL)
             {
                 break;

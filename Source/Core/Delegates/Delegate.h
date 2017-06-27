@@ -15,7 +15,7 @@ XC_BEGIN_NAMESPACE_1(XC)
             virtual ~Function() {}
 
             virtual bool IsConstant() const = 0;
-            virtual bool IsStatic() const = 0; // rule : static function's class name is nullptr
+            virtual bool IsStatic() const = 0; // static function's class name is nullptr
             virtual void * GetClass() const { return nullptr; }
             virtual TReturnType Invoke(TArguments ...) const = 0;
         };
