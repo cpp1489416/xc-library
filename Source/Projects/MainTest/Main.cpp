@@ -8,6 +8,7 @@
 #endif
 
 #include <GUI/GUI.h>
+#include <DirectX11/DirectX11.h>
 
 XC_BEGIN_NAMESPACE_2(XC, GUI)
 {
@@ -23,7 +24,8 @@ XC_BEGIN_NAMESPACE_2(XC, GUI)
 
     private:
         Button* mButton;
-        TextBox *mTextBox;
+        TextBox* mTextBox;
+        UserNativeWindow* mWindow;
     };
 
     TUserNativeWindow::TUserNativeWindow()
@@ -42,8 +44,13 @@ XC_BEGIN_NAMESPACE_2(XC, GUI)
         mButton->MClickedSignal.Add(this, &TUserNativeWindow::OnClicked);
 
         mTextBox = new TextBox();
-        mTextBox->SetBoundary(Drawing2D::Rectangle(Drawing2D::Point(400, 200), Drawing2D::Size(200, 200)));
+        mTextBox->SetBoundary(Drawing2D::Rectangle(Drawing2D::Point(400, 200), Drawing2D::Size(200, 2000)));
+        mTextBox->SetSizeAutoChangeable(false);
         layout->AddWindow(*mTextBox);
+
+        mWindow = new UserNativeWindow();
+        AddUserNativeWindow(*mWindow);
+        layout->AddWindow(*mWindow);
         
         SetLayout(layout);
     }
@@ -60,8 +67,10 @@ XC_BEGIN_NAMESPACE_2(XC, GUI)
     {
       //  wWinMain(GetModuleHandle(NULL), NULL, NULL, SW_MAXIMIZE);
         Application a;
-        TUserNativeWindow window;
-        window.Show();
+     //   TUserNativeWindow window;
+      //  window.Show();
+        DirectX11::DirectX11NativeWindow window1;
+        window1.Show();
         a.Execute();
     }
 

@@ -25,6 +25,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\SyntaxSugars\NamespaceSyntaxSugar.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\SyntaxSugars\SyntaxSugars.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\SyntaxSugars\UnitTestSyntaxSugar.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\DirectX11\Common.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\DirectX11\Common\DeviceResources.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\DirectX11\Common\DirectX11Includes.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\DirectX11\Common\Renderer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\DirectX11\DirectX11.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\DirectX11\DirectX11NativeWindow.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\Core.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\Drawing2D.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\GDI\GDI.h" />
@@ -39,8 +45,17 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\NativeWindow.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\SystemNativeWindows.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\UserNativeWindow.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Tang\ASTs\CoreASTs.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Tang\ASTVisitors\ExperssionPrinter.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Tang\Lexer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Tang\Parser.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Tang\Tang.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Tang\Token.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\DirectX11\Common\DeviceResources.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\DirectX11\Common\Renderer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\DirectX11\DirectX11NativeWindwow.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\GDI\GDI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI\Application.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI\Layout.cpp" />
@@ -48,5 +63,10 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI\NativeWindow.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI\SystemNativeWindows.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI\UserNativeWindow.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Tang\ASTs\CoreASTs.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Tang\Lexer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Tang\Parser.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Tang\Token.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Tang\UnitTest.cpp" />
   </ItemGroup>
 </Project>

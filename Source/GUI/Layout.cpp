@@ -8,7 +8,7 @@ XC_BEGIN_NAMESPACE_2(XC, GUI)
         mWindows.PushBack(&window);
     }
 
-     Array<NativeWindow*>& Layout::GetWindows()
+    Array<NativeWindow*>& Layout::GetWindows()
     {
         return mWindows;
     }
@@ -24,7 +24,19 @@ XC_BEGIN_NAMESPACE_2(XC, GUI)
 
     void HorizontalLayout::Resize(const Drawing2D::Rectangle& boundary)
     {
-        double dx = boundary.RSize().RWidth() / mWindows.GetSize();
+        double constantWidth = 0.0;
+        int constantWidthWindowCount = 0;
+        for (NativeWindow* window : mWindows)
+        {
+            if (window->IsSizeAutoChangeable() == false)
+            {
+                ++constantWidthWindowCount;
+                constantWidth += window->GetBoundary().RSize().RWidth();
+            }
+        }
+
+
+        double dx = (boundary.RSize().RWidth() - constantWidth) / (mWindows.GetSize() - constantWidthWindowCount);
         double dy = boundary.RSize().RHeight();
         Drawing2D::Rectangle rect;
         rect.RStart() = boundary.RStart();
@@ -32,8 +44,19 @@ XC_BEGIN_NAMESPACE_2(XC, GUI)
         rect.RSize().RHeight() = dy;
         for (NativeWindow* window : mWindows)
         {
-            window->SetBoundary(rect);
-            rect.RStart().RX() += dx;
+            if (window->IsSizeAutoChangeable())
+            {
+                rect.RSize().RWidth() = dx;
+                window->SetBoundary(rect);
+                rect.RStart().RX() += dx;
+            }
+            else
+            {
+                rect.RSize().RWidth() = window->GetBoundary().RSize().RWidth();
+                window->SetBoundary(rect);
+                rect.RStart().RX() += window->GetBoundary().RSize().RWidth();
+            }
+
         }
     }
 } XC_END_NAMESPACE_2;

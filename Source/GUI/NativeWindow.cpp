@@ -3,6 +3,16 @@
 
 XC_BEGIN_NAMESPACE_2(XC, GUI)
 {
+    NativeWindow::NativeWindow()
+    {
+        mIsSizeAutoChangeable = true;
+    }
+
+    NativeWindow::~NativeWindow()
+    {
+
+    }
+
     HWND NativeWindow::GetWindowID()
     {
         return mHWND;
@@ -25,6 +35,8 @@ XC_BEGIN_NAMESPACE_2(XC, GUI)
             GetBoundary().RSize().RWidth(),
             GetBoundary().RSize().RHeight(),
             SWP_NOZORDER);
+
+        OnSizeChanged(nullptr);
     }
 
     void NativeWindow::SetParent(NativeWindow& window)
@@ -49,6 +61,20 @@ XC_BEGIN_NAMESPACE_2(XC, GUI)
 
     }
 
+    bool NativeWindow::IsSizeAutoChangeable()
+    {
+        return mIsSizeAutoChangeable;
+    }
+
+    void NativeWindow::SetSizeAutoChangeable(bool value)
+    {
+        mIsSizeAutoChangeable = value;
+    }
+
+    void NativeWindow::OnSizeChanged(BasicEvent* event)
+    {
+
+    }
 
 } XC_END_NAMESPACE_2;
 

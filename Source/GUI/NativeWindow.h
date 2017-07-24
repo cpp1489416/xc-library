@@ -6,11 +6,17 @@
 #include <Drawing2D/GDI/GDI.h>
 #include "Defines.h"
 #include "Application.h"
+#include "Events.h"
 
 XC_BEGIN_NAMESPACE_2(XC, GUI)
 {
     class NativeWindow : public CallableObject
     {
+    public:
+        NativeWindow();
+
+        ~NativeWindow();
+
     public:
         HWND GetWindowID();
 
@@ -26,8 +32,14 @@ XC_BEGIN_NAMESPACE_2(XC, GUI)
 
         void SetMinimumSize(const Drawing2D::Size& size);
 
+        bool IsSizeAutoChangeable();
+
+        void SetSizeAutoChangeable(bool value);
+
     public:
         virtual void SetParent(NativeWindow& window);
+
+        virtual void OnSizeChanged(BasicEvent* event);
 
         virtual void Win32OnCommand(WPARAM wParam, LPARAM lParam);
 
@@ -38,6 +50,7 @@ XC_BEGIN_NAMESPACE_2(XC, GUI)
 
     private:
         Drawing2D::Size mMinimumSize = Drawing2D::Size(-1.0, -1.0);
+        bool mIsSizeAutoChangeable;
     };
 
 } XC_END_NAMESPACE_2;

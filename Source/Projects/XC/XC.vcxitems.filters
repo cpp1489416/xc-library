@@ -25,6 +25,21 @@
     <Filter Include="Core\Delegates">
       <UniqueIdentifier>{bc8d24b2-f193-4d66-8052-29d11b154967}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DirectX11">
+      <UniqueIdentifier>{cb3e46c8-b82f-47e8-a630-52a576c1f1c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectX11\Common">
+      <UniqueIdentifier>{3b9bf258-78a1-475c-a504-9177cce328e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tang">
+      <UniqueIdentifier>{0cc36bd4-390c-4819-8603-60a908163396}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tang\ASTs">
+      <UniqueIdentifier>{07a08af0-d73d-402c-a418-3d8d9608e528}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tang\ASTVisitors">
+      <UniqueIdentifier>{54540594-5a78-4142-8709-4a4e85c0fae5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Property.h">
@@ -102,6 +117,42 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Core\Delegates\CallableObject.h">
       <Filter>Core\Delegates</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\DirectX11\Common.h">
+      <Filter>DirectX11</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\DirectX11\Common\DeviceResources.h">
+      <Filter>DirectX11\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\DirectX11\Common\DirectX11Includes.h">
+      <Filter>DirectX11\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\DirectX11\Common\Renderer.h">
+      <Filter>DirectX11\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\DirectX11\DirectX11.h">
+      <Filter>DirectX11</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\DirectX11\DirectX11NativeWindow.h">
+      <Filter>DirectX11</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Tang\Lexer.h">
+      <Filter>Tang</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Tang\Parser.h">
+      <Filter>Tang</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Tang\Tang.h">
+      <Filter>Tang</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Tang\Token.h">
+      <Filter>Tang</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Tang\ASTs\CoreASTs.h">
+      <Filter>Tang\ASTs</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Tang\ASTVisitors\ExperssionPrinter.h">
+      <Filter>Tang\ASTVisitors</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Drawing2D\GDI\GDI.cpp">
@@ -124,6 +175,30 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI\Layout.cpp">
       <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\DirectX11\Common\DeviceResources.cpp">
+      <Filter>DirectX11\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\DirectX11\Common\Renderer.cpp">
+      <Filter>DirectX11\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\DirectX11\DirectX11NativeWindwow.cpp">
+      <Filter>DirectX11</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Tang\Lexer.cpp">
+      <Filter>Tang</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Tang\Parser.cpp">
+      <Filter>Tang</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Tang\Token.cpp">
+      <Filter>Tang</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Tang\UnitTest.cpp">
+      <Filter>Tang</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Tang\ASTs\CoreASTs.cpp">
+      <Filter>Tang\ASTs</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

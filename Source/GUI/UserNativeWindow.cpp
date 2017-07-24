@@ -8,6 +8,8 @@
 
 XC_BEGIN_NAMESPACE_2(XC, GUI)
 {
+    bool UserNativeWindow::sIsWin32ClassCreated = false;
+
     LRESULT CALLBACK UserNativeWindow::StaticWindowProcedureWin32(HWND hWND, UINT message, WPARAM wParam, LPARAM lParam)
     {
         UserNativeWindow* current = (UserNativeWindow*)GetWindowLongPtr(hWND, GWLP_USERDATA);
@@ -97,6 +99,13 @@ XC_BEGIN_NAMESPACE_2(XC, GUI)
 
     ATOM UserNativeWindow::RegisterClassWin32()
     {
+        if (sIsWin32ClassCreated)
+        {
+            return true;
+        }
+
+        sIsWin32ClassCreated = true;
+
         mHInstance = GetModuleHandle(NULL);
 
         WNDCLASSEX wcex;
@@ -107,7 +116,7 @@ XC_BEGIN_NAMESPACE_2(XC, GUI)
         wcex.cbClsExtra = 0;
         wcex.cbWndExtra = 0;
         wcex.hInstance = mHInstance;
-        wcex.hIcon = NULL; //LoadIcon(hInstance, MAKEINTRESOURCE(IDI_MAINTEST));
+        wcex.hIcon = nullptr;//(HICON)LoadImage(GetModuleHandle(NULL), L"Head.ico", IMAGE_BITMAP, 0, 0, LR_DEFAULTCOLOR | LR_CREATEDIBSECTION | LR_LOADFROMFILE);
         wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
         wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW);
         wcex.lpszMenuName = NULL;
@@ -167,6 +176,11 @@ XC_BEGIN_NAMESPACE_2(XC, GUI)
         ::SetWindowLong(widget.GetWindowID(), GWL_HWNDPARENT, (LONG)GetWindowID());
         widget.SetBoundary(widget.GetBoundary());
         widget.SetParent(*this);
+    }
+
+    void UserNativeWindow::SetParent(NativeWindow& window)
+    {
+
     }
 
     void UserNativeWindow::SetLayout(Layout* layout)

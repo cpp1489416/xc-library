@@ -20,11 +20,11 @@ namespace XC
                 void Present();
 
                 // getters
-                ID3D11Device * GetD3DDevice() { return mD3DDevice.Get(); }
-                ID3D11DeviceContext * GetD3DDeviceContext() { return mD3DContext.Get(); }
-                ID3D11RenderTargetView * GetBackBufferRenderTarGetView() { return mD3DRenderTargetView.Get(); }
-                ID3D11DepthStencilView * GetDepthStencilView() { return mD3DDepthStencilView.Get(); }
-                D3D11_VIEWPORT * GetViewport() { return &mViewport; }
+                ID3D11Device* GetD3DDevice() { return mD3DDevice.Get(); }
+                ID3D11DeviceContext* GetD3DDeviceContext() { return mD3DContext.Get(); }
+                ID3D11RenderTargetView* GetBackBufferRenderTarGetView() { return mD3DRenderTargetView.Get(); }
+                ID3D11DepthStencilView* GetDepthStencilView() { return mD3DDepthStencilView.Get(); }
+                D3D11_VIEWPORT* GetViewport() { return &mViewport; }
                 HWND GetHWND() { return mHWND; }
 
             private:

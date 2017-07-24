@@ -13,7 +13,7 @@ public:
     class MTechnique : public Technique
     {
     public:
-        Program * GetCurrentProgram() override { return &mProgram; }
+        Program* GetCurrentProgram() override { return &mProgram; }
         GLuint GetProjectionMatrixUniform() override { return GetUniformLocation("projection"); }
         GLuint GetViewMatrixUniform() override { return GetUniformLocation("view"); }
         GLuint GetPositionAttribute() override { return GetAttributeLocation("position"); }

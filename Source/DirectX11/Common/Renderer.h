@@ -23,7 +23,7 @@ namespace XC
                 virtual void OnRender() {}
 
             protected:
-                DeviceResources * mDeviceResources;
+                DeviceResources* mDeviceResources;
             };
         }
     }

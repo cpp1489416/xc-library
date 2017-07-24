@@ -25,6 +25,9 @@ XC_BEGIN_NAMESPACE_2(XC, GUI)
         void SetLayout(Layout* layout);
 
     public:
+        void SetParent(NativeWindow& parent) override;
+
+    public:
         virtual void Show();
 
     protected:
@@ -41,9 +44,11 @@ XC_BEGIN_NAMESPACE_2(XC, GUI)
 
         void ShowWin32();
 
-        /* static */ WCHAR * mClassName = L"CXCUserNativeWindowClassName";
+        /* static */ WCHAR* mClassName = L"CXCUserNativeWindowClassName";
 
     private:
+        static bool sIsWin32ClassCreated;
+
         UserNativeWindow* mMainUserNativeWindow = nullptr;
 
         Application * mApplication;
@@ -53,6 +58,7 @@ XC_BEGIN_NAMESPACE_2(XC, GUI)
         UserNativeWindow* mParent = nullptr;
         
         Layout* mLayout = nullptr;
+
 //        XC::Array<NativeWindow*> mChildUserNativeWindows;
     };
 
