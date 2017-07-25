@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="/TangQTTest"/>
+  <qresource prefix="/new/prefix1">
+    <file>EE0D258040D18DB8558AE92A70FAFACF.jpg</file>
+  </qresource>
+  <qresource prefix="新前缀"/>
+</RCC>

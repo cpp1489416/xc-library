@@ -23,6 +23,14 @@ namespace
             std::cout << token.GetString() << " " << (int)token.GetType() << std::endl;
         }
     }
+
+    void Print(std::map<XC::String, double>& map)
+    {
+        for (auto itr : map)
+        {
+            std::cout << itr.first << " = " << itr.second << std::endl;
+        }
+    }
 }
 
 int main()
@@ -30,13 +38,24 @@ int main()
  //   Tang::Lexer l("1 + 2 / 3 * 4");
 //    std::cout << "ger" << std::endl;
   //  PrintTokens(l);
-    Tang::Parser parser("1 + 2 / 3 * 4");
+    Tang::Parser parser(
+        "x = 5;"
+    "z = 0;"
+
+    "while (x > 0)"
+    "{"
+     "   z = z + x;"
+     "   x = x - 1;"
+    "}"
+    );
+    parser.PrintTokens();
     auto ans = parser.Parse();
-    Tang::ExpressionPrinter p;
-    ans->Accept(new Tang::ExpressionPrinter());
+    Tang::ProgramPrinter p;
+    ans->Accept(new Tang::ProgramPrinter());
     Tang::ExpressionAnswer a;
     ans->Accept(&a);
-    std::cout << std::endl << a.GetResult();
+    Print(a.GetVarialbeValues());
+//    std::cout << std::endl << a.GetResult();
     system("Pause");
     return 0;
 }

@@ -6,8 +6,10 @@
 #include "Algorithms/Algorithms.h"
 
 #include <string>
+#include <map>
 
 XC_BEGIN_NAMESPACE_1(XC)
 {
     using String = std::string;
+    
 } XC_END_NAMESPACE_1;

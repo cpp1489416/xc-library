@@ -9,11 +9,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MainTest", "MainTest\MainTe
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TangTestConsole", "TangTestConsole\TangTestConsole.vcxproj", "{33178ADA-40E5-4FAA-979E-05147D405447}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TangQTTest", "TangQTTest\TangQTTest.vcxproj", "{B12702AD-ABFB-343A-A199-8E24837244A3}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		XC\XC.vcxitems*{21571b25-bb73-4497-b001-5ea94b4b0f98}*SharedItemsImports = 4
 		XC\XC.vcxitems*{33178ada-40e5-4faa-979e-05147d405447}*SharedItemsImports = 4
 		XC\XC.vcxitems*{45d41acc-2c3c-43d2-bc10-02aa73ffc7c7}*SharedItemsImports = 9
+		XC\XC.vcxitems*{b12702ad-abfb-343a-a199-8e24837244a3}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -38,6 +41,12 @@ Global
 		{33178ADA-40E5-4FAA-979E-05147D405447}.Release|x64.Build.0 = Release|x64
 		{33178ADA-40E5-4FAA-979E-05147D405447}.Release|x86.ActiveCfg = Release|Win32
 		{33178ADA-40E5-4FAA-979E-05147D405447}.Release|x86.Build.0 = Release|Win32
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Debug|x64.ActiveCfg = Debug|Win32
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Debug|x86.ActiveCfg = Debug|Win32
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Debug|x86.Build.0 = Debug|Win32
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Release|x64.ActiveCfg = Release|Win32
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Release|x86.ActiveCfg = Release|Win32
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

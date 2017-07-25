@@ -67,6 +67,5 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Tang\Lexer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Tang\Parser.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Tang\Token.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Tang\UnitTest.cpp" />
   </ItemGroup>
 </Project>

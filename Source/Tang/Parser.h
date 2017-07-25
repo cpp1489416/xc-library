@@ -14,23 +14,37 @@ XC_BEGIN_NAMESPACE_1(Tang)
         Parser(std::string sourceCode);
         
     public:
-        Pointer<Expression> Parse();
+        Pointer<Program> Parse();
+
+        void PrintTokens();
 
     private:
+        Pointer<Program> ParseProgram();
+
+        Pointer<Statement> ParseStatement();
+        
+        Pointer<Expression> ParseAssign();
+
+        void ParseAssignPlus(Pointer<AssignExpression> leftParsed);
+
+        Pointer<Expression> ParseGreater();
+
+        Pointer<Expression> ParseGreaterPlus(Pointer<Expression> leftParsed);
+
         // E -> T E1
-        Pointer<Expression> ParseE(); 
+        Pointer<Expression> ParsePlus(); 
 
         // E1 -> + T E1 | - T E1 | null
-        Pointer<Expression> ParseE1(Pointer<Expression> leftParsed);
+        Pointer<Expression> ParsePlusPlus(Pointer<Expression> leftParsed);
 
         // T -> F T1
-        Pointer<Expression> ParseT();
+        Pointer<Expression> ParseMultiply();
 
         // T1 -> * F T1 | / F T1 | null
-        Pointer<Expression> ParseT1(Pointer<Expression> leftParsed);
+        Pointer<Expression> ParseMultiplyPlus(Pointer<Expression> leftParsed);
 
         // F -> (E) | number
-        Pointer<Expression> ParseF();
+        Pointer<Expression> ParseBracket();
 
     private:
         Pointer<Lexer> mLexer;

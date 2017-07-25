@@ -8,7 +8,7 @@ namespace
 {
     bool IsBracket(char c)
     {
-        return c == '(' || c == ')';
+        return c == '(' || c == ')' || c == '{' || c == '}';
     }
 
     bool IsBlank(char c)
@@ -33,7 +33,7 @@ namespace
 
     bool IsSymbol(char c)
     {
-        return !IsDigit(c) && !IsAlpha(c) && !IsNumber(c) && !IsBracket(c) && !IsBlank(c);
+        return !IsDigit(c) && !IsAlpha(c) && !IsNumber(c) && !IsBracket(c) && !IsBlank(c) && c != '\0';
     }
 }
 
@@ -51,6 +51,11 @@ XC_BEGIN_NAMESPACE_1(Tang)
 
     Token Lexer::GetNextToken()
     {
+        if (mCurrentIndex >= mTokenArray.GetSize())
+        {
+            throw "error";
+        }
+
         return mTokenArray[mCurrentIndex++];
     }
 
@@ -61,6 +66,11 @@ XC_BEGIN_NAMESPACE_1(Tang)
 
     Token Lexer::LookAhead()
     {
+        if (mCurrentIndex >= mTokenArray.GetSize())
+        {
+            throw "error";
+        }
+
         return mTokenArray[mCurrentIndex];
     }
 
@@ -81,6 +91,11 @@ XC_BEGIN_NAMESPACE_1(Tang)
             {
                 ++position;
                 continue;
+            }
+
+            if (c == '\0')
+            {
+                break;
             }
 
             if (c == '-')
@@ -116,6 +131,7 @@ XC_BEGIN_NAMESPACE_1(Tang)
                 }
 
                 AddString(newString);
+                continue;
             }
             else if (IsBracket(c))
             {

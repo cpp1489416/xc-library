@@ -194,9 +194,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Tang\Token.cpp">
       <Filter>Tang</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Tang\UnitTest.cpp">
-      <Filter>Tang</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Tang\ASTs\CoreASTs.cpp">
       <Filter>Tang\ASTs</Filter>
     </ClCompile>
