@@ -32,68 +32,168 @@ XC_BEGIN_NAMESPACE_1(Tang)
         Pointer<Program> ans(new Program);
         while (mLexer->LookAhead().GetType() != Token::Type::End)
         {
-            ans->mStatements.PushBack(ParseStatement());
+            if (mLexer->LookAhead().GetString() == "function")
+            {
+                ans->mASTs.PushBack(ParseFunctionDeclaration());
+            }
+            else
+            {
+                ans->mASTs.PushBack(ParseStatement());
+            }
         }
 
+        return ans;
+    }
+
+    Pointer<FunctionDefinition> Parser::ParseFunctionDeclaration()
+    {
+        Pointer<FunctionDefinition> ans(new FunctionDefinition());
+        mLexer->GetNextToken(); // function
+        ans->mName = mLexer->GetNextToken().GetString();
+        mLexer->GetNextToken(); // (
+        if (mLexer->LookAhead().GetString() != ")")
+        {
+            ans->mParemeterList.PushBack(ParseVariable());
+            while (mLexer->LookAhead().GetString() == ",")
+            {
+                mLexer->GetNextToken(); // ,
+                ans->mParemeterList.PushBack(ParseVariable());
+            }
+        }
+        mLexer->GetNextToken(); // )
+        ans->mBlockStatement = ParseBlockStatement();
         return ans;
     }
 
     Pointer<Statement> Parser::ParseStatement()
     {
         Token lookAhead = mLexer->LookAhead();
-        if (lookAhead.GetString() == "while")
+        if (lookAhead.GetString() == "if")
         {
-            Pointer<WhileStatement> ans(new WhileStatement());
-            mLexer->GetNextToken(); // while
-            std::cout << mLexer->LookAhead().GetString() << std::endl;
-            mLexer->GetNextToken(); // (
-            ans->mConditionExpression = ParseAssign();
-            std::cout << mLexer->LookAhead().GetString() << std::endl;
-            mLexer->GetNextToken(); // )
-            std::cout << mLexer->LookAhead().GetString() << std::endl;
-            ans->mBodyStatement = ParseStatement();
-            return ans;
+            return ParseIfStatement();
+        }
+        else if (lookAhead.GetString() == "while")
+        {
+            return ParseWhileStatement();
+        }
+        else if (lookAhead.GetString() == "for")
+        {
+            return ParseForStatement();
         }
         else if (lookAhead.GetString() == "{")
         {
-            Pointer<BlockStatement> ans(new BlockStatement());
-            mLexer->GetNextToken(); // {
-            while (mLexer->LookAhead().GetString() != "}")
-            {
-                ans->mStatements.PushBack(ParseStatement());
-                std::cout << mLexer->LookAhead().GetString() << std::endl;
-            }
-
-            mLexer->GetNextToken(); // {
-            return ans;
+            return ParseBlockStatement();
         }
         else
         {
-            Pointer<ExpressionStatement> ans(new ExpressionStatement());
-            ans->mExpression = ParseAssign();
-            mLexer->GetNextToken();
-            return ans;
+            return ParseExpressionStatement();
         }
+    }
+
+    Pointer<ExpressionStatement> Parser::ParseExpressionStatement()
+    {
+        Pointer<ExpressionStatement> ans(new ExpressionStatement());
+        ans->mExpression = ParseAssign();
+        mLexer->GetNextToken();
+        return ans;
+    }
+
+    Pointer<BlockStatement> Parser::ParseBlockStatement()
+    {
+        Pointer<BlockStatement> ans(new BlockStatement());
+        mLexer->GetNextToken(); // {
+        while (mLexer->LookAhead().GetString() != "}")
+        {
+            ans->mStatements.PushBack(ParseStatement());
+            std::cout << mLexer->LookAhead().GetString() << std::endl;
+        }
+
+        mLexer->GetNextToken(); // {
+        return ans;
+    }
+
+    Pointer<IfStatement> Parser::ParseIfStatement()
+    {
+        Pointer<IfStatement> ans(new IfStatement);
+        mLexer->GetNextToken(); // if
+        mLexer->GetNextToken(); // (
+        ans->mConditionExpression = ParseAssign();
+        mLexer->GetNextToken(); // )
+        ans->mMainStatement = ParseStatement();
+        if (mLexer->LookAhead().GetString() == "else")
+        {
+            mLexer->GetNextToken();
+            ans->mElseStatement = ParseStatement();
+        }
+        else
+        {
+            Pointer<ExpressionStatement> elseStatement(new ExpressionStatement());
+            elseStatement->mExpression = Pointer<Expression>(new EmptyExpression());
+            ans->mElseStatement = elseStatement;
+        }
+
+        return ans;
+    }
+
+    Pointer<WhileStatement> Parser::ParseWhileStatement()
+    {
+        Pointer<WhileStatement> ans(new WhileStatement());
+        mLexer->GetNextToken(); // while
+        std::cout << mLexer->LookAhead().GetString() << std::endl;
+        mLexer->GetNextToken(); // (
+        ans->mConditionExpression = ParseAssign();
+        std::cout << mLexer->LookAhead().GetString() << std::endl;
+        mLexer->GetNextToken(); // )
+        std::cout << mLexer->LookAhead().GetString() << std::endl;
+        ans->mBodyStatement = ParseStatement();
+        return ans;
+    }
+
+    Pointer<ForStatement> Parser::ParseForStatement()
+    {
+        Pointer<ForStatement> ans(new ForStatement());
+        mLexer->GetNextToken(); // for
+        mLexer->GetNextToken(); // (
+        ans->mBeginStatement = ParseAssign();
+        mLexer->GetNextToken(); // ;
+        ans->mConditionExpression = ParseAssign();
+        mLexer->GetNextToken(); // ;
+        ans->mAfterExpression = ParseAssign();
+        mLexer->GetNextToken(); // )
+        ans->mBodyStatement = ParseStatement();
+        return ans;
+    }
+
+    Pointer<Expression> Parser::ParseExpression()
+    {
+        return ParseAssign();
     }
 
     Pointer<Expression> Parser::ParseAssign()
     {
-        Pointer<Expression> leftChild = ParseGreater();
-
-        std::string string = mLexer->LookAhead().GetString();
-
-        if (string == "=")
+        if (mLexer->LookAhead().GetString() == ";" || mLexer->LookAhead().GetString() == ")")
         {
-            mLexer->GetNextToken();
-            Pointer<AssignExpression> ans(new AssignExpression());
-            ans->mLeftExpression = leftChild;
-            ans->mRightExpression = ParseGreater();
-            ParseAssignPlus(ans);
-            return ans;
+            return Pointer<Expression>(new EmptyExpression());
         }
         else
         {
-            return leftChild;
+            Pointer<Expression> leftChild = ParseGreater();
+
+            std::string string = mLexer->LookAhead().GetString();
+
+            if (string == "=")
+            {
+                mLexer->GetNextToken();
+                Pointer<AssignExpression> ans(new AssignExpression());
+                ans->mLeftExpression = leftChild;
+                ans->mRightExpression = ParseGreater();
+                ParseAssignPlus(ans);
+                return ans;
+            }
+            else
+            {
+                return leftChild;
+            }
         }
     }
 
@@ -168,7 +268,7 @@ XC_BEGIN_NAMESPACE_1(Tang)
 
     Pointer<Expression> Parser::ParseMultiply()
     {
-        Pointer<Expression> leftChild = ParseBracket();
+        Pointer<Expression> leftChild = ParseSmallExpression();
         return ParseMultiplyPlus(leftChild);
     }
 
@@ -182,7 +282,7 @@ XC_BEGIN_NAMESPACE_1(Tang)
             CalculateExpression* node = new CalculateExpression();
             node->mLeftExpression = leftParsed;
             node->mOperator = string == "*" ? CalculateExpression::Operator::Multiply : CalculateExpression::Operator::Divide;
-            node->mRightExpression = ParseBracket();
+            node->mRightExpression = ParseSmallExpression();
             return ParseMultiplyPlus(Pointer<Expression>(node));
         }
         else
@@ -191,34 +291,70 @@ XC_BEGIN_NAMESPACE_1(Tang)
         }
     }
 
-    Pointer<Expression> Parser::ParseBracket()
+    Pointer<Expression> Parser::ParseSmallExpression()
     {
         if (mLexer->LookAhead().GetString() == "(")
         {
-            mLexer->GetNextToken();
-            Pointer<Expression> ans = ParseAssign();
-            mLexer->GetNextToken();
-            return ans;
+            return ParseBracket();
+        }
+        else if (mLexer->LookAhead().GetType() == Token::Type::Number)
+        {
+            return ParseNumber();
+        }
+        else if (mLexer->LookAhead(2).GetString() == "(")
+        {
+            return ParseFunctionExpression();
         }
         else
         {
-            Token token = mLexer->GetNextToken();
-            if (token.mType == Token::Type::Number)
-            {
-                NumberExpression* ans = new NumberExpression();
-                ans->mToken = token;
-                ans->mValue = atoi(ans->mToken.GetString().c_str());
-                return Pointer<Expression>(ans);
-            }
-            else
-            {
-                VariableExpression* ans = new VariableExpression();
-                ans->mToken = token;
-                ans->mName = token.mString;
-                return Pointer<Expression>(ans);
-            }
+            return ParseVariable();
         }
     }
 
+    Pointer<Expression> Parser::ParseBracket()
+    {
+        mLexer->GetNextToken(); // (
+        Pointer<Expression> ans = ParseExpression();
+        mLexer->GetNextToken(); // )
+        return ans;
+    }
+
+    Pointer<NumberExpression> Parser::ParseNumber()
+    {
+        Token token = mLexer->GetNextToken();
+        NumberExpression* ans = new NumberExpression();
+        ans->mToken = token;
+        ans->mValue = atoi(ans->mToken.GetString().c_str());
+        return Pointer<NumberExpression>(ans);
+    }
+
+    Pointer<VariableExpression> Parser::ParseVariable()
+    {
+        Token token = mLexer->GetNextToken();
+        VariableExpression* ans = new VariableExpression();
+        ans->mToken = token;
+        ans->mName = token.mString;
+        return Pointer<VariableExpression>(ans);
+    }
+
+    Pointer<FunctionExpression> Parser::ParseFunctionExpression()
+    {
+        Pointer<FunctionExpression> ans(new FunctionExpression());
+        ans->mName = mLexer->GetNextToken().GetString();
+
+        mLexer->GetNextToken(); // (
+        if (mLexer->LookAhead().GetString() != ")")
+        {
+            ans->mArgumentList.PushBack(ParseExpression());
+            while (mLexer->LookAhead().GetString() == ",")
+            {
+                mLexer->GetNextToken();
+                ans->mArgumentList.PushBack(ParseExpression());
+            }
+        }
+
+        mLexer->GetNextToken(); // )
+        return ans;
+    }
 
 } XC_END_NAMESPACE_1;

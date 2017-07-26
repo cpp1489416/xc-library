@@ -18,4 +18,5 @@ private:
 
     QPlainTextEdit* mSourceWidget;
     QPlainTextEdit* mResultWidget;
+    QPlainTextEdit* mStringerWidget;
 };

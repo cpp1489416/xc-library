@@ -46,7 +46,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\SystemNativeWindows.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\GUI\UserNativeWindow.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Tang\ASTs\CoreASTs.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Tang\ASTVisitors\ExperssionPrinter.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Tang\ASTs\Environment.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Tang\ASTVisitors\ASTStringer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Tang\ASTVisitors\ASTSolver.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Tang\Lexer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Tang\Parser.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Tang\Tang.h" />
@@ -64,6 +66,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI\SystemNativeWindows.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\GUI\UserNativeWindow.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Tang\ASTs\CoreASTs.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Tang\ASTs\Environment.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Tang\ASTVisitors\ASTStringer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Tang\ASTVisitors\ASTSolver.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Tang\Lexer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Tang\Parser.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Tang\Token.cpp" />

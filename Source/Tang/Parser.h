@@ -21,7 +21,21 @@ XC_BEGIN_NAMESPACE_1(Tang)
     private:
         Pointer<Program> ParseProgram();
 
+        Pointer<FunctionDefinition> ParseFunctionDeclaration();
+
         Pointer<Statement> ParseStatement();
+
+        Pointer<ExpressionStatement> ParseExpressionStatement();
+
+        Pointer<BlockStatement> ParseBlockStatement();
+
+        Pointer<IfStatement> ParseIfStatement();
+
+        Pointer<WhileStatement> ParseWhileStatement();
+
+        Pointer<ForStatement> ParseForStatement();
+
+        Pointer<Expression> ParseExpression();
         
         Pointer<Expression> ParseAssign();
 
@@ -31,20 +45,23 @@ XC_BEGIN_NAMESPACE_1(Tang)
 
         Pointer<Expression> ParseGreaterPlus(Pointer<Expression> leftParsed);
 
-        // E -> T E1
         Pointer<Expression> ParsePlus(); 
 
-        // E1 -> + T E1 | - T E1 | null
         Pointer<Expression> ParsePlusPlus(Pointer<Expression> leftParsed);
 
-        // T -> F T1
         Pointer<Expression> ParseMultiply();
 
-        // T1 -> * F T1 | / F T1 | null
         Pointer<Expression> ParseMultiplyPlus(Pointer<Expression> leftParsed);
 
-        // F -> (E) | number
+        Pointer<Expression> ParseSmallExpression();
+
         Pointer<Expression> ParseBracket();
+
+        Pointer<NumberExpression> ParseNumber();
+
+        Pointer<VariableExpression> ParseVariable();
+
+        Pointer<FunctionExpression> ParseFunctionExpression();
 
     private:
         Pointer<Lexer> mLexer;

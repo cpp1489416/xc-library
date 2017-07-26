@@ -14,11 +14,13 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QGridLayout>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTabWidget>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
 
@@ -30,10 +32,16 @@ public:
     QAction *actionRun;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
-    QLabel *label_2;
-    QLabel *label;
-    QPlainTextEdit *plainTextEdit;
+    QTabWidget *tabWidget;
+    QWidget *tab;
+    QHBoxLayout *horizontalLayout;
     QPlainTextEdit *plainTextEdit_2;
+    QWidget *tab_2;
+    QHBoxLayout *horizontalLayout_2;
+    QPlainTextEdit *plainTextEdit_3;
+    QLabel *label;
+    QLabel *label_2;
+    QPlainTextEdit *plainTextEdit;
     QStatusBar *statusBar;
     QToolBar *toolBar;
 
@@ -53,11 +61,36 @@ public:
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        label_2 = new QLabel(centralWidget);
-        label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setStyleSheet(QStringLiteral("font: 9pt \"Arial\";"));
+        tabWidget = new QTabWidget(centralWidget);
+        tabWidget->setObjectName(QStringLiteral("tabWidget"));
+        tab = new QWidget();
+        tab->setObjectName(QStringLiteral("tab"));
+        horizontalLayout = new QHBoxLayout(tab);
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        plainTextEdit_2 = new QPlainTextEdit(tab);
+        plainTextEdit_2->setObjectName(QStringLiteral("plainTextEdit_2"));
+        plainTextEdit_2->setStyleSheet(QStringLiteral("font: 11pt \"Consolas\";"));
 
-        gridLayout->addWidget(label_2, 0, 1, 1, 1);
+        horizontalLayout->addWidget(plainTextEdit_2);
+
+        tabWidget->addTab(tab, QString());
+        tab_2 = new QWidget();
+        tab_2->setObjectName(QStringLiteral("tab_2"));
+        horizontalLayout_2 = new QHBoxLayout(tab_2);
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        plainTextEdit_3 = new QPlainTextEdit(tab_2);
+        plainTextEdit_3->setObjectName(QStringLiteral("plainTextEdit_3"));
+        plainTextEdit_3->setStyleSheet(QStringLiteral("font: 11pt \"Consolas\";"));
+
+        horizontalLayout_2->addWidget(plainTextEdit_3);
+
+        tabWidget->addTab(tab_2, QString());
+
+        gridLayout->addWidget(tabWidget, 1, 1, 1, 1);
 
         label = new QLabel(centralWidget);
         label->setObjectName(QStringLiteral("label"));
@@ -65,17 +98,17 @@ public:
 
         gridLayout->addWidget(label, 0, 0, 1, 1);
 
+        label_2 = new QLabel(centralWidget);
+        label_2->setObjectName(QStringLiteral("label_2"));
+        label_2->setStyleSheet(QStringLiteral("font: 9pt \"Arial\";"));
+
+        gridLayout->addWidget(label_2, 0, 1, 1, 1);
+
         plainTextEdit = new QPlainTextEdit(centralWidget);
         plainTextEdit->setObjectName(QStringLiteral("plainTextEdit"));
         plainTextEdit->setStyleSheet(QStringLiteral("font: 11pt \"Consolas\";"));
 
-        gridLayout->addWidget(plainTextEdit, 2, 0, 1, 1);
-
-        plainTextEdit_2 = new QPlainTextEdit(centralWidget);
-        plainTextEdit_2->setObjectName(QStringLiteral("plainTextEdit_2"));
-        plainTextEdit_2->setStyleSheet(QStringLiteral("font: 11pt \"Consolas\";"));
-
-        gridLayout->addWidget(plainTextEdit_2, 2, 1, 1, 1);
+        gridLayout->addWidget(plainTextEdit, 1, 0, 1, 1);
 
         TangQTTestClass->setCentralWidget(centralWidget);
         statusBar = new QStatusBar(TangQTTestClass);
@@ -92,6 +125,9 @@ public:
 
         retranslateUi(TangQTTestClass);
 
+        tabWidget->setCurrentIndex(1);
+
+
         QMetaObject::connectSlotsByName(TangQTTestClass);
     } // setupUi
 
@@ -99,8 +135,10 @@ public:
     {
         TangQTTestClass->setWindowTitle(QApplication::translate("TangQTTestClass", "TangQTTest", Q_NULLPTR));
         actionRun->setText(QApplication::translate("TangQTTestClass", "Run", Q_NULLPTR));
-        label_2->setText(QApplication::translate("TangQTTestClass", "result:", Q_NULLPTR));
+        tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("TangQTTestClass", "ASTSolver", Q_NULLPTR));
+        tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("TangQTTestClass", "ASTStringer", Q_NULLPTR));
         label->setText(QApplication::translate("TangQTTestClass", "source code:", Q_NULLPTR));
+        label_2->setText(QApplication::translate("TangQTTestClass", "result:", Q_NULLPTR));
         toolBar->setWindowTitle(QApplication::translate("TangQTTestClass", "toolBar", Q_NULLPTR));
     } // retranslateUi
 

@@ -6,79 +6,12 @@
 
 XC_BEGIN_NAMESPACE_1(Tang)
 {
-    class ProgramPrinter : public IVisitor
+    class ASTSolver : public IVisitor
     {
     public:
         void Visit(Program* node) override
         {
-            for (auto itr : node->mStatements)
-            {
-                itr->Accept(this);
-            }
-        }
-
-        void Visit(ExpressionStatement* node) override
-        {
-            node->mExpression->Accept(this);
-            std::cout << ";\n";
-        }
-
-        void Visit(NumberExpression* node) override
-        {
-            std::cout << node->mValue;
-        }
-
-        void Visit(VariableExpression* node) override
-        {
-            std::cout << node->mName;
-        }
-
-        void Visit(CalculateExpression* node) override
-        {
-            std::cout << "(";
-            node->mLeftExpression->Accept(this);
-            std::string s;
-            switch (node->mOperator)
-            {
-            case CalculateExpression::Operator::Plus:
-                s = "+";
-                break;
-            case CalculateExpression::Operator::Minus:
-                s = "-";
-                break;
-            case CalculateExpression::Operator::Multiply:
-                s = "*";
-                break;
-            case CalculateExpression::Operator::Divide:
-                s = "/";
-                break;
-            default:
-                break;
-            }
-
-            std::cout << " " << s << " ";
-            node->mRightExpression->Accept(this);
-            std::cout << ")";
-        }
-
-        void Visit(AssignExpression* node) override
-        {
-            std::cout << "(";
-            node->mLeftExpression->Accept(this);
-
-            std::cout << "=";
-
-            node->mRightExpression->Accept(this);
-            std::cout << ")";
-        }
-    };
-
-    class ExpressionAnswer : public IVisitor
-    {
-    public:
-        void Visit(Program* node) override
-        {
-            for (auto itr : node->mStatements)
+            for (auto itr : node->mASTs)
             {
                 itr->Accept(this);
             }
@@ -97,6 +30,19 @@ XC_BEGIN_NAMESPACE_1(Tang)
             }
         }
 
+        void Visit(IfStatement* node) override
+        {
+            node->mConditionExpression->Accept(this);
+            if (mLastResult != 0.0)
+            {
+                node->mMainStatement->Accept(this);
+            }
+            else
+            {
+                node->mElseStatement->Accept(this);
+            }
+        }
+
         void Visit(WhileStatement* node) override
         {
             while (true)
@@ -110,6 +56,22 @@ XC_BEGIN_NAMESPACE_1(Tang)
                 {
                     node->mBodyStatement->Accept(this);
                 }
+            }
+        }
+
+        void Visit(ForStatement* node) override
+        {
+            node->mBeginStatement->Accept(this);
+            while (true)
+            {
+                node->mConditionExpression->Accept(this);
+                if (mLastResult == 0.0)
+                {
+                    break;
+                }
+
+                node->mBodyStatement->Accept(this);
+                node->mAfterExpression->Accept(this);
             }
         }
 
@@ -197,7 +159,7 @@ XC_BEGIN_NAMESPACE_1(Tang)
             std::stringstream s(ans);
             for (auto itr : mVariablesValues)
             {
-                s<< itr.first << std::string(": ") <<(itr.second) << "\n";
+                s << itr.first << std::string(": ") << (itr.second) << "\n";
             }
 
             return s.str();

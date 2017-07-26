@@ -7,11 +7,19 @@ XC_BEGIN_NAMESPACE_1(Tang)
 {
     using namespace XC;
 
-    class AST;
-    class Expression;
+    class IVisitable;
 
+    class AST;
+
+    class Expression;
+    class EmptyExpression;
     class NumberExpression;
     class VariableExpression;
+    // --- function extra
+    using ParameterList = XC::Array<XC::Pointer<VariableExpression> >;
+    using ArgumentList = XC::Array<XC::Pointer<Expression> >;
+    // --- function extra
+    class FunctionExpression;
     class CalculateExpression;
     class CompareExpression;
     class AssignExpression;
@@ -19,58 +27,73 @@ XC_BEGIN_NAMESPACE_1(Tang)
     class Statement;
     class ExpressionStatement;
     class BlockStatement;
+    class IfStatement;
     class WhileStatement;
+    class ForStatement;
+
+
+    class FunctionDefinition;
 
     class Program;
+
+    class Symbol;
+    class FunctionSymbol;
 
     class IVisitor
     {
     public:
-        virtual void Visit(NumberExpression* node)
-        {
-        }
+        virtual void Visit(NumberExpression* node) {}
 
-        virtual void Visit(VariableExpression* node)
-        {
-        }
+        virtual void Visit(EmptyExpression* node) {}
 
-        virtual void Visit(CalculateExpression* node)
-        {
-        }
+        virtual void Visit(VariableExpression* node) {}
 
-        virtual void Visit(CompareExpression* node)
-        {
-        }
+        virtual void Visit(CalculateExpression* node) {}
 
-        virtual void Visit(AssignExpression* node)
-        {
-        }
+        virtual void Visit(CompareExpression* node) {}
 
-        virtual void Visit(ExpressionStatement* node)
-        {
-        }
+        virtual void Visit(AssignExpression* node) {}
 
-        virtual void Visit(BlockStatement* node)
-        {
-        }
+        virtual void Visit(ExpressionStatement* node) {}
 
-        virtual void Visit(WhileStatement* node)
-        {
-        }
+        virtual void Visit(BlockStatement* node) {}
 
-        virtual void Visit(Program* node)
-        {
-        }
+        virtual void Visit(IfStatement* node) {}
+
+        virtual void Visit(WhileStatement* node) {}
+
+        virtual void Visit(ForStatement* node) {}
+
+        virtual void Visit(FunctionExpression* node) {}
+
+        virtual void Visit(FunctionDefinition* node) {}
+
+        virtual void Visit(Program* node) {}
+
+        virtual void Visit (FunctionSymbol *node) {}
     };
 
-    class AST
+    class IVisitable
     {
     public:
         virtual void Accept(IVisitor* visitor) = 0;
     };
 
+    class AST : public IVisitable
+    {
+    };
+
     class Expression : public AST
     {
+    };
+
+    class EmptyExpression : public Expression
+    {
+    public:
+        void Accept(IVisitor* visitor) override
+        {
+            visitor->Visit(this);
+        }
     };
 
     class NumberExpression : public Expression
@@ -97,6 +120,19 @@ XC_BEGIN_NAMESPACE_1(Tang)
     public:
         Token mToken;
         String mName;
+    };
+
+    class FunctionExpression : public Expression
+    {
+    public:
+        void Accept(IVisitor* visitor) override
+        {
+            visitor->Visit(this);
+        }
+
+    public:
+        String mName;
+        ArgumentList mArgumentList;
     };
 
     struct CalculateExpression : public Expression
@@ -186,6 +222,20 @@ XC_BEGIN_NAMESPACE_1(Tang)
         Array<Pointer<Statement> > mStatements;
     };
 
+    class IfStatement : public Statement
+    {
+    public:
+        void Accept(IVisitor* visitor) override
+        {
+            visitor->Visit(this);
+        }
+
+    public:
+        Pointer<Expression> mConditionExpression;
+        Pointer<Statement> mMainStatement;
+        Pointer<Statement> mElseStatement;
+    };
+
     class WhileStatement : public Statement
     {
     public:
@@ -199,6 +249,35 @@ XC_BEGIN_NAMESPACE_1(Tang)
         Pointer<Statement> mBodyStatement;
     };
 
+    class ForStatement : public Statement
+    {
+    public:
+        void Accept(IVisitor* visitor) override
+        {
+            visitor->Visit(this);
+        }
+
+    public:
+        Pointer<Expression> mBeginStatement;
+        Pointer<Expression> mConditionExpression;
+        Pointer<Expression> mAfterExpression;
+        Pointer<Statement> mBodyStatement;
+    };
+
+    class FunctionDefinition : public AST
+    {
+    public:
+        void Accept(IVisitor* visitor) override
+        {
+            visitor->Visit(this);
+        }
+
+    public:
+        String mName;
+        ParameterList mParemeterList;
+        Pointer<BlockStatement> mBlockStatement;
+    };
+
     class Program : public AST
     {
     public:
@@ -208,7 +287,7 @@ XC_BEGIN_NAMESPACE_1(Tang)
         }
 
     public:
-        Array<Pointer<Statement> > mStatements;
+        Array<Pointer<AST> > mASTs;
     };
 
 } XC_END_NAMESPACE_1;

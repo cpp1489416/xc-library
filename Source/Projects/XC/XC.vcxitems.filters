@@ -150,7 +150,13 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Tang\ASTs\CoreASTs.h">
       <Filter>Tang\ASTs</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Tang\ASTVisitors\ExperssionPrinter.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Tang\ASTs\Environment.h">
+      <Filter>Tang\ASTs</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Tang\ASTVisitors\ASTSolver.h">
+      <Filter>Tang\ASTVisitors</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Tang\ASTVisitors\ASTStringer.h">
       <Filter>Tang\ASTVisitors</Filter>
     </ClInclude>
   </ItemGroup>
@@ -196,6 +202,15 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Tang\ASTs\CoreASTs.cpp">
       <Filter>Tang\ASTs</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Tang\ASTs\Environment.cpp">
+      <Filter>Tang\ASTs</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Tang\ASTVisitors\ASTSolver.cpp">
+      <Filter>Tang\ASTVisitors</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Tang\ASTVisitors\ASTStringer.cpp">
+      <Filter>Tang\ASTVisitors</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -23,7 +23,7 @@ XC_BEGIN_NAMESPACE_1(Tang)
 
         Token GetPreviousToken();
 
-        Token LookAhead();
+        Token LookAhead(int more = 1);
 
     private:
         void Solve();

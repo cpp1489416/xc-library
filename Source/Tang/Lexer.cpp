@@ -64,14 +64,14 @@ XC_BEGIN_NAMESPACE_1(Tang)
         return mTokenArray[--mCurrentIndex];
     }
 
-    Token Lexer::LookAhead()
+    Token Lexer::LookAhead(int more)
     {
-        if (mCurrentIndex >= mTokenArray.GetSize())
+        if (mCurrentIndex + more - 1>= mTokenArray.GetSize())
         {
-            throw "error";
+            return Token("END", Token::Type::End);
         }
 
-        return mTokenArray[mCurrentIndex];
+        return mTokenArray[mCurrentIndex + more - 1];
     }
 
     void Lexer::Solve()
@@ -149,6 +149,12 @@ XC_BEGIN_NAMESPACE_1(Tang)
                 }
 
                 AddString(newString);
+                continue;
+            }
+            else if (c == ';')
+            {
+                ++position;
+                AddString(";");
                 continue;
             }
             else if (IsSymbol(c))
