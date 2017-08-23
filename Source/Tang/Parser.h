@@ -21,7 +21,9 @@ XC_BEGIN_NAMESPACE_1(Tang)
     private:
         Pointer<Program> ParseProgram();
 
-        Pointer<FunctionDefinition> ParseFunctionDeclaration();
+        Pointer<VariableDefinition> ParseVariableDefinition();
+
+        Pointer<FunctionDefinition> ParseFunctionDefinition();
 
         Pointer<Statement> ParseStatement();
 

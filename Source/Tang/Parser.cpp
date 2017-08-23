@@ -32,9 +32,13 @@ XC_BEGIN_NAMESPACE_1(Tang)
         Pointer<Program> ans(new Program);
         while (mLexer->LookAhead().GetType() != Token::Type::End)
         {
-            if (mLexer->LookAhead().GetString() == "function")
+            if (mLexer->LookAhead().GetString() == "var")
             {
-                ans->mASTs.PushBack(ParseFunctionDeclaration());
+                ans->mASTs.PushBack(ParseVariableDefinition());
+            }
+            else if (mLexer->LookAhead().GetString() == "function")
+            {
+                ans->mASTs.PushBack(ParseFunctionDefinition());
             }
             else
             {
@@ -45,7 +49,26 @@ XC_BEGIN_NAMESPACE_1(Tang)
         return ans;
     }
 
-    Pointer<FunctionDefinition> Parser::ParseFunctionDeclaration()
+    Pointer<VariableDefinition> Parser::ParseVariableDefinition()
+    {
+        Pointer<VariableDefinition> ans(new VariableDefinition());
+        mLexer->GetNextToken();
+        ans->mName = mLexer->GetNextToken().GetString();
+        if (mLexer->LookAhead().GetString() == ";")
+        {
+            ans->mValueExpression = Pointer<Expression>(new EmptyExpression());
+            mLexer->GetNextToken();
+        }
+        else
+        {
+            mLexer->GetNextToken(); // :
+            ans->mValueExpression = ParseExpression();
+            mLexer->GetNextToken(); // ;
+        }
+        return ans;
+    }
+
+    Pointer<FunctionDefinition> Parser::ParseFunctionDefinition()
     {
         Pointer<FunctionDefinition> ans(new FunctionDefinition());
         mLexer->GetNextToken(); // function
@@ -53,11 +76,32 @@ XC_BEGIN_NAMESPACE_1(Tang)
         mLexer->GetNextToken(); // (
         if (mLexer->LookAhead().GetString() != ")")
         {
-            ans->mParemeterList.PushBack(ParseVariable());
+            Pointer<ParameterDefinition> node(new ParameterDefinition());
+            if (mLexer->GetNextToken().GetString() == "byref")
+            {
+                node->mIsByReference = true;
+            }
+            else // byval
+            {
+                node->mIsByReference = false;
+            }
+            node->mVariableExpression = ParseVariable();
+            ans->mParemeterList.PushBack(node);
+
             while (mLexer->LookAhead().GetString() == ",")
             {
                 mLexer->GetNextToken(); // ,
-                ans->mParemeterList.PushBack(ParseVariable());
+                Pointer<ParameterDefinition> node(new ParameterDefinition());
+                if (mLexer->GetNextToken().GetString() == "byref")
+                {
+                    node->mIsByReference = true;
+                }
+                else // byval
+                {
+                    node->mIsByReference = false;
+                }
+                node->mVariableExpression = ParseVariable();
+                ans->mParemeterList.PushBack(node);
             }
         }
         mLexer->GetNextToken(); // )

@@ -15,10 +15,6 @@ XC_BEGIN_NAMESPACE_1(Tang)
     class EmptyExpression;
     class NumberExpression;
     class VariableExpression;
-    // --- function extra
-    using ParameterList = XC::Array<XC::Pointer<VariableExpression> >;
-    using ArgumentList = XC::Array<XC::Pointer<Expression> >;
-    // --- function extra
     class FunctionExpression;
     class CalculateExpression;
     class CompareExpression;
@@ -31,12 +27,16 @@ XC_BEGIN_NAMESPACE_1(Tang)
     class WhileStatement;
     class ForStatement;
 
-
+    class VariableDefinition;
+    class ParameterDefinition;
     class FunctionDefinition;
+    using ParameterList = XC::Array<XC::Pointer<ParameterDefinition> >;
+    using ArgumentList = XC::Array<XC::Pointer<Expression> >;
 
     class Program;
 
     class Symbol;
+    class VariableSymbol;
     class FunctionSymbol;
 
     class IVisitor
@@ -66,9 +66,15 @@ XC_BEGIN_NAMESPACE_1(Tang)
 
         virtual void Visit(FunctionExpression* node) {}
 
+        virtual void Visit(VariableDefinition* node) {}
+
         virtual void Visit(FunctionDefinition* node) {}
 
         virtual void Visit(Program* node) {}
+
+        virtual void Visit(VariableSymbol *node) {}
+
+        virtual void Visit(ParameterDefinition* node) {}
 
         virtual void Visit (FunctionSymbol *node) {}
     };
@@ -207,7 +213,6 @@ XC_BEGIN_NAMESPACE_1(Tang)
 
     public:
         Pointer<Expression> mExpression;
-
     };
 
     class BlockStatement : public Statement
@@ -262,6 +267,32 @@ XC_BEGIN_NAMESPACE_1(Tang)
         Pointer<Expression> mConditionExpression;
         Pointer<Expression> mAfterExpression;
         Pointer<Statement> mBodyStatement;
+    };
+
+    class VariableDefinition : public AST
+    {
+    public:
+        void Accept(IVisitor* visitor) override
+        {
+            visitor->Visit(this);
+        }
+
+    public:
+        String mName;
+        Pointer<Expression> mValueExpression;
+    };
+
+    class ParameterDefinition : public AST
+    {
+    public:
+        void Accept(IVisitor* visitor) override
+        {
+            visitor->Visit(this);
+        }
+
+    public:
+        Pointer<VariableExpression> mVariableExpression;
+        bool mIsByReference = false;
     };
 
     class FunctionDefinition : public AST

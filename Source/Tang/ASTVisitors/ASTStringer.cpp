@@ -19,7 +19,7 @@ XC_BEGIN_NAMESPACE_1(Tang)
     void ASTStringer::Visit(CalculateExpression* node)
     {
         mStream << "(";
-        node->mLeftExpression->Accept(this);
+        node->mLeftExpression->Accept(this); 
         switch (node->mOperator)
         {
         case CalculateExpression::Operator::Plus:
@@ -127,6 +127,13 @@ XC_BEGIN_NAMESPACE_1(Tang)
             }
         }
         mStream << ")";
+    }
+
+    void ASTStringer::Visit(VariableDefinition* node)
+    {
+        mStream << "var " << node->mName << " : ";
+        node->mValueExpression->Accept(this);
+        mStream << ";\n";
     }
 
     void ASTStringer::Visit(FunctionDefinition* node)

@@ -3,6 +3,7 @@
 #include <iostream>
 #include <sstream>
 #include "../ASTs/CoreASTs.h"
+#include "../ASTs/Environment.h"
 
 XC_BEGIN_NAMESPACE_1(Tang)
 {
@@ -82,15 +83,7 @@ XC_BEGIN_NAMESPACE_1(Tang)
 
         void Visit(VariableExpression* node) override
         {
-            if (!mVariablesValues.count(node->mName))
-            {
-                mVariablesValues[node->mName] = 0.0;
-            }
-            else
-            {
-                mLastResult = mVariablesValues[node->mName];
-            }
-
+            mLastResult = mEnvironment.GetVariableSymbol(node->mName)->mValue;
             mLastVariableName = node->mName;
         }
 
@@ -144,30 +137,85 @@ XC_BEGIN_NAMESPACE_1(Tang)
             std::string str = mLastVariableName;
             node->mRightExpression->Accept(this);
             std::cout << str << std::endl;
-            mVariablesValues[str] = mLastResult;
+            mEnvironment.GetVariableSymbol(str)->mValue = mLastResult;
+        }
+
+        void Visit(FunctionExpression* node) override
+        {
+            Pointer<FunctionSymbol> s = mEnvironment.mStringToFunctionSymbol[node->mName];
+            for (int i = 0; i < node->mArgumentList.GetSize(); ++i)
+            {
+                s->mArgumentList[i] = node->mArgumentList[i];
+            }
+            s->Accept(this);
+        }
+
+        void Visit(VariableDefinition* node) override
+        {
+            Pointer<VariableSymbol> s(new VariableSymbol());
+            mLastResult = 0.0;
+            node->mValueExpression->Accept(this);
+            s->mValue = mLastResult;
+            mEnvironment.AddVariableSymbol(node->mName, s);
+        }
+
+        void Visit(FunctionDefinition* node) override
+        {
+            Pointer<FunctionSymbol> s(new FunctionSymbol(node->mParemeterList, node->mBlockStatement));
+            s->mParemeterList = node->mParemeterList;
+            s->mBlockStatement = node->mBlockStatement;
+            mEnvironment.AddFunctionSymbol(node->mName, s);
+        }
+
+        void Visit(FunctionSymbol* node) override
+        {
+            mEnvironment.Push();
+            for (int i = 0; i < node->mParemeterList.GetSize(); ++i)
+            {
+                if (node->mParemeterList[i]->mIsByReference)
+                {
+                    node->mArgumentList[i]->Accept(this);
+                    mEnvironment.AddVariableSymbol(
+                        node->mParemeterList[i]->mVariableExpression->mName,
+                        mEnvironment.GetVariableSymbol(mLastVariableName)
+                    );
+                }
+                else
+                {
+                    node->mArgumentList[i]->Accept(this);
+                    Pointer<VariableSymbol> v(new VariableSymbol());
+                    v->mValue = mLastResult;
+                    mEnvironment.AddVariableSymbol(
+                        node->mParemeterList[i]->mVariableExpression->mName,
+                        v
+                    );
+                }
+            }
+            node->mBlockStatement->Accept(this);
+            mEnvironment.Pop();
         }
 
     public:
         auto GetVarialbeValues()
         {
-            return mVariablesValues;
+            return 0;// return mVariablesValues;
         }
 
         auto GetResult()
         {
             std::string ans;
             std::stringstream s(ans);
-            for (auto itr : mVariablesValues)
+            for (auto itr : mEnvironment.mStringToVariableSymbolStack[0])
             {
-                s << itr.first << std::string(": ") << (itr.second) << "\n";
+                s << itr.first << std::string(": ") << (itr.second->mValue) << "\n";
             }
 
             return s.str();
         }
 
     private:
-        std::map<String, double> mVariablesValues;
+        Environment mEnvironment;
         String mLastVariableName;
-        double mLastResult;
+        double mLastResult = 0.0;
     };
 } XC_END_NAMESPACE_1;

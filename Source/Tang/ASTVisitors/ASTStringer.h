@@ -33,6 +33,8 @@ XC_BEGIN_NAMESPACE_1(Tang)
 
         void Visit(FunctionExpression* node) override;
 
+        void Visit(VariableDefinition* node) override;
+
         void Visit(FunctionDefinition* node) override;
 
         void Visit(Program* node) override;
