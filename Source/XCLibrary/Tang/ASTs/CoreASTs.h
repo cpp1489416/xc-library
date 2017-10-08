@@ -11,15 +11,19 @@ XC_BEGIN_NAMESPACE_1(Tang)
 
     class AST;
 
+    // expressions
     class Expression;
     class EmptyExpression;
-    class NumberExpression;
-    class VariableExpression;
+    class LHSExpression;
+    /* */ class VariableExpression; 
+    class LiteralExpression;
+    /* */ class NumberExpression;
     class FunctionExpression;
     class CalculateExpression;
     class CompareExpression;
     class AssignExpression;
 
+    // statements
     class Statement;
     class ExpressionStatement;
     class BlockStatement;
@@ -27,17 +31,30 @@ XC_BEGIN_NAMESPACE_1(Tang)
     class WhileStatement;
     class ForStatement;
 
+    class Program;
+
+    // types
+    class TypeAST;
+    class IntegerTypeAST;
+    class RealTypeAST;
+
+    // type references
+    class TypeReference;
+    class IntegerTypeReference;
+    class RealTypeReference;
+
     class VariableDefinition;
     class ParameterDefinition;
+    using Argument = ParameterDefinition;
     class FunctionDefinition;
     using ParameterList = XC::Array<XC::Pointer<ParameterDefinition> >;
     using ArgumentList = XC::Array<XC::Pointer<Expression> >;
 
-    class Program;
-
     class Symbol;
     class VariableSymbol;
     class FunctionSymbol;
+    class ClassTypeSymbol;
+    class BuiltInTypeSymbol;
 
     class IVisitor
     {
@@ -73,6 +90,10 @@ XC_BEGIN_NAMESPACE_1(Tang)
         virtual void Visit(Program* node) {}
 
         virtual void Visit(VariableSymbol *node) {}
+
+        virtual void Visit(ClassTypeSymbol* node) {}
+
+        virtual void Visit(BuiltInTypeSymbol* node) {}
 
         virtual void Visit(ParameterDefinition* node) {}
 
@@ -280,6 +301,8 @@ XC_BEGIN_NAMESPACE_1(Tang)
     public:
         String mName;
         Pointer<Expression> mValueExpression;
+        Pointer<TypeReference> mTypeReference;
+        Pointer<TypeAST> mType;
     };
 
     class ParameterDefinition : public AST

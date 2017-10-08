@@ -10,6 +10,13 @@ XC_BEGIN_NAMESPACE_1(Tang)
     class ASTSolver : public IVisitor
     {
     public:
+        ASTSolver()
+        {
+            mLocalScope.reset(new LocalScope());
+            mCurrentScope = mLocalScope;
+        }
+
+    public:
         void Visit(Program* node) override
         {
             for (auto itr : node->mASTs)
@@ -25,10 +32,15 @@ XC_BEGIN_NAMESPACE_1(Tang)
 
         void Visit(BlockStatement* node) override
         {
+            Pointer<LocalScope> ls(new LocalScope(mCurrentScope));
+            mCurrentScope = ls;
+
             for (auto itr : node->mStatements)
             {
                 itr->Accept(this);
             }
+
+            mCurrentScope = mCurrentScope->mParent;
         }
 
         void Visit(IfStatement* node) override
@@ -83,7 +95,7 @@ XC_BEGIN_NAMESPACE_1(Tang)
 
         void Visit(VariableExpression* node) override
         {
-            mLastResult = mEnvironment.GetVariableSymbol(node->mName)->mValue;
+            mLastResult = static_cast<IntegerSymbol&>(*mCurrentScope->Get(node->mName)).mValue;
             mLastVariableName = node->mName;
         }
 
@@ -137,12 +149,12 @@ XC_BEGIN_NAMESPACE_1(Tang)
             std::string str = mLastVariableName;
             node->mRightExpression->Accept(this);
             std::cout << str << std::endl;
-            mEnvironment.GetVariableSymbol(str)->mValue = mLastResult;
+            mScope.GetVariableSymbol(str)->mValue = mLastResult;
         }
 
         void Visit(FunctionExpression* node) override
         {
-            Pointer<FunctionSymbol> s = mEnvironment.mStringToFunctionSymbol[node->mName];
+            Pointer<FunctionSymbol> s = mScope.mStringToFunctionSymbol[node->mName];
             for (int i = 0; i < node->mArgumentList.GetSize(); ++i)
             {
                 s->mArgumentList[i] = node->mArgumentList[i];
@@ -152,47 +164,15 @@ XC_BEGIN_NAMESPACE_1(Tang)
 
         void Visit(VariableDefinition* node) override
         {
-            Pointer<VariableSymbol> s(new VariableSymbol());
-            mLastResult = 0.0;
-            node->mValueExpression->Accept(this);
-            s->mValue = mLastResult;
-            mEnvironment.AddVariableSymbol(node->mName, s);
+            Pointer<IntegerSymbol> s(new IntegerSymbol());
+            s->mValue = 0.0;
+            mCurrentScope->Define(s->mName, s);
         }
 
         void Visit(FunctionDefinition* node) override
         {
-            Pointer<FunctionSymbol> s(new FunctionSymbol(node->mParemeterList, node->mBlockStatement));
-            s->mParemeterList = node->mParemeterList;
-            s->mBlockStatement = node->mBlockStatement;
-            mEnvironment.AddFunctionSymbol(node->mName, s);
-        }
-
-        void Visit(FunctionSymbol* node) override
-        {
-            mEnvironment.Push();
-            for (int i = 0; i < node->mParemeterList.GetSize(); ++i)
-            {
-                if (node->mParemeterList[i]->mIsByReference)
-                {
-                    node->mArgumentList[i]->Accept(this);
-                    mEnvironment.AddVariableSymbol(
-                        node->mParemeterList[i]->mVariableExpression->mName,
-                        mEnvironment.GetVariableSymbol(mLastVariableName)
-                    );
-                }
-                else
-                {
-                    node->mArgumentList[i]->Accept(this);
-                    Pointer<VariableSymbol> v(new VariableSymbol());
-                    v->mValue = mLastResult;
-                    mEnvironment.AddVariableSymbol(
-                        node->mParemeterList[i]->mVariableExpression->mName,
-                        v
-                    );
-                }
-            }
-            node->mBlockStatement->Accept(this);
-            mEnvironment.Pop();
+            Pointer<FunctionSymbol> s(new FunctionSymbol());
+            s->mDefinition = node;
         }
 
     public:
@@ -205,7 +185,7 @@ XC_BEGIN_NAMESPACE_1(Tang)
         {
             std::string ans;
             std::stringstream s(ans);
-            for (auto itr : mEnvironment.mStringToVariableSymbolStack[0])
+            for (auto itr : mScope.mStringToVariableSymbolStack[0])
             {
                 s << itr.first << std::string(": ") << (itr.second->mValue) << "\n";
             }
@@ -214,8 +194,10 @@ XC_BEGIN_NAMESPACE_1(Tang)
         }
 
     private:
-        Environment mEnvironment;
+        Pointer<LocalScope> mCurrentScope;
+        Pointer<LocalScope> mLocalScope;
         String mLastVariableName;
-        double mLastResult = 0.0;
+        Pointer<Symbol> mLastSymbol;
     };
+
 } XC_END_NAMESPACE_1;
